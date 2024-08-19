@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <EntityComponents>
+
+<!-- Gray Damage Reputation Response -->
+	<!-- Damage excluding; environment and deformation cooldown 0.3s -->
+		<EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
+            <Id>
+                <TypeId>Inventory</TypeId>
+                <SubtypeId>WW2-Trigger-ReputationDamage-Gray</SubtypeId>
+            </Id>
+            <Description>
+			
+			[RivalAI Trigger]
+			
+			[UseTrigger:true]
+			[Type:Damage]
+			
+			[DamageTypes:Any]
+			[ExcludedDamageTypes:Environment]
+			[ExcludedDamageTypes:Deformation]
+
+			[Conditions:WW2-Condition-ReputationDamage]
+
+			[MinCooldownMs:333]
+			[MaxCooldownMs:334]
+			[StartsReady:true]
+			[MaxActions:-1]
+            [Actions:WW2-Action-ReputationDamage-Gray]
+			
+			</Description>
+        </EntityComponent>
+
+	<!-- Reputation Gray -1, Reputation Green +1 -->
+		<EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
+            <Id>
+                <TypeId>Inventory</TypeId>
+                <SubtypeId>WW2-Action-ReputationDamage-Gray</SubtypeId>
+            </Id>
+            <Description>
+			
+			[RivalAI Action]
+			
+			[ChangeAttackerReputation:true]
+			[ChangeAttackerReputationFaction:GRAY]
+			[ChangeAttackerReputationAmount:-1]
+			[ChangeAttackerReputationFaction:GREEN]
+			[ChangeAttackerReputationAmount:1]
+			[ReputationChangesForAllAttackPlayerFactionMembers:true]
+			
+			</Description>
+        </EntityComponent>
+<!-- End Gray Damage Reputation Response -->
+	
+<!-- Green Damage Reputation Response -->
+		<EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
+            <Id>
+                <TypeId>Inventory</TypeId>
+                <SubtypeId>WW2-Trigger-ReputationDamage-Green</SubtypeId>
+            </Id>
+			<!-- Damage excluding; environment and deformation cooldown 0.3s -->
+            <Description>
+			
+			[RivalAI Trigger]
+			
+			[UseTrigger:true]
+			[Type:Damage]
+			
+			[DamageTypes:Any]
+			[ExcludedDamageTypes:Environment]
+			[ExcludedDamageTypes:Deformation]
+
+			[Conditions:WW2-Condition-ReputationDamage]
+
+			[MinCooldownMs:333]
+			[MaxCooldownMs:334]
+			[StartsReady:true]
+			[MaxActions:-1]
+            [Actions:WW2-Action-ReputationDamage-Green]
+			
+			</Description>
+        </EntityComponent>
+
+		<EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
+            <Id>
+                <TypeId>Inventory</TypeId>
+                <SubtypeId>WW2-Action-ReputationDamage-Green</SubtypeId>
+            </Id>
+			<!--Reputation Green -1, Reputation Gray +1-->
+            <Description>
+			
+			[RivalAI Action]
+			
+			[ChangeAttackerReputation:true]
+			[ChangeAttackerReputationFaction:GREEN]
+			[ChangeAttackerReputationAmount:-1]
+			[ChangeAttackerReputationFaction:GRAY]
+			[ChangeAttackerReputationAmount:1]
+			[ReputationChangesForAllAttackPlayerFactionMembers:true]
+			
+			</Description>
+        </EntityComponent>
+<!-- End Green Damage Response -->
+
+<!-- Condition Shared, checks if damage is from player -->
+		<EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
+            <Id>
+                <TypeId>Inventory</TypeId>
+                <SubtypeId>WW2-Condition-ReputationDamage</SubtypeId>
+            </Id>
+            <Description>
+			
+			[RivalAI Condition]
+			
+			[CheckIfDamagerIsPlayer:true]
+			
+			</Description>
+        </EntityComponent>
+<!-- End Condition -->
+
+	</EntityComponents>
+</Definitions>

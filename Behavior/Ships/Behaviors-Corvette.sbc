@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <EntityComponents>
+
+	<!-- Corvette Behaviors -->
+		<EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
+            <Id>
+                <TypeId>Inventory</TypeId>
+                <SubtypeId>WW2-Behavior-Corvette-Green</SubtypeId>
+            </Id>
+            <Description>
+			
+			[RivalAI Behavior]
+			[BehaviorName:Nautical]
+			
+			[AutopilotData:WW2-Autopilot-Corvette]
+			[SecondaryAutopilotData:WW2-Autopilot-Corvette-B]
+			[TargetData:WW2-Targeting-ShipMain]
+			
+			[WeaponSystem:WW2-Weapons-Corvette]
+			
+			[Triggers:WW2-Trigger-UnStatic]
+			[Triggers:WW2-Trigger-AggressionSwitch-Corvette]
+			[Triggers:WW2-Trigger-PassiveSwitch-Corvette]
+			[Triggers:WW2-Trigger-PassiveSwitchNoTarget-Corvette]
+			[Triggers:WW2-Trigger-BotCrew-3]
+			[Triggers:WW2-Trigger-GeneralDamage-Green]
+			
+			[TriggerGroups:WW2-TriggerGroup-Broadside]
+			
+			</Description>
+        </EntityComponent>
+	<!-- End Corvette Behaviors -->
+
+	<!-- Corvette Autopilots -->
+		<EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
+			<Id>
+				<TypeId>Inventory</TypeId>
+				<SubtypeId>WW2-Autopilot-Corvette</SubtypeId>
+			</Id>
+			<Description>
+			
+			[RivalAI Autopilot]
+
+			[DisableInertiaDampeners:false]
+			[SlowDownOnWaypointApproach:false]
+			[ExtraSlowDownDistance:0]
+			[FlyLevelWithGravity:true]
+			[AllowStrafing:false]
+			[WaypointTolerance:50]
+			[IdealMinSpeed:8]
+			[IdealMaxSpeed:10]
+			
+			[RotationMultiplier:0.4]
+			[AngleAllowedForForwardThrust:180]
+			
+			[UseVelocityCollisionEvasion:true]
+			[CollisionEvasionWaypointDistance:100]
+			[WaypointWaitTimeTrigger:15]
+			
+			[EngageDistancePlanet:800]
+			[DisengageDistancePlanet:1200]
+			
+			</Description>
+		</EntityComponent>
+		
+		<EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
+			<Id>
+				<TypeId>Inventory</TypeId>
+				<SubtypeId>WW2-Autopilot-Corvette-B</SubtypeId>
+			</Id>
+			<Description>
+			
+			[RivalAI Autopilot]
+
+			[DisableInertiaDampeners:false]
+			[SlowDownOnWaypointApproach:false]
+			[ExtraSlowDownDistance:0]
+			[FlyLevelWithGravity:true]
+			[AllowStrafing:false]
+			[WaypointTolerance:50]
+			[IdealMinSpeed:12]
+			[IdealMaxSpeed:20]
+			
+			[RotationMultiplier:0.4]
+			[AngleAllowedForForwardThrust:180]
+			
+			[UseVelocityCollisionEvasion:true]
+			[CollisionEvasionWaypointDistance:100]
+			[WaypointWaitTimeTrigger:0]
+			
+			[EngageDistancePlanet:800]
+			[DisengageDistancePlanet:1200]
+			
+			</Description>
+		</EntityComponent>
+	<!-- End Corvette Autopilots -->
+	
+	<!-- Weapon Profile, Corvettes -->
+		<EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
+			<Id>
+				<TypeId>Inventory</TypeId>
+				<SubtypeId>WW2-Weapons-Corvette</SubtypeId>
+			</Id>
+			<Description>
+			
+			[RivalAI Weapons]
+			
+            [UseStaticGuns:true]
+			[UseTurrets:true]
+			
+			[MaxStaticWeaponRange:3000]
+			[WeaponMaxAngleFromTarget:6]
+			[WeaponMaxBaseDistanceTarget:100]
+			
+			[UseBarrageFire:true]
+			[MaxFireRateForBarrageWeapons:3]
+			
+			[UseAmmoReplenish:true]
+            
+			</Description>
+		</EntityComponent>
+<!-- End Weapon Profile -->
+
+	</EntityComponents>
+</Definitions>

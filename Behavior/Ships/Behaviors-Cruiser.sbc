@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <EntityComponents>
+
+	<!-- Cruiser Behaviors -->
+		<EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
+            <Id>
+                <TypeId>Inventory</TypeId>
+                <SubtypeId>WW2-Behavior-Cruiser-Gray</SubtypeId>
+            </Id>
+            <Description>
+			
+			[RivalAI Behavior]
+			[BehaviorName:Nautical]
+			
+			[AutopilotData:WW2-Autopilot-Cruiser-Gray]
+			[SecondaryAutopilotData:WW2-Autopilot-Cruiser-GrayB]
+			[TargetData:WW2-Targeting-ShipMain]
+			
+			[WeaponSystem:WW2-Weapons-Cruiser]
+			
+			[Triggers:WW2-Trigger-UnStatic]
+			[Triggers:WW2-Trigger-AggressionSwitch-Cruiser]
+			[Triggers:WW2-Trigger-PassiveSwitch-Cruiser]
+			[Triggers:WW2-Trigger-PassiveSwitchNoTarget-Cruiser]
+			[Triggers:WW2-Trigger-BotCrew-5]
+			[Triggers:WW2-Trigger-GeneralDamage-Gray]
+			
+			[TriggerGroups:WW2-TriggerGroup-Broadside]
+			
+			</Description>
+        </EntityComponent>
+		
+		<EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
+            <Id>
+                <TypeId>Inventory</TypeId>
+                <SubtypeId>WW2-Behavior-Cruiser-Green</SubtypeId>
+            </Id>
+            <Description>
+			
+			[RivalAI Behavior]
+			[BehaviorName:Nautical]
+			
+			[AutopilotData:WW2-Autopilot-Cruiser-Green]
+			[SecondaryAutopilotData:WW2-Autopilot-Cruiser-GreenB]
+			[TargetData:WW2-Targeting-ShipMain]
+			
+			[WeaponSystem:WW2-Weapons-Cruiser]
+			
+			[Triggers:WW2-Trigger-UnStatic]
+			[Triggers:WW2-Trigger-AggressionSwitch-Cruiser]
+			[Triggers:WW2-Trigger-PassiveSwitch-Cruiser]
+			[Triggers:WW2-Trigger-PassiveSwitchNoTarget-Cruiser]
+			[Triggers:WW2-Trigger-BotCrew-5]
+			[Triggers:WW2-Trigger-GeneralDamage-Green]
+			
+			[TriggerGroups:WW2-TriggerGroup-Broadside]
+			
+			</Description>
+        </EntityComponent>
+	<!-- End Cruiser Behaviors -->
+
+	<!-- Cruiser Autopilots -->
+		<EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
+			<Id>
+				<TypeId>Inventory</TypeId>
+				<SubtypeId>WW2-Autopilot-Cruiser-Gray</SubtypeId>
+			</Id>
+			<Description>
+			
+			[RivalAI Autopilot]
+
+			[DisableInertiaDampeners:false]
+			[SlowDownOnWaypointApproach:false]
+			[ExtraSlowDownDistance:0]
+			[FlyLevelWithGravity:true]
+			[AllowStrafing:false]
+			[WaypointTolerance:50]
+			[IdealMinSpeed:10]
+			[IdealMaxSpeed:15]
+			
+			[RotationMultiplier:0.4]
+			[AngleAllowedForForwardThrust:180]
+			
+			[UseVelocityCollisionEvasion:true]
+			[CollisionEvasionWaypointDistance:1000]
+			[WaypointWaitTimeTrigger:15]
+			
+			[EngageDistancePlanet:3000]
+			[DisengageDistancePlanet:5000]
+			
+			</Description>
+		</EntityComponent>
+
+		<EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
+			<Id>
+				<TypeId>Inventory</TypeId>
+				<SubtypeId>WW2-Autopilot-Cruiser-GrayB</SubtypeId>
+			</Id>
+			<Description>
+			
+			[RivalAI Autopilot]
+
+			[DisableInertiaDampeners:false]
+			[SlowDownOnWaypointApproach:false]
+			[ExtraSlowDownDistance:0]
+			[FlyLevelWithGravity:true]
+			[AllowStrafing:false]
+			[WaypointTolerance:50]
+			[IdealMinSpeed:18]
+			[IdealMaxSpeed:24.5]
+			
+			[RotationMultiplier:0.4]
+			[AngleAllowedForForwardThrust:180]
+			
+			[UseVelocityCollisionEvasion:true]
+			[CollisionEvasionWaypointDistance:1000]
+			[WaypointWaitTimeTrigger:0]
+			
+			[EngageDistancePlanet:3000]
+			[DisengageDistancePlanet:5000]
+			
+			</Description>
+		</EntityComponent>
+		
+		<EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
+			<Id>
+				<TypeId>Inventory</TypeId>
+				<SubtypeId>WW2-Autopilot-Cruiser-Green</SubtypeId>
+			</Id>
+			<Description>
+			
+			[RivalAI Autopilot]
+
+			[DisableInertiaDampeners:false]
+			[SlowDownOnWaypointApproach:false]
+			[ExtraSlowDownDistance:0]
+			[FlyLevelWithGravity:false]
+			[AllowStrafing:false]
+			[WaypointTolerance:50]
+			[IdealMinSpeed:10]
+			[IdealMaxSpeed:15]
+			
+			[RotationMultiplier:0.4]
+			[AngleAllowedForForwardThrust:180]
+			
+			[UseVelocityCollisionEvasion:true]
+			[CollisionEvasionWaypointDistance:1000]
+			[WaypointWaitTimeTrigger:15]
+			
+			[EngageDistancePlanet:3000]
+			[DisengageDistancePlanet:5000]
+			
+			</Description>
+		</EntityComponent>
+		
+		<EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
+			<Id>
+				<TypeId>Inventory</TypeId>
+				<SubtypeId>WW2-Autopilot-Cruiser-GreenB</SubtypeId>
+			</Id>
+			<Description>
+			
+			[RivalAI Autopilot]
+
+			[DisableInertiaDampeners:false]
+			[SlowDownOnWaypointApproach:false]
+			[ExtraSlowDownDistance:0]
+			[FlyLevelWithGravity:false]
+			[AllowStrafing:false]
+			[WaypointTolerance:50]
+			[IdealMinSpeed:18]
+			[IdealMaxSpeed:24.5]
+			
+			[RotationMultiplier:0.4]
+			[AngleAllowedForForwardThrust:180]
+			
+			[UseVelocityCollisionEvasion:true]
+			[CollisionEvasionWaypointDistance:1000]
+			[WaypointWaitTimeTrigger:0]
+			
+			[EngageDistancePlanet:3000]
+			[DisengageDistancePlanet:5000]
+			
+			</Description>
+		</EntityComponent>
+	<!-- End Cruiser Autopilots -->
+
+	<!-- Weapon Profile, Cruiser -->
+		<EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
+			<Id>
+				<TypeId>Inventory</TypeId>
+				<SubtypeId>WW2-Weapons-Cruiser</SubtypeId>
+			</Id>
+			<Description>
+			
+			[RivalAI Weapons]
+			
+            [UseStaticGuns:true]
+			[UseTurrets:true]
+			
+			[MaxStaticWeaponRange:4000]
+			[WeaponMaxAngleFromTarget:4]
+			[WeaponMaxBaseDistanceTarget:150]
+			
+			[UseBarrageFire:true]
+			[MaxFireRateForBarrageWeapons:3]
+			
+			[UseAmmoReplenish:true]
+            
+			</Description>
+		</EntityComponent>
+<!-- End Weapon Profile -->
+
+	</EntityComponents>
+</Definitions>

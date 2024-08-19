@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <EntityComponents>
+
+<!-- Trigger to engage target -->
+		<EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
+            <Id>
+                <TypeId>Inventory</TypeId>
+                <SubtypeId>WW2-Trigger-AggressionSwitch-Corvette</SubtypeId>
+            </Id>
+            <Description>
+			
+			[RivalAI Trigger]
+			
+			[UseTrigger:true]
+			[Type:TargetNear]
+			[TargetDistance:1500]
+			
+			[StartsReady:true]
+			[MaxActions:-1]
+			[Actions:WW2-Action-AggressionSwitch-Corvette]
+			
+			</Description>
+        </EntityComponent>
+
+		<EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
+            <Id>
+                <TypeId>Inventory</TypeId>
+                <SubtypeId>WW2-Action-AggressionSwitch-Corvette</SubtypeId>
+            </Id>
+            <Description>
+
+			[RivalAI Action]
+			
+			[UseChatBroadcast:true]
+			[ChatData:WW2-Chat-AggressionSwitch-Corvette]
+
+			[ChangeAutopilotProfile:true]
+			[NewAutoPilotProfile:Secondary]
+
+			[DisableTriggers:true]
+			[DisableTriggerNames:WW2-Trigger-AggressionSwitch-Corvette]
+
+			[EnableTriggers:true]
+			[EnableTriggerNames:WW2-Trigger-PassiveSwitch-Corvette]
+			[EnableTriggerNames:MES-Trigger-NoTargetRetreatInitialCheck]
+
+			</Description>
+        </EntityComponent>
+		
+		<EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
+			<Id>
+				<TypeId>Inventory</TypeId>
+				<SubtypeId>WW2-Chat-AggressionSwitch-Corvette</SubtypeId>
+			</Id>
+			<Description>
+
+			[RivalAI Chat]
+
+			[UseChat:true]
+			[StartsReady:true]
+			[MaxChats:1]
+			[BroadcastRandomly:true]
+			[Author:Corvette]
+			[Color:Red]
+
+			[ChatMessages: Hostile sighted! Moving to engage.]
+			[ChatAudio:ArcHudGPSNotification1]
+			[BroadcastChatType:Chat]
+
+			[ChatMessages:Deviating from patrol to intercept hostile target.]
+			[ChatAudio:ArcHudGPSNotification1]
+			[BroadcastChatType:Chat]
+
+      </Description>
+    </EntityComponent>
+<!-- End Trigger to engage target -->
+
+<!-- Trigger to disengage from target -->
+		<EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
+            <Id>
+                <TypeId>Inventory</TypeId>
+                <SubtypeId>WW2-Trigger-PassiveSwitch-Corvette</SubtypeId>
+            </Id>
+            <Description>
+			
+			[RivalAI Trigger]
+			
+			[UseTrigger:false]
+			[Type:TargetFar]
+			[TargetDistance:4000]
+			
+			[StartsReady:true]
+			[MaxActions:-1]
+			[Actions:WW2-Action-PassiveSwitch-Corvette]
+			
+			</Description>
+        </EntityComponent>
+
+		<EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
+            <Id>
+                <TypeId>Inventory</TypeId>
+                <SubtypeId>WW2-Trigger-PassiveSwitchNoTarget-Corvette</SubtypeId>
+            </Id>
+            <Description>
+			
+			[RivalAI Trigger]
+			
+			[UseTrigger:false]
+			[Type:NoTarget]
+			
+			[StartsReady:true]
+			[MaxActions:-1]
+			[Actions:WW2-Action-PassiveSwitch-Corvette]
+			
+			</Description>
+        </EntityComponent>
+
+		<EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
+            <Id>
+                <TypeId>Inventory</TypeId>
+                <SubtypeId>WW2-Action-PassiveSwitch-Corvette</SubtypeId>
+            </Id>
+            <Description>
+			
+			[RivalAI Action]
+			
+			[UseChatBroadcast:true]
+			[ChatData:WW2-Chat-PassiveSwitch-Corvette]
+
+			[ChangeAutopilotProfile:true]
+			[NewAutoPilotProfile:Primary]
+
+			[ChangeAutopilotSpeed:true]
+			[NewAutoPilotSpeed:10]
+
+			[DisableTriggers:true]
+			[DisableTriggerNames:WW2-Trigger-PassiveSwitch-Corvette]
+
+			[EnableTriggers:true]
+			[EnableTriggerNames:WW2-Trigger-AggressionSwitch-Corvette]
+
+			</Description>
+        </EntityComponent>
+		
+		<EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
+			<Id>
+				<TypeId>Inventory</TypeId>
+				<SubtypeId>WW2-Chat-PassiveSwitch-Corvette</SubtypeId>
+			</Id>
+			<Description>
+
+			[RivalAI Chat]
+
+			[UseChat:true]
+			[StartsReady:true]
+			[MaxChats:1]
+			[BroadcastRandomly:true]
+			[Author:Corvette]
+			[Color:Red]
+
+			[ChatMessages: Hostile leaving, returning to original course.]
+			[ChatAudio:ArcHudGPSNotification1]
+			[BroadcastChatType:Chat]
+
+			[ChatMessages:Target lost, returning to escort.]
+			[ChatAudio:ArcHudGPSNotification1]
+			[BroadcastChatType:Chat]
+
+      </Description>
+    </EntityComponent>
+<!-- End Trigger to disengage from target -->
+
+	</EntityComponents>
+</Definitions>

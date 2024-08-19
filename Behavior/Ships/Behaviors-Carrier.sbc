@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <EntityComponents>
+
+	<!-- Carrier Behaviors -->
+		<EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
+            <Id>
+                <TypeId>Inventory</TypeId>
+                <SubtypeId>WW2-Behavior-Carrier-Aquila</SubtypeId>
+            </Id>
+            <Description>
+			
+			[RivalAI Behavior]
+			[BehaviorName:Nautical]
+			
+			[AutopilotData:WW2-Autopilot-Carrier-Gray]
+			[SecondaryAutopilotData:WW2-Autopilot-Carrier-GrayB]
+			[TargetData:WW2-Targeting-ShipMain]
+			
+			[WeaponSystem:WW2-Weapons-Carrier]
+			
+			[Triggers:WW2-Trigger-UnStatic]
+			[Triggers:WW2-Trigger-AggressionSwitch-Carrier]
+			[Triggers:WW2-Trigger-PassiveSwitch-Carrier]
+			[Triggers:WW2-Trigger-PassiveSwitchNoTarget-Carrier]
+			[Triggers:WW2-Trigger-CarrierSpawn-Aquila]
+			[Triggers:WW2-Trigger-BotCrew-10]
+			[Triggers:WW2-Trigger-GeneralDamage-Gray]
+			
+			</Description>
+        </EntityComponent>
+		
+		<EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
+            <Id>
+                <TypeId>Inventory</TypeId>
+                <SubtypeId>WW2-Behavior-Carrier-Bearn</SubtypeId>
+            </Id>
+            <Description>
+			
+			[RivalAI Behavior]
+			[BehaviorName:Nautical]
+			
+			[AutopilotData:WW2-Autopilot-Carrier-Green]
+			[SecondaryAutopilotData:WW2-Autopilot-Carrier-GreenB]
+			[TargetData:WW2-Targeting-ShipMain]
+			
+			[WeaponSystem:WW2-Weapons-Carrier]
+			
+			[Triggers:WW2-Trigger-UnStatic]
+			[Triggers:WW2-Trigger-AggressionSwitch-Carrier]
+			[Triggers:WW2-Trigger-PassiveSwitch-Carrier]
+			[Triggers:WW2-Trigger-PassiveSwitchNoTarget-Carrier]
+			[Triggers:WW2-Trigger-CarrierSpawn-Bearn]
+			[Triggers:WW2-Trigger-BotCrew-10]
+			[Triggers:WW2-Trigger-GeneralDamage-Green]
+			
+			</Description>
+        </EntityComponent>
+	<!-- End Carrier Behaviors -->
+
+	<!-- Carrier Autopilots -->
+		<EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
+			<Id>
+				<TypeId>Inventory</TypeId>
+				<SubtypeId>WW2-Autopilot-Carrier-Gray</SubtypeId>
+			</Id>
+			<Description>
+			
+			[RivalAI Autopilot]
+
+			[DisableInertiaDampeners:false]
+			[SlowDownOnWaypointApproach:false]
+			[ExtraSlowDownDistance:0]
+			[FlyLevelWithGravity:true]
+			[AllowStrafing:false]
+			[WaypointTolerance:50]
+			[IdealMinSpeed:10]
+			[IdealMaxSpeed:15]
+			
+			[RotationMultiplier:0.4]
+			[AngleAllowedForForwardThrust:180]
+			
+			[UseVelocityCollisionEvasion:true]
+			[CollisionEvasionWaypointDistance:200]
+			[WaypointWaitTimeTrigger:15]
+			
+			[EngageDistancePlanet:1500]
+			[DisengageDistancePlanet:3000]
+			
+			</Description>
+		</EntityComponent>
+
+		<EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
+			<Id>
+				<TypeId>Inventory</TypeId>
+				<SubtypeId>WW2-Autopilot-Carrier-GrayB</SubtypeId>
+			</Id>
+			<Description>
+			
+			[RivalAI Autopilot]
+
+			[DisableInertiaDampeners:false]
+			[SlowDownOnWaypointApproach:false]
+			[ExtraSlowDownDistance:0]
+			[FlyLevelWithGravity:true]
+			[AllowStrafing:false]
+			[WaypointTolerance:50]
+			[IdealMinSpeed:15]
+			[IdealMaxSpeed:22.5]
+			
+			[RotationMultiplier:0.4]
+			[AngleAllowedForForwardThrust:180]
+			
+			[UseVelocityCollisionEvasion:true]
+			[CollisionEvasionWaypointDistance:200]
+			[WaypointWaitTimeTrigger:0]
+			
+			[EngageDistancePlanet:1500]
+			[DisengageDistancePlanet:3000]
+			
+			</Description>
+		</EntityComponent>
+		
+		<EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
+			<Id>
+				<TypeId>Inventory</TypeId>
+				<SubtypeId>WW2-Autopilot-Carrier-Green</SubtypeId>
+			</Id>
+			<Description>
+			
+			[RivalAI Autopilot]
+
+			[DisableInertiaDampeners:false]
+			[SlowDownOnWaypointApproach:false]
+			[ExtraSlowDownDistance:0]
+			[FlyLevelWithGravity:true]
+			[AllowStrafing:false]
+			[WaypointTolerance:50]
+			[IdealMinSpeed:10]
+			[IdealMaxSpeed:15]
+			
+			[RotationMultiplier:0.4]
+			[AngleAllowedForForwardThrust:180]
+			
+			[UseVelocityCollisionEvasion:true]
+			[CollisionEvasionWaypointDistance:200]
+			[WaypointWaitTimeTrigger:15]
+			
+			[EngageDistancePlanet:1500]
+			[DisengageDistancePlanet:3000]
+			
+			</Description>
+		</EntityComponent>
+		
+		<EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
+			<Id>
+				<TypeId>Inventory</TypeId>
+				<SubtypeId>WW2-Autopilot-Carrier-GreenB</SubtypeId>
+			</Id>
+			<Description>
+			
+			[RivalAI Autopilot]
+
+			[DisableInertiaDampeners:false]
+			[SlowDownOnWaypointApproach:false]
+			[ExtraSlowDownDistance:0]
+			[FlyLevelWithGravity:true]
+			[AllowStrafing:false]
+			[WaypointTolerance:50]
+			[IdealMinSpeed:18]
+			[IdealMaxSpeed:24.5]
+			
+			[RotationMultiplier:0.4]
+			[AngleAllowedForForwardThrust:180]
+			
+			[UseVelocityCollisionEvasion:true]
+			[CollisionEvasionWaypointDistance:200]
+			[WaypointWaitTimeTrigger:0]
+			
+			[EngageDistancePlanet:1500]
+			[DisengageDistancePlanet:3000]
+			
+			</Description>
+		</EntityComponent>
+	<!-- End Carrier Autopilots -->
+
+	<!-- Weapon Profile, Carrier -->
+		<EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
+			<Id>
+				<TypeId>Inventory</TypeId>
+				<SubtypeId>WW2-Weapons-Carrier</SubtypeId>
+			</Id>
+			<Description>
+			
+			[RivalAI Weapons]
+			
+            [UseStaticGuns:true]
+			[UseTurrets:true]
+			
+			[MaxStaticWeaponRange:4000]
+			[WeaponMaxAngleFromTarget:6]
+			[WeaponMaxBaseDistanceTarget:100]
+			
+			[UseBarrageFire:true]
+			[MaxFireRateForBarrageWeapons:2]
+			
+			[UseAmmoReplenish:true]
+            
+			</Description>
+		</EntityComponent>
+<!-- End Weapon Profile -->
+
+	</EntityComponents>
+</Definitions>
