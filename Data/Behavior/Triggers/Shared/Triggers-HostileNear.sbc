@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <EntityComponents>
+
+<!-- Hostile Player near Actions -->
+	<!-- Player within 800m with hostile standing (<=-500) -->
+		<EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
+            <Id>
+                <TypeId>Inventory</TypeId>
+                <SubtypeId>WW2-Trigger-HostileNear-Cargo</SubtypeId>
+            </Id>
+            <Description>
+
+			[RivalAI Trigger]
+			
+			[UseTrigger:true]
+			[Type:PlayerNear]
+			[TargetDistance:800]
+			[StartsReady:true]
+			
+			[MaxActions:1]
+			[MaxPlayerReputation:-500]
+
+            [Actions:WW2-Action-HostileNear-Cargo]
+
+			</Description>
+        </EntityComponent>
+
+		<EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
+            <Id>
+                <TypeId>Inventory</TypeId>
+                <SubtypeId>WW2-Action-HostileNear-Cargo</SubtypeId>
+            </Id>
+            <Description>
+
+			[RivalAI Action]
+			
+			[UseChatBroadcast:true]
+			[ChatData:WW2-Chat-HostileNear-Cargo]
+
+			</Description>
+        </EntityComponent>
+
+	<!-- Broadcasts a random chat warning to stay back -->
+		<EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
+            <Id>
+                <TypeId>Inventory</TypeId>
+                <SubtypeId>WW2-Chat-HostileNear-Cargo</SubtypeId>
+            </Id>
+            <Description>
+
+			[RivalAI Chat]
+			
+			[UseChat:true]
+            [StartsReady:true]
+            [BroadcastRandomly:true]
+			[Author:{GridName}]
+			[Color:Red]
+			[IgnoreAntennaRequirement:true]
+			[IgnoredAntennaRangeOverride:2000]
+
+            [ChatMessages:This area is currently restricted. Keep your distance or there will be trouble.]
+            [ChatAudio:ArcHudGPSNotification2]
+            [BroadcastChatType:Chat]
+
+			[ChatMessages:Continuing your approach will have consequences.]
+            [ChatAudio:ArcHudGPSNotification2]
+            [BroadcastChatType:Chat]
+
+            [ChatMessages:Whoa! You had best back the hell up.]
+            [ChatAudio:ArcHudGPSNotification2]
+            [BroadcastChatType:Chat]
+			
+            [ChatMessages:{GridName} to Dispatch hostile contact approaching.]
+            [ChatAudio:ArcHudGPSNotification2]
+            [BroadcastChatType:Chat]
+
+			</Description>
+        </EntityComponent>
+<!-- End Hostile Player near Actions -->
+
+	</EntityComponents>
+</Definitions>

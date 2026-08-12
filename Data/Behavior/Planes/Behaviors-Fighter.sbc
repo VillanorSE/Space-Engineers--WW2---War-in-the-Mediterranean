@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <EntityComponents>
+
+<!-- Behaviors -->
+	<!-- Gray Fighter Behavior -->
+		<EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
+            <Id>
+                <TypeId>Inventory</TypeId>
+                <SubtypeId>WW2-Behavior-Fighter-Gray</SubtypeId>
+            </Id>
+            <Description>
+			
+			[RivalAI Behavior]
+			[BehaviorName:Patrol]
+			
+			[TargetData:WW2-Targeting-Fighter]
+			[OverrideTargetData:WW2-Targeting-Fighter]
+
+			[AutopilotData:WW2-Autopilot-Fighter-A]
+			[SecondaryAutopilotData:WW2-Autopilot-Fighter-B]
+			[TertiaryAutopilotData:WW2-Autopilot-Fighter-C]
+			
+			[WeaponSystem:WW2-Weapons-Fighter]
+			
+			[Triggers:WW2-Trigger-ReputationDamage-Gray]
+			[Triggers:WW2-Trigger-UnStatic]
+			
+			[Triggers:WW2-Trigger-PatrolSwitch-Fighter]
+			[Triggers:WW2-Trigger-FighterSwitch-Fighter]
+			[Triggers:WW2-Trigger-LowAltitudeFighting]
+			[Triggers:WW2-Trigger-HighAltitudeFighting]
+			
+			[Triggers:WW2-Trigger-Crash-Air]
+			[Triggers:WW2-Trigger-Compromised-Air]
+			[Triggers:WW2-Trigger-StopCrash-Air]
+			
+			</Description>
+		</EntityComponent>
+	
+	<!-- Green Fighter Behavior -->
+		<EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
+            <Id>
+                <TypeId>Inventory</TypeId>
+                <SubtypeId>WW2-Behavior-Fighter-Green</SubtypeId>
+            </Id>
+            <Description>
+			
+			[RivalAI Behavior]
+			[BehaviorName:Patrol]
+			
+			[TargetData:WW2-Targeting-Fighter]
+			[OverrideTargetData:WW2-Targeting-Fighter]
+			
+			[AutopilotData:WW2-Autopilot-Fighter-A]
+			[SecondaryAutopilotData:WW2-Autopilot-Fighter-B]
+			[TertiaryAutopilotData:WW2-Autopilot-Fighter-C]
+			
+			[WeaponSystem:WW2-Weapons-Fighter]
+			
+			[Triggers:WW2-Trigger-ReputationDamage-Green]
+			[Triggers:WW2-Trigger-UnStatic]
+			
+			[Triggers:WW2-Trigger-PatrolSwitch-Fighter]
+			[Triggers:WW2-Trigger-FighterSwitch-Fighter]
+			[Triggers:WW2-Trigger-LowAltitudeFighting]
+			[Triggers:WW2-Trigger-HighAltitudeFighting]
+			
+			[Triggers:WW2-Trigger-Crash-Air]
+			[Triggers:WW2-Trigger-Compromised-Air]
+			[Triggers:WW2-Trigger-StopCrash-Air]
+			
+			</Description>
+		</EntityComponent>	
+<!-- End Behaviors -->
+
+<!-- Targeting -->
+		<EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
+			<Id>
+				<TypeId>Inventory</TypeId>
+				<SubtypeId>WW2-Targeting-Fighter</SubtypeId>
+			</Id>
+			<Description>
+			
+			[RivalAI Target]
+      
+			[UseCustomTargeting:true]
+			[Target:PlayerAndGrid]
+			
+			[MaxDistance:10000]
+			[NonBroadcastVisualRange:8000]
+
+			[MatchAllFilters:OutsideOfSafezone]
+			[MatchAllFilters:Owner]
+			[MatchAllFilters:Relation]
+			[MatchAllFilters:Powered]
+
+			[Owners:Player]
+			[Owners:NPC]
+			[Relations:Enemy]
+			
+			[GetTargetBy:ClosestDistance]
+			
+			</Description>
+		</EntityComponent>
+<!-- End Targeting -->
+
+<!-- Autopilots -->	
+	<!-- Fighter Autopilot for when target is outside of 6km -->
+		<EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
+			<Id>
+				<TypeId>Inventory</TypeId>
+				<SubtypeId>WW2-Autopilot-Fighter-A</SubtypeId>
+			</Id>
+			<Description>
+			
+			[RivalAI Autopilot]
+			
+            [DisableInertiaDampeners:true]
+            [FlyLevelWithGravity:false]
+			[LevelWithGravityWhenIdle:true]
+			[UseVelocityCollisionEvasion:true]
+			
+			[SlowDownOnWaypointApproach:true]
+			[ExtraSlowDownDistance:100]
+			[WaypointTolerance:100]
+			
+            [IdealMinSpeed:50]
+			[IdealMaxSpeed:75]
+			[MaxSpeedTolerance:5]
+			
+			[MinimumPlanetAltitude:500]
+			[IdealPlanetAltitude:1000]
+			[AltitudeTolerance:50]
+			
+			[LimitRotationSpeed:true]            
+			[MaxRotationMagnitude:0.3]
+			[AngleAllowedForForwardThrust:180]
+			
+			[OffsetPlanetMinDistFromTarget:1000]
+			[OffsetPlanetMaxDistFromTarget:5000]
+			[OffsetPlanetMinTargetAltitude:800]
+			[OffsetPlanetMaxTargetAltitude:1200]
+            
+			</Description>
+		</EntityComponent>	
+	
+	<!-- Fighter Autopilot for when above 600m -->
+		<EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
+			<Id>
+				<TypeId>Inventory</TypeId>
+				<SubtypeId>WW2-Autopilot-Fighter-B</SubtypeId>
+			</Id>
+			<Description>
+			
+			[RivalAI Autopilot]
+			
+            [DisableInertiaDampeners:true]
+            [FlyLevelWithGravity:false]
+			[LevelWithGravityWhenIdle:true]
+			[UseVelocityCollisionEvasion:true]
+			
+			[SlowDownOnWaypointApproach:true]
+			[ExtraSlowDownDistance:100]
+			[WaypointTolerance:100]
+			
+            [IdealMinSpeed:55]
+			[IdealMaxSpeed:100]
+			[MaxSpeedTolerance:5]
+			
+			[MinimumPlanetAltitude:250]
+			[IdealPlanetAltitude:1000]
+			[AltitudeTolerance:20]
+			
+			[LimitRotationSpeed:true]            
+			[MaxRotationMagnitude:0.3]
+			[AngleAllowedForForwardThrust:180]
+			
+			[AllowStrafing:true]
+			[StrafeMinDurationMs:2000]
+			[StrafeMaxDurationMs:4000]
+			
+			[UseProjectileLeadPrediction:true]
+			[EngageDistancePlanet:1000]
+			[DisengageDistancePlanet:150]
+            
+			</Description>
+		</EntityComponent>
+
+	<!-- Strike Autopilot for when below 600m -->		
+		<EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
+			<Id>
+				<TypeId>Inventory</TypeId>
+				<SubtypeId>WW2-Autopilot-Fighter-C</SubtypeId>
+			</Id>
+			<Description>
+			
+			[RivalAI Autopilot]
+
+			[DisableInertiaDampeners:true]
+            [FlyLevelWithGravity:false]
+			[LevelWithGravityWhenIdle:true]
+			[UseVelocityCollisionEvasion:true]
+			
+			[SlowDownOnWaypointApproach:true]
+			[ExtraSlowDownDistance:100]
+			[WaypointTolerance:100]
+			
+            [IdealMinSpeed:55]
+			[IdealMaxSpeed:100]
+			[MaxSpeedTolerance:5]
+			
+			[MinimumPlanetAltitude:200]
+			[AltitudeTolerance:20]
+			
+			[LimitRotationSpeed:true]            
+			[MaxRotationMagnitude:0.3]
+			[AngleAllowedForForwardThrust:180]
+			
+			[AllowStrafing:true]
+			[StrafeMinDurationMs:2000]
+			[StrafeMaxDurationMs:4000]
+			
+			[UseProjectileLeadPrediction:true]
+			[StrikeBeginPlanetAttackRunDistance:600]
+			[StrikeBreakawayDistance:100]
+			[StrikeEngageUseSafePlanetPathing:true]
+			[StrikeEngageUseCollisionEvasion:true]
+			
+			[CollisionEvasionWaypointCalculatedAwayFromEntity:true]
+			
+			[OffsetPlanetMinDistFromTarget:800]
+			[OffsetPlanetMaxDistFromTarget:1000]
+			[OffsetPlanetMinTargetAltitude:550]
+			[OffsetPlanetMaxTargetAltitude:600]
+
+			</Description>
+		</EntityComponent>
+<!-- End Autopilots -->
+
+<!-- Weapon Profile, basic fixed weapons -->
+		<EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
+			<Id>
+				<TypeId>Inventory</TypeId>
+				<SubtypeId>WW2-Weapons-Fighter</SubtypeId>
+			</Id>
+			<Description>
+			
+			[RivalAI Weapons]
+			
+            [UseStaticGuns:true]
+			[UseTurrets:true]
+			
+			[MaxStaticWeaponRange:1000]
+			[WeaponMaxAngleFromTarget:6]
+			[WeaponMaxBaseDistanceTarget:25]
+			
+			[UseBarrageFire:false]
+			
+			[UseAmmoReplenish:true]
+            
+			</Description>
+		</EntityComponent>
+<!-- End Weapon Profile -->
+
+	</EntityComponents>
+</Definitions>

@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <EntityComponents>
+
+<!-- Trigger to engage target -->
+		<EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
+            <Id>
+                <TypeId>Inventory</TypeId>
+                <SubtypeId>WW2-Trigger-AggressionSwitch-Destroyer</SubtypeId>
+            </Id>
+            <Description>
+			
+			[RivalAI Trigger]
+			
+			[UseTrigger:true]
+			[Type:TargetNear]
+			[TargetDistance:2500]
+			
+			[StartsReady:true]
+			[MaxActions:-1]
+			[Actions:WW2-Action-AggressionSwitch-Destroyer]
+			
+			</Description>
+        </EntityComponent>
+
+		<EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
+            <Id>
+                <TypeId>Inventory</TypeId>
+                <SubtypeId>WW2-Action-AggressionSwitch-Destroyer</SubtypeId>
+            </Id>
+            <Description>
+
+			[RivalAI Action]
+			
+			[UseChatBroadcast:true]
+			[ChatData:WW2-Chat-AggressionSwitch-Destroyer]
+
+			[ChangeAutopilotProfile:true]
+			[NewAutoPilotProfile:Secondary]
+
+			[DisableTriggers:true]
+			[DisableTriggerNames:WW2-Trigger-AggressionSwitch-Destroyer]
+
+			[EnableTriggers:true]
+			[EnableTriggerNames:WW2-Trigger-PassiveSwitch-Destroyer]
+			[EnableTriggerNames:MES-Trigger-NoTargetRetreatInitialCheck]
+
+			</Description>
+        </EntityComponent>
+		
+		<EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
+			<Id>
+				<TypeId>Inventory</TypeId>
+				<SubtypeId>WW2-Chat-AggressionSwitch-Destroyer</SubtypeId>
+			</Id>
+			<Description>
+
+			[RivalAI Chat]
+
+			[UseChat:true]
+			[StartsReady:true]
+			[MaxChats:1]
+			[BroadcastRandomly:true]
+			[Author:Destroyer]
+			[Color:Red]
+
+			[ChatMessages: Hostile sighted! Moving to engage.]
+			[ChatAudio:ArcHudGPSNotification1]
+			[BroadcastChatType:Chat]
+
+			[ChatMessages:Deviating from patrol to intercept hostile target.]
+			[ChatAudio:ArcHudGPSNotification1]
+			[BroadcastChatType:Chat]
+
+      </Description>
+    </EntityComponent>
+<!-- End Trigger to engage target -->
+
+<!-- Trigger to disengage from target -->
+		<EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
+            <Id>
+                <TypeId>Inventory</TypeId>
+                <SubtypeId>WW2-Trigger-PassiveSwitch-Destroyer</SubtypeId>
+            </Id>
+            <Description>
+			
+			[RivalAI Trigger]
+			
+			[UseTrigger:false]
+			[Type:TargetFar]
+			[TargetDistance:5000]
+			
+			[StartsReady:true]
+			[MaxActions:-1]
+			[Actions:WW2-Action-PassiveSwitch-Destroyer]
+			
+			</Description>
+        </EntityComponent>
+
+		<EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
+            <Id>
+                <TypeId>Inventory</TypeId>
+                <SubtypeId>WW2-Trigger-PassiveSwitchNoTarget-Destroyer</SubtypeId>
+            </Id>
+            <Description>
+			
+			[RivalAI Trigger]
+			
+			[UseTrigger:false]
+			[Type:NoTarget]
+			
+			[StartsReady:true]
+			[MaxActions:-1]
+			[Actions:WW2-Action-PassiveSwitch-Destroyer]
+			
+			</Description>
+        </EntityComponent>
+
+		<EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
+            <Id>
+                <TypeId>Inventory</TypeId>
+                <SubtypeId>WW2-Action-PassiveSwitch-Destroyer</SubtypeId>
+            </Id>
+            <Description>
+			
+			[RivalAI Action]
+			
+			[UseChatBroadcast:true]
+			[ChatData:WW2-Chat-PassiveSwitch-Destroyer]
+
+			[ChangeAutopilotProfile:true]
+			[NewAutoPilotProfile:Primary]
+
+			[ChangeAutopilotSpeed:true]
+			[NewAutoPilotSpeed:15]
+
+			[DisableTriggers:true]
+			[DisableTriggerNames:WW2-Trigger-PassiveSwitch-Destroyer]
+
+			[EnableTriggers:true]
+			[EnableTriggerNames:WW2-Trigger-AggressionSwitch-Destroyer]
+
+			</Description>
+        </EntityComponent>
+		
+		<EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
+			<Id>
+				<TypeId>Inventory</TypeId>
+				<SubtypeId>WW2-Chat-PassiveSwitch-Destroyer</SubtypeId>
+			</Id>
+			<Description>
+
+			[RivalAI Chat]
+
+			[UseChat:true]
+			[StartsReady:true]
+			[MaxChats:1]
+			[BroadcastRandomly:true]
+			[Author:Destroyer]
+			[Color:Red]
+
+			[ChatMessages: Hostile leaving, returning to original course.]
+			[ChatAudio:ArcHudGPSNotification1]
+			[BroadcastChatType:Chat]
+
+			[ChatMessages:Target lost, returning to escort.]
+			[ChatAudio:ArcHudGPSNotification1]
+			[BroadcastChatType:Chat]
+
+      </Description>
+    </EntityComponent>
+<!-- End Trigger to disengage from target -->
+
+	</EntityComponents>
+</Definitions>

@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<Definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<SpawnGroups>
+
+<!-- Gray Aquila Carrier -->
+	<SpawnGroup>
+		<Id>
+				<TypeId>SpawnGroupDefinition</TypeId>
+			<SubtypeId>NPC-WW2-Aquila</SubtypeId>
+		</Id>
+		<Description>
+		[Modular Encounters SpawnGroup]
+	
+		[SpawnConditionsProfiles:WW2-SpawnConditions-Ships-Carriers]
+		[ManipulationProfiles:MES-Manipulation-RivalAi]
+		[ManipulationProfiles:WW2-Manipulation-ShipsBasicLoot]
+		[FactionOverride:GRAY]
+	
+		</Description>
+		<Icon>Textures\GUI\Icons\Fake.dds</Icon>
+		<Frequency>10.0</Frequency>
+		<IsPirate>true</IsPirate>
+		<Prefabs>
+			<Prefab SubtypeId="NPC-WW2-Aquila">
+				<Position>
+					<X>0.0</X>
+					<Y>0.0</Y>
+					<Z>0.0</Z>
+				</Position>
+				<Behaviour>WW2-Behavior-Carrier-Aquila</Behaviour>
+				<Speed>10.0</Speed>
+			</Prefab>
+		</Prefabs>
+	</SpawnGroup>
+<!-- End Gray Aquila Carrier -->
+
+<!-- Green Bearn Carrier -->
+	<SpawnGroup>
+		<Id>
+			<TypeId>SpawnGroupDefinition</TypeId>
+			<SubtypeId>NPC-WW2-Bearn</SubtypeId>
+		</Id>
+		<Description>
+		[Modular Encounters SpawnGroup]
+	
+		[SpawnConditionsProfiles:WW2-SpawnConditions-Ships-Carriers]
+		[ManipulationProfiles:MES-Manipulation-RivalAi]
+		[ManipulationProfiles:WW2-Manipulation-ShipsBasicLoot]
+		[FactionOverride:GREEN]
+
+		</Description>
+		<Icon>Textures\GUI\Icons\Fake.dds</Icon>
+		<Frequency>10.0</Frequency>
+		<IsPirate>true</IsPirate>
+		<Prefabs>
+			<Prefab SubtypeId="NPC-WW2-Bearn">
+				<Position>
+					<X>0.0</X>
+					<Y>0.0</Y>
+					<Z>0.0</Z>
+				</Position>
+				<Behaviour>WW2-Behavior-Carrier-Bearn</Behaviour>
+				<Speed>8.0</Speed>
+			</Prefab>
+		</Prefabs>
+	</SpawnGroup>
+<!-- End Green Bearn Carrier -->
+
+	</SpawnGroups>
+</Definitions>
+

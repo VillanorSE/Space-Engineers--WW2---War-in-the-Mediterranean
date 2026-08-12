@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <EntityComponents>
+
+<!-- Sequences to spawn bots on grid when a player first get within 800m -->
+
+	<!-- Bot Defenses 3 bots -->
+		<EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
+            <Id>
+                <TypeId>Inventory</TypeId>
+                <SubtypeId>WW2-Trigger-BotCrew-3</SubtypeId>
+            </Id>
+            <Description>
+			
+			[RivalAI Trigger]
+			
+			[UseTrigger:true]
+			[Type:PlayerNear]
+
+			[TargetDistance:800]
+			
+			[StartsReady:false]
+			[MaxActions:1]
+			
+			[Actions:WW2-Action-BotCrew-3]
+			
+			</Description>
+        </EntityComponent>
+
+		<EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
+            <Id>
+                <TypeId>Inventory</TypeId>
+                <SubtypeId>WW2-Action-BotCrew-3</SubtypeId>
+            </Id>
+            <Description>
+			
+			[RivalAI Action]
+			
+			[AddBotsToGrid:true]
+			[BotCount:3]
+			[BotSpawnProfileNames:WW2-BotSpawnProfile-CombatBot]
+			[OnlySpawnBotsInPressurizedRooms:false]
+			
+			</Description>
+        </EntityComponent>
+	<!-- End Bot Defenses 3 bots -->
+
+	<!-- Bot Defenses 5 bots -->	
+		<EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
+            <Id>
+                <TypeId>Inventory</TypeId>
+                <SubtypeId>WW2-Trigger-BotCrew-5</SubtypeId>
+            </Id>
+            <Description>
+			
+			[RivalAI Trigger]
+			
+			[UseTrigger:true]
+			[Type:PlayerNear]
+
+			[TargetDistance:800]
+			
+			[StartsReady:false]
+			[MaxActions:1]
+			
+			[Actions:WW2-Action-BotCrew-5]
+			
+			</Description>
+        </EntityComponent>
+	
+		<EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
+            <Id>
+                <TypeId>Inventory</TypeId>
+                <SubtypeId>WW2-Action-BotCrew-5</SubtypeId>
+            </Id>
+            <Description>
+			
+			[RivalAI Action]
+			
+			[AddBotsToGrid:true]
+			[BotCount:5]
+			[BotSpawnProfileNames:WW2-BotSpawnProfile-CombatBot]
+			[OnlySpawnBotsInPressurizedRooms:false]
+			
+			</Description>
+        </EntityComponent>
+	<!-- End Bot Defenses 5 bots -->
+
+	<!-- Bot Defenses 10 bots -->
+		<EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
+            <Id>
+                <TypeId>Inventory</TypeId>
+                <SubtypeId>WW2-Trigger-BotCrew-10</SubtypeId>
+            </Id>
+            <Description>
+			
+			[RivalAI Trigger]
+			
+			[UseTrigger:true]
+			[Type:PlayerNear]
+
+			[TargetDistance:800]
+			
+			[StartsReady:false]
+			[MaxActions:1]
+			
+			[Actions:WW2-Action-BotCrew-10]
+			
+			</Description>
+        </EntityComponent>
+	
+		<EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
+            <Id>
+                <TypeId>Inventory</TypeId>
+                <SubtypeId>WW2-Action-BotCrew-10</SubtypeId>
+            </Id>
+            <Description>
+			
+			[RivalAI Action]
+			
+			[AddBotsToGrid:true]
+			[BotCount:10]
+			[BotSpawnProfileNames:WW2-BotSpawnProfile-CombatBot]
+			[OnlySpawnBotsInPressurizedRooms:false]
+			
+			</Description>
+        </EntityComponent>
+	<!-- End Bot Defenses 10 bots -->
+
+	</EntityComponents>
+</Definitions>

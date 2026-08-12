@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <EntityComponents>
+
+<!-- Gray Ammo Depot Behaviors -->
+		<EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
+            <Id>
+                <TypeId>Inventory</TypeId>
+                <SubtypeId>WW2-Behavior-Ammo-Depot-Gray</SubtypeId>
+            </Id>
+            <Description>
+			[RivalAI Behavior]
+			[BehaviorName:Passive]
+
+			[Triggers:WW2-Trigger-ReputationDamage-Gray]
+
+			[Triggers:WW2-Trigger-BotCrew-5]
+
+			</Description>
+        </EntityComponent>
+		
+<!-- End Gray Ammo Depot Behaviors -->
+
+<!-- Green Ammo Depot Behaviors -->
+		<EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
+            <Id>
+                <TypeId>Inventory</TypeId>
+                <SubtypeId>WW2-Behavior-Ammo-Depot-Green</SubtypeId>
+            </Id>
+            <Description>
+			[RivalAI Behavior]
+			[BehaviorName:Passive]
+
+			[Triggers:WW2-Trigger-ReputationDamage-Green]
+			
+			[Triggers:WW2-Trigger-BotCrew-5]
+
+			</Description>
+        </EntityComponent>
+		
+<!-- End Green Ammo Depot Behaviors -->
+
+	</EntityComponents>
+</Definitions>
