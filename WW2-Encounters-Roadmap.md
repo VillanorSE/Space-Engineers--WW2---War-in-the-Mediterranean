@@ -10,25 +10,28 @@ Not a stage so much as a foundation everything else sits on. The current naval w
 
 - **Naval weapons:** [Fletcher Armaments – WeaponCore Edition](https://steamcommunity.com/sharedfiles/filedetails/?id=2844434226) (Workshop 2844434226) — WeaponCore-based WW2 naval weapon pack.
 - **Air weapons:** [Consty Aircraft Pack – Ordnance (WeaponCore) 1.0](https://steamcommunity.com/sharedfiles/filedetails/?id=2881339118) by Const (Workshop 2881339118), companion to Const's Tech-Focused Aircraft Pack. Confirmed via its changelog to mix genuinely period-appropriate content (.50 cal guns, 30mm aircraft cannon, unguided bombs, rocket pods) with clearly modern/anachronistic content (AIM-7/54/120 guided missiles, 5.56mm burst rifles, 9mm SMGs, .45 handguns). The lockdown plan is sound and necessary, not just thematic tidiness — gate/exclude the modern-coded weapons, keep the period-coded ones, using the same tech-item mechanism as Stage 1's unlock currency.
+- **Ground vehicle weapons:** neither Fletcher Armaments nor Consty's Ordnance cover this — a third mod is needed, most likely AWG's WeaponCore-era continuation pack. Name/Workshop ID not yet confirmed; same identification and BlockGroup-building process as the other two once it is.
 - **Turret philosophy shift:** moving away from custom rotor/hinge-built turrets toward general WeaponCore turret blocks. This should make future `BlockGroup`/`BlockLimit` definitions for the Core system far more stable, since they'll reference known WeaponCore block types instead of a dead mod's custom subtypes.
 - **Dependency additions:** WeaponCore itself, plus whichever specific weapon-pack mods end up used. Worth checking MES's documented WeaponCore compatibility notes once rebuild work starts, since combining MES/RivalAI-driven NPCs with WeaponCore weapons is a well-trodden combination but has its own configuration quirks (weapon targeting profiles, ammo replenishment behavior).
 
 **To-do:**
-- [x] Pull the full Consty Ordnance block list and sort into "period, keep" vs. "modern, gate or exclude" — AIM-7/54/120 and the modern small arms are confirmed non-period from the changelog alone, but the full list needs a proper pass.
+- [ ] Identify the specific AWG ground-vehicle-weapons continuation mod (name/Workshop ID), then pull its block SubtypeIds and TypeId the same way Consty's Ordnance was handled.
+- [ ] Decide final ground vehicle scale factors within the confirmed 110–120% (military) / up to 150% (civilian) ranges, and rescale the existing Fiat 626 and Renault builds if the civilian figure ends up above 100%.
+- [ ] Pull the full Consty Ordnance block list and sort into "period, keep" vs. "modern, gate or exclude" — AIM-7/54/120 and the modern small arms are confirmed non-period from the changelog alone, but the full list needs a proper pass.
 - [ ] Rebuild each existing hull's weapon fit onto Fletcher Armaments / Consty's Ordnance, replacing custom rotor/hinge turret rigs with general WeaponCore turrets. Broken out per-prefab below so each is a single sitting's work — check the box when that prefab's weapons are rebuilt and it loads clean with the old mod removed. Naval uses Fletcher Armaments; Air uses Consty's Ordnance (WW2-appropriate blocks only, per the lockdown scope above); Installations may need either or neither depending on what defenses they actually carry.
 
   **Naval:**
-  - [x] NPC-WW2-Golo_Italian (Cargo Ship, Gray)
-  - [x] NPC-WW2-Golo_French (Cargo Ship, Green)
-  - [x] NPC-WW2-Gabbiano (Corvette, Gray)
-  - [x] NPC-WW2-Spica (Torpedo Boat, Gray)
-  - [x] NPC-WW2-Francesco_Crispi (Destroyer, Gray)
-  - [x] NPC-WW2-Comandante_Margottini (Destroyer, Gray)
-  - [x] NPC-WW2-La_Malouine (Corvette, Green)
-  - [x] NPC-WW2-Bougainville (Aviso/Destroyer-behavior, Green)
-  - [x] NPC-WW2-Le_Triomphant (Destroyer, Green)
-  - [ ] NPC-WW2-Emile_Bertin (Cruiser, Green) — **confirmed root cause found:** the AWG piston/hinge-based catapult+floatplane assembly (Loire 130) silently breaks grid loading — no exception, no error, just fails to register as an entity. Reproduced and fixed by surgical removal in a build-world test; same mechanism confirmed present on Algerie (Green Cruiser) and absent on Trento (Gray Cruiser, which has never shown the failure — clean independent confirmation). Rebuild the catapult using non-AWG piston/hinge parts (or the general WeaponCore turret approach already planned for weapons) before this hull is usable in a SpawnGroup.
-  - [x] NPC-WW2-Aquila (Carrier, Gray)
+  - [ ] NPC-WW2-Golo_Italian (Cargo Ship, Gray)
+  - [ ] NPC-WW2-Golo_French (Cargo Ship, Green)
+  - [ ] NPC-WW2-Gabbiano (Corvette, Gray)
+  - [ ] NPC-WW2-Spica (Torpedo Boat, Gray)
+  - [ ] NPC-WW2-Francesco_Crispi (Destroyer, Gray)
+  - [ ] NPC-WW2-Comandante_Margottini (Destroyer, Gray)
+  - [ ] NPC-WW2-La_Malouine (Corvette, Green)
+  - [ ] NPC-WW2-Bougainville (Aviso/Destroyer-behavior, Green)
+  - [ ] NPC-WW2-Le_Triomphant (Destroyer, Green)
+  - [ ] NPC-WW2-Emile_Bertin (Cruiser, Green) — **confirmed root cause found:** the AWG piston/hinge-based catapult+floatplane assembly (Loire 130) silently breaks grid loading — no exception, no error, just fails to register as an entity. Reproduced and fixed by surgical removal in a build-world test; same mechanism confirmed present on Algerie (Green Heavy Cruiser) and absent on Trento (Gray Heavy Cruiser, which has never shown the failure — clean independent confirmation). Rebuild the catapult using non-AWG piston/hinge parts (or the general WeaponCore turret approach already planned for weapons) before this hull is usable in a SpawnGroup.
+  - [ ] NPC-WW2-Aquila (Carrier, Gray)
   - [ ] NPC-WW2-Bearn (Carrier, Green)
 
   **Air:**
@@ -74,6 +77,38 @@ Not a stage so much as a foundation everything else sits on. The current naval w
 
 **Stage 1 scope specifically:** only the starting rung of each track, plus Base and Outpost (both needed since they're parallel, not sequential). That's Civilian Naval, Corvette Naval, Cargo Plane, Fighter, Transport, Armored Car, Base, Outpost — eight core definitions — plus the unlock-gate system working end-to-end for exactly one proof-of-concept upgrade (Corvette → Destroyer). Everything past that first rung on each ladder belongs to Stage 5.
 
+### Ground vehicle scale and weapon dependency (confirmed)
+
+**No large grid wheels — the entire Wheeled category is small grid only.** This is a firm constraint, not a default: no large-grid wheeled vehicles exist anywhere in the ladder.
+
+**Weapon dependency confirmed:** neither Fletcher Armaments (naval) nor Consty's Ordnance (air) cover ground vehicle weapons — a third weapon mod is needed, most likely AWG's WeaponCore-era continuation pack (name/Workshop ID TBD once confirmed). Same treatment as the other two once identified: local file lookup for exact block SubtypeIds, a dedicated `WeaponBlocks` `BlockGroup` split, added to the Prerequisite phase alongside Fletcher Armaments and Consty's Ordnance.
+
+**Scale factor: two-tier, driven by functional-block real estate, not wheel proportions.** Correction from earlier: AWG's CWP already provides correctly-sized wheels, so 1:1 is viable on that front — the actual driver is fitting functional blocks (cockpit, respawn kit, cargo, weapon mount) inside a genuinely small real-world hull at small-grid's 0.5m block size. This hits Armored Cars hardest — historically some of the smallest vehicles in the whole roster, and the tightest fit for the same reason. Same two-tier structure still applies, just for the corrected reason: weapon blocks are fixed dimensions that don't rescale with the hull, so military vehicles stay conservative; civilian vehicles have no such anchor and can flex further if it helps fit functional blocks comfortably.
+- **Military track (Armored Car → Heavy Tank):** capped around **110–120%** of real-world scale.
+- **Civilian track (Transport):** allowed up to **150%**.
+
+**Note for your own builds, not a mod-content concern:** vanilla SE's AI Flight block doesn't support wheeled vehicle propulsion at all — confirmed via Keen's own support forum, a longstanding unaddressed gap, not a bug on your end. Doesn't affect your NPC Armored Cars/tanks, which run on RivalAI/MES (already proven for ground units), but rules out the vanilla Automatons toolkit specifically if you ever want a player-built AI escort — that'd need a dedicated third-party rover-AI script instead.
+
+**Existing assets affected:** the Fiat 626 (Italian) and Renault AHR-or-similar (French) are both built at 1:1 and are the natural Transport-tier hulls. If civilian scale-up is adopted, both need rescaling before use — worth deciding before further detail work goes into them at the wrong scale.
+
+### Wheeled roster (confirmed)
+
+Researched and cross-checked against real WW2 deployment history — including a look at whether either faction fielded another nation's equipment, since neither historically had a proper heavy tank of its own by international classification. Resolved without needing to borrow across the Axis/Allied divide: both factions have strong native tank-destroyer/SPG lineages that fill the Heavy tier honestly.
+
+| Tier | Gray (Italy) | Green (France) |
+|---|---|---|
+| **Transport** | Fiat 626 *(built)* | Renault AHR-or-similar *(built)* |
+| **Armored Car** | AB 41; **L3/35** (reclassified down from Light Tank — a 3.2-ton MG-only tankette reads closer to a light armored car by international standards than to a contemporary light tank) | Panhard 178 (AMD 35) |
+| **Light Tank** | **L6/40** (now Italy's sole Light Tank entry following L3/35's move) | Renault R35, Hotchkiss H35/H39 |
+| **Medium Tank** | M13/40, M14/41; **Semovente da 75/18** (Italy's most-produced SPG, same chassis family, arguably a better vehicle than the tank it's based on) | SOMUA S35, Char D2 |
+| **Heavy Tank** | **P26/40** (kept — Italy's own "pesante" classification, even though internationally comparable to a Panzer IV/early Sherman); **Semovente da 90/53 or da 105/25** (native tank-hunter answer to the international-heavy-tank gap, no borrowed equipment needed — final pick between the two still open) | **Char B1 (bis)** (holds up as genuinely heavy under international classification too); **M10 Wolverine** (227–443 delivered to Free French forces 1943–45, real documented combat history including the Battle of Dompaire) |
+
+**Ruled out during research, worth remembering so it doesn't resurface as an assumption:**
+- Tiger/Panther for Italy — Germany never transferred either to Italian units; confirmed dead end, not a style choice.
+- M7 Priest for France — real, well-documented Lend-Lease option, but declined on purpose (indirect fire, out of scope for now).
+- Churchill for France — searched, found no confirmation either way; treat as unverified, not assumed real.
+- Captured R35 for Italy — genuinely real (German-supplied, 1941, two real battalions), but set aside over faction-color confusion risk (an R35 in Gray sitting next to the actual Green-faction R35).
+
 ### Mechanical design (confirmed against the actual Ship Core Framework v3 schema)
 
 - `MobilityType`: `Mobile` for vehicle cores, `Static` for Base/Outpost. One enum field, not two booleans.
@@ -85,28 +120,72 @@ Not a stage so much as a foundation everything else sits on. The current naval w
 
 ### Unlock economy
 
-**Confirmed: territory/salvage-based, mostly salvage to start.** One shared unlock currency to start (name TBD — "Salvaged War Materiel" was the working placeholder), fed by two salvage sources:
+**Confirmed: territory/salvage-based, mostly salvage to start.** Fed by what a spawn *is* — military or civilian-themed — not by whether it was killed or found already wrecked. Every spawn type should exist in both an active (fight it) and wrecked (salvage it) form where that makes sense, but the loot-sourcing split runs along the military/civilian axis, not the alive/dead one:
 
-1. **Loot from kills** — destroyed NPC grids drop the currency as loot, same mechanism as your existing `WW2-Loot-*` container profiles, just a new item type added to those pools at a tuned frequency.
-2. **Wreck salvage** — breaking down the pre-damaged static wreck sites (see Salvage loop, below) at a Base/Outpost core.
+1. **Military spawns** (active or wrecked) — combat ships, planes, weapon emplacements. Primary source of Military and Advanced Military Components.
+2. **Civilian spawns** (active or wrecked) — cargo ships, transports, civilian installations. Primary source of Industrial Components.
 
-Both routes reward exploring and engaging with the world rather than a pure kill-counter, and both are earned through combat-adjacent play without the currency being *only* about killing things. Territory control (Stage 3) becomes a third feed into the same currency once captured installations exist — not part of Stage 1, since territory doesn't exist yet, but the same currency rather than a separate one.
+Both routes reward exploring and engaging with the world rather than a pure kill-counter. Territory control (Stage 3) becomes a further feed once captured installations exist — not part of Stage 1, since territory doesn't exist yet.
 
-Splitting into per-category currencies (naval salvage only feeds naval unlocks, etc.) is a reasonable later refinement, not a Stage 1 requirement.
+**Confirmed component names, structure, and sourcing rules.** Three materials, not one generic currency:
+
+- **Industrial Components** — gates Advanced Civilian production blocks. Sourced from: advanced production blocks (a player can *manufacture* these, not just find them), trade-location purchases, and loot — weighted heavily toward civilian-themed spawns, present in smaller amounts on military-themed spawns too.
+- **Military Components** — gates first-tier combat hulls at low quantity. Sourced from: non-basic weapon blocks (advanced production output), trade-location purchases, and loot — weighted heavily toward military-themed spawns, present in smaller amounts on civilian-themed spawns too.
+- **Advanced Military Components** — gates top-tier combat hulls. Sourced from: advanced weapons (advanced production output), trade-location purchases (**gated behind good faction standing**, not just currency), and loot — at very low quantity on spawn classes that wouldn't themselves need Advanced Military Components to build as a player core, and at meaningfully higher quantity on spawn classes that would. This ties loot value directly to the same tier scale as build cost, rather than being a separate system that happens to coexist with it.
+
+**Basic/starting-tier everything uses plain vanilla components, no specialized item at all** — the unlock materials only enter the picture once a player is unlocking *beyond* the starting rung. This applies to weapons too: **basic weapons cost vanilla components, non-basic/advanced weapons cost Military Components** (or Advanced Military Components at the top end) — the same tiering logic already applied to hulls, applied consistently to weapon blocks as well. Practical implication for the weapon rebuild: the `WeaponBlocks` BlockGroup splits already done (Guns/Bombs/Torpedoes/Smoke) will need a further basic/advanced sub-classification once real costing starts — flagged as a to-do, not resolved yet.
+
+**Trade locations** (Stage 5's planned economy stations) will eventually sell Industrial and Military Components directly, with Advanced Military Components specifically locked behind good faction standing — the first concrete gameplay payoff for Stage 2's reputation system, which otherwise is purely behavioral/flavor. Reputation stops being just "how NPCs act toward you" and becomes something that gates real economic access.
+
+**Fleet-size limiting: fixed cost + finite income, not escalating price.** A core costs a flat amount of a genuinely scarce component; since the component is earned at a tuned (slow) rate, a player's standing fleet is naturally capped by how much they've banked and haven't spent — no special mechanic needed for this, it's just a normal crafting cost against a limited income rate. An escalating-cost variant (each *additional* core of a type costing more, based on how many are currently built and standing — not lifetime built, resets on loss) is a genuinely different and harder feature, since it requires live-tracking currently-placed grids and dynamically adjusting a cost, which needs real scripting rather than static XML. Interesting for later, but it's a Stage 5+ idea, not Stage 1.
+
+**Production-block spam is already a solved problem, not a new one.** `BlockLimits` on the core itself already caps "how many Assembler blocks total" independent of what gates the upgrade — no separate anti-spam mechanic needed if Advanced Civilian production blocks end up costing Industrial Components.
+
+### Two smaller open items
+
+- **Static defensive-only grids** (a "gun outpost" concept) — already covered by the existing Base/Outpost `WeaponCap` BlockLimits (4 and 2 respectively), no new core type needed. Revisit only if that turns out to feel insufficient in practice.
+- **Small utility grids with no functional blocks** (ramps, bridges, similar) — most core-limiting mods of this style allow a small default block count on any grid with no core placed at all, specifically so minor builds aren't blocked. Not confirmed for Ship Core Framework specifically — needs an actual check against the framework's real behavior, not an assumption either way.
+
+### Core costs by tier (confirmed)
+
+| Category | Starting tier (vanilla components) | Mid tier (Military Components) | Top tier (Advanced Military Components) |
+|---|---|---|---|
+| **Naval** | Civilian, Corvette | Destroyer (low), Cruiser (many) | Heavy Cruiser (low), Battleship (very many), Carrier (medium) |
+| **Air** | Cargo Plane, Fighter | Attacker/Bomber (low–medium) | Heavy Bomber (low) |
+| **Wheeled** | Transport, Armored Car | Light Tank (very few), Medium Tank (low) | Heavy Tank (low) |
+| **Base** | Base, Outpost — hard `MaxPerFaction`/`MaxPerPlayer` limit instead of component gating (Outpost intentionally allowed higher than Base) | — | — |
+
+Air and Wheeled costs should sit **cheaper overall** than the equivalent Naval tier at the same component quantity — both are small-grid-only and far more likely to be lost/destroyed in normal play than a ship, so the same nominal "low amount" of Military Components should represent a smaller real cost for a plane or tank than for a destroyer.
+
+**Production/tool blocks:** Basic tier uses vanilla components; Advanced tier uses Industrial Components. Upgrade modules for assemblers/refineries potentially also cost Industrial Components — spam risk here is already covered by `BlockLimits`, not something to solve separately.
+
+**Practical Stage 1 scope:** only the vanilla-cost starting tier plus the Destroyer proof-of-concept (low Military Components) actually need to exist for Stage 1's playable milestone. Everything else in the table above — Cruiser and up, Attacker and up, Light Tank and up — is real, confirmed design, but belongs with Stage 5's deeper roster.
 
 ### Salvage loop
 
-Non-hostile, pre-damaged versions of existing hulls (a hulked Francesco Crispi, a stripped Golo) as static, explorable salvage sites — existing prefabs with `IsPirate:false` and some blocks pre-removed/damaged. Towed or ground down at a Base/Outpost, feeding the unlock economy. No new grids required, so this belongs in Stage 1 rather than waiting on Stage 4.
+Non-hostile, pre-damaged versions of existing hulls (a hulked Francesco Crispi, a stripped Golo) as static, explorable salvage sites — existing prefabs with `IsPirate:false` and some blocks pre-removed/damaged. Should cover both military-themed wrecks (Francesco Crispi, Le Triomphant) and civilian-themed wrecks (Golo) to match the military/civilian loot-sourcing split above, not just one or the other. Towed or ground down at a Base/Outpost, feeding the unlock economy. No new grids required, so this belongs in Stage 1 rather than waiting on Stage 4.
+
+### Do NPCs need Ship Cores?
+
+**Working answer: no.** Ship Core Framework's `MaxPerFaction`/`MaxPerPlayer` design is oriented around limiting player-built grids — an MES-spawned NPC ship isn't "progressing," it's pre-built encounter content, same as today. This matches the broader ecosystem convention (Block Restrictions explicitly differentiates `AllowedForNPC`/`AllowedForPlayer`/`AllowedForUnowned`) of exempting NPC ownership from player-progression systems by default. Not fully settled, though — found a real, unresolved forum comment from someone hitting this exact ambiguity in practice with a different but related core mod ("tried spawning ships with the core[s] on them there was no level set to them"). Treat as a real to-do, not an assumption. (Note: your own correction — SDX2 runs MES underneath, with AI Enabled/Crew Enabled as supplementary systems rather than a replacement — makes SDX2 more relevant evidence here than originally credited, not less, since it's a real MES-based server coexisting with a core-progression mod.)
 
 **To-do:**
-- [ ] Name and define the unlock currency item.
-- [ ] Add the unlock currency to existing `WW2-Loot-*` container profiles at a tuned drop frequency.
+- [ ] Once Ship Core Framework is actually integrated, test spawning an NPC ship with no core at all — confirm it isn't rejected, capped, or otherwise affected before assuming NPCs can stay core-free.
+- [ ] Check Ship Core Framework's actual default behavior for coreless/small grids — confirm whether a minor build (ramp, bridge, similar) below some threshold is naturally exempt, per the "Two smaller open items" note above.
+- [ ] Add type-appropriate ammo to NPC cargo loot — naval gun ammo on ships, aircraft gun ammo on planes — extending the existing `WW2-Loot-*` profiles per ship class. Blocked on confirmed ammo magazine SubtypeIds from Fletcher Armaments/Consty's Ordnance (separate from the weapon *block* IDs already gathered — ammo magazine IDs are typically distinct strings, need their own lookup pass once the weapon rebuild settles).
+
+**To-do:**
+- [ ] Add Industrial/Military/Advanced Military Components to existing `WW2-Loot-*` container profiles at tuned drop frequencies, per the military/civilian sourcing split confirmed above.
+- [ ] Sub-classify the existing `WeaponBlocks` `BlockGroup` split (Guns/Bombs/Torpedoes/Smoke) into basic vs. advanced, to support vanilla-vs-Military-Component weapon costing.
 - [ ] Write `ShipCoreConfig_World.xml` (confirm `MaxPossibleSpeedMetersPerSecond:150`, `MassTypeMode`, `FrictionSpeedValueMode`).
 - [ ] Write `BlockGroup` definitions: `ProductionBlocks`, `CargoBlocks`, `ToolBlocks` (can start now, vanilla types) and `WeaponBlocks` (blocked on weapon rebuild).
-- [ ] Write the eight Stage 1 `ShipCore` XML definitions (Civilian Naval, Corvette Naval, Cargo Plane, Fighter, Transport, Armored Car, Base, Outpost).
+- [ ] Add Ship Core Framework as a mod dependency to the world/mod list.
+- [ ] Smoke test before committing further: write one minimal `ShipCore` definition (no component cost, just a block limit or two) and place it on a throwaway test grid. Confirm the block limit actually enforces, `/core` commands respond as documented, and `MaxPossibleSpeedMetersPerSecond:150` is taking effect — before writing any of the real definitions below on top of an unverified foundation.
+- [ ] Write the eight Stage 1 `ShipCore` XML definitions (Civilian Naval, Corvette Naval, Cargo Plane, Fighter, Transport, Armored Car, Base, Outpost) — vanilla-component cost.
+- [ ] Write the Destroyer `ShipCore` definition — low Military Components cost — as the Stage 1 proof-of-concept unlock tier.
 - [ ] Design and build the Corvette → Destroyer unlock trigger chain as the proof-of-concept for the whole gating system.
-- [ ] Spawn-condition a small number of salvageable wreck variants of existing hulls.
-- [ ] Playtest: start on Basic-tier everything, fight/salvage using existing assets, confirm Advanced unlock actually fires.
+- [ ] Spawn-condition a small number of salvageable wreck variants of existing hulls, covering both military and civilian spawn themes.
+- [ ] Playtest: start on vanilla-cost everything, fight/salvage using existing assets, confirm the Destroyer unlock actually fires once enough Military Components are banked.
 
 ---
 
@@ -126,12 +205,29 @@ No new grids required. Two patterns adapted from Ares at War's `_FAC` shared fra
 
 ## Stage 3 — Capturable Territory
 
-No new grids required. Adapt AaW's Capturable/CapturableController pattern to one installation type (Ammo Depot is simplest) — on capture: recolor grid, flip block ownership, disable old owner's supply triggers, enable new owner's. Hooks into existing `WW2-Manipulation-AmmoDepots` and faction-override plumbing.
+No new grids required. Adapt AaW's Capturable/CapturableController pattern to one installation type (Ammo Depot is simplest) — on capture: recolor grid, flip block ownership, disable old owner's supply triggers, enable new owner's. Hooks into existing `WW2-Manipulation-AmmoDepots` and faction-override plumbing. This first-pass version doesn't need the custom planet — one installation, no spacing or terrain requirements.
 
 **To-do:**
 - [ ] Build capture trigger chain for Ammo Depot.
 - [ ] Wire captured territory in as a third feed into the Stage 1 unlock currency (confirmed design — see Stage 1).
 - [ ] Playtest: confirm a captured depot actively works for its new owner.
+
+### Stage 3 expansion — region-based territory growth (confirmed design, sequenced after the Custom Planet track)
+
+A fuller version, worth real design attention now even though it builds later. Confirmed pieces:
+
+- **Neutral installations exist.** Refineries and similar can be unthemed — owned by neither faction by default, matching the "Nobody" faction pattern already confirmed to exist in Ares at War's own structure. Reputation-gated purchases at these (buying ice/hydrogen with sufficient faction standing) is a direct reuse of the same mechanism already confirmed for Advanced Military Components in Stage 1 — same lever, applied to a new resource.
+- **Cargo delivery tracking is fully buildable now, no scripting needed.** The exact hook already exists: `WW2-Command-CargoPlane-DestinationReached` and `WW2-Command-CargoShip-DestinationReached` (the same destination-arrival commands fixed for a SubtypeId collision earlier in this project) fire exactly when a cargo vehicle reaches its drop-off point. Attach a CustomCounter-increment Action to that command, weighted differently for ships vs. planes (e.g. +20 per cargo ship delivery, less per plane), and the tracking side is just config on an existing trigger.
+- **Region-based ownership, not true geometric expansion.** A genuinely growing circular zone would need MES to compute which installations currently fall inside a changing radius — not confirmed to exist as a feature. The buildable equivalent: group installations into a small number of hand-placed regions ahead of time, give each region its own per-faction CustomCounter pair, and flip every installation in a region together once one faction's counter crosses a threshold (e.g. Gray reaches 100 in a region, that region's installations flip to Gray). Overlapping-territory "shrinks the other side" becomes two counters racing per region, not literal geometry.
+- **Players fighting both factions stop being an edge case.** Since ownership is driven by relative delivery volume between factions rather than by direct player capture, a player hostile to both sides just slows both factions' growth rather than creating a logical contradiction about who's capturing what.
+- **Confirmed dependency: sequence after the Custom Planet track.** Hand-placed regions need reliable spacing, flat buildable terrain, and sensible connectivity between locations — none of which is guaranteed on a planet that isn't under the mod's own control. This is the first case in this roadmap where a parallel track becomes a real prerequisite rather than staying non-blocking; worth remembering if this pattern comes up again.
+- **Static, invulnerable installations fit MES's existing tools.** Hand-placed static encounters with invulnerability set are a normal MES capability, not something new to build.
+
+**To-do (blocked on Custom Planet completing):**
+- [ ] Design the region layout against the finished planet — count, spacing, terrain suitability.
+- [ ] Build the CustomCounter-increment Actions on the existing cargo destination-reached commands.
+- [ ] Build the per-region threshold-check and ownership-flip logic, reusing the single-installation capture mechanics above.
+- [ ] Decide neutral-installation scope: which installation types (refineries confirmed, others TBD) stay unthemed and reputation-gated rather than faction-owned from the start.
 
 ---
 
@@ -156,7 +252,25 @@ Air can wait — the existing Fighter roster already covers the starting tier.
 
 By now the loop is proven end to end. Roughly in order of effort:
 
-- **Rest of each ladder:** Destroyer → Cruiser → Heavy Cruiser → Battleship → Carrier (Naval); Attacker/Bomber → Heavy Bomber (Air); Light Tank → Medium Tank → Heavy Tank (Wheeled). Cruiser-tier roster is now named: **Trento** and **Zara** (Gray) alongside **Algerie** (Green) — this also fixes the old Gray/Green Cruiser imbalance, since Gray previously had none at all. Emile Bertin and a completed Comandante Margottini remain in the mix as well, so Green ends up with two Cruiser-tier hulls (Emile Bertin, Algerie) against Gray's two (Trento, Zara) — nicely balanced once all four are built. **Battleship** now has real intent behind it too — one hull per faction, not yet named/started. Note: Algerie and Emile Bertin both carry the AWG piston/hinge catapult-floatplane assembly responsible for the grid-loading bug (see Stage prefab checklist) — factor the rebuild into their timelines, not just Emile Bertin's rebuild-list entry.
+- **Rest of each ladder:** Destroyer → Cruiser → Heavy Cruiser → Battleship → Carrier (Naval); Attacker/Bomber → Heavy Bomber (Air); Light Tank → Medium Tank → Heavy Tank (Wheeled). **Correction, confirmed via research:** Trento, Zara, and Algérie are all officially classed Heavy Cruisers (Washington Treaty tonnage), not plain Cruisers — Emile Bertin alone is a genuine light Cruiser. Corrected roster: **Cruiser tier — Bartolomeo Colleoni** (Gray, Giussano-class, famously lost at the Battle of Cape Spada) and **Emile Bertin** (Green). **Heavy Cruiser tier — Trento and Zara** (Gray) and **Algérie** (Green, confirmed France's only heavy cruiser under treaty limits — no sister ship, an honest asymmetry to keep rather than fix, same shape as the Italian heavy-tank gap). **Battleship — Strasbourg** (Green, Dunkerque-class; existing blueprint from an established builder, to be adapted) and **Vittorio Veneto** (Gray, Littorio-class; a real, purchasable 1/1800 reference model exists on MyMiniFactory, and the class is well-represented across Sketchfab/CGTrader/physical scale kits too — picked over sister ships Littorio and Roma for having the broadest active-service record: present at both Taranto and Cape Matapan, rather than fame tied to a single event). Note: Algerie and Emile Bertin both carry the AWG piston/hinge catapult-floatplane assembly responsible for the grid-loading bug (see Stage prefab checklist) — factor the rebuild into their timelines, not just Emile Bertin's rebuild-list entry.
+
+### Air roster — Attacker/Bomber and Heavy Bomber tiers (confirmed)
+
+**Gray (Italy):**
+- **Attacker/Bomber tier — Breda Ba.88 and Savoia-Marchetti SM.79.** SM.79 ("il Gobbo Maledetto," the damned hunchback) is one of the most famous Italian aircraft of the war, especially in its torpedo-bomber ("Silurante") role — a dedicated torpedo variant is planned specifically to threaten player ships. Ba.88 fills the lighter/entry role — genuinely real and well-documented, but its actual historical reputation is "notoriously one of WW2's worst operational aircraft," which fits an entry-tier plane thematically rather well rather than being a downside.
+- **Heavy Bomber tier — Piaggio P.108.** Italy's only operational four-engine heavy bomber. Existing impressive model already built, needs rebuild onto the new weapon systems.
+
+**Green (France):**
+- **Attacker/Bomber tier — Lioré et Olivier LeO 451.** Widely regarded as the best French bomber of the war — the closest French equivalent to SM.79 in national significance, even though it arrived too late and in too few numbers to matter much before the armistice. Optional third pick for full symmetry with Gray's entry-tier: **Bloch MB.210** (older, more obsolescent by 1940, same "weaker starting bomber" role Ba.88 fills for Gray) — not decided, just flagged as available if wanted later.
+- **Heavy Bomber tier — Farman F.222.** Confirmed via research to be far more significant than expected: explicitly classified as a heavy bomber, "the only four-engined bomber in front line service with any Allied air force" at the start of the Battle of France, flew 63 night-bombing sorties over Germany in May–June 1940, and a related variant flew the first-ever Allied bombing raid on Berlin. Civilian use was the historical *secondary* role, not primary — the reverse of how the existing asset is currently used (Cargo Plane tier). Strong case for reusing/varianting the existing F.222 build into a military-spec version rather than starting from scratch — build approach (shared base hull vs. two separate builds) still an open call.
+
+**Reference material found for new builds** (BA.88, SM.79, LeO 451 all appear to come from the same modeler's consistent "Historic Aircraft (1914–1974)" series on CGTrader — worth building from one consistent source rather than mixing styles):
+- SM.79: multiple free/paid 3D models on Sketchfab and CGTrader, including several explicitly modeled as the torpedo-bomber variant.
+- Ba.88: 3D model on CGTrader (same series as above), plus a dedicated multi-view blueprint on drawingdatabase.com.
+- LeO 451: 3D model on CGTrader (same series), three-view drawings also findable via general image search.
+- P.108: no new search needed — existing asset already covers this.
+
+
 - **Upgrade Modules:** convert core-swap progression to modules-on-top-of-one-core where it improves the feel (per the confirmed schema support above).
 - **Retaliation/escalation** (from AaW): tiered "strike back" raids against captured territory, cooldown-limited. Reuses Stage 3's capture plumbing.
 - **Fleet/Escort formalization** (from AaW's EscortSystem): generalize the existing `CarrierSpawn` escort pattern into something reusable across ship classes.
@@ -168,7 +282,7 @@ By now the loop is proven end to end. Roughly in order of effort:
 
 ## Parallel track — Custom Planet
 
-Doesn't block or get blocked by the staged sequence above — new terrain doesn't need Stage 4's new hulls to exist, and Stage 4's hulls don't need new terrain either. Pick this up whenever, including alongside the weapon rebuild, since it's a genuinely different skill (terrain/image work, not XML/grid design) and switching between them may be a welcome break rather than a distraction.
+Doesn't block or get blocked by the numbered stages themselves — new terrain doesn't need Stage 4's new hulls to exist, and Stage 4's hulls don't need new terrain either. Pick this up whenever, including alongside the weapon rebuild, since it's a genuinely different skill (terrain/image work, not XML/grid design) and switching between them may be a welcome break rather than a distraction. **One real dependency exists, though:** Stage 3's region-based territory expansion (see Stage 3) needs this track finished first — hand-placed capture regions need reliable spacing and terrain that only a planet under the mod's own control can guarantee. First case in this roadmap where a parallel track became a genuine prerequisite; the original Stage 3 single-installation capture doesn't share this dependency.
 
 **What a custom planet actually is:** a `PlanetGeneratorDefinition` (.sbc) plus a heightmap (6 tiled grayscale textures forming the terrain) plus a biome map (6 more tiled textures, RGB-channel-encoded: RED = ground material, GREEN = foliage, BLUE = ore placement). Ports and convoy routes aren't part of the planet file itself — those are just where you place your existing installation prefabs and patrol GPS points once terrain exists, which is work you already know how to do. The new skill is specifically coastline/terrain shaping.
 
@@ -192,9 +306,15 @@ Doesn't block or get blocked by the staged sequence above — new terrain doesn'
 
 Not scoped yet on purpose — see the ROI discussion above. Revisit once Stage 3/5's capturable territory is live and actually contested; a map has nothing dynamic to show before then. When that point arrives, work through the three tiers (existing Workshop map script → custom LCD/GPS script → bespoke external tool) in that order, stopping at whichever tier actually earns its cost.
 
+---
 
+## Long-term vision
 
-Not scoped yet, named so early architecture doesn't box it out. Splitting Gray/Green into historical sub-factions (Germans/Italians under Gray; French/US/UK/Soviets under Green, or some other split) matches AaW's structure of many factions under fewer broad alliances. Practical implication for everything above: avoid hardcoding "GRAY"/"GREEN" any more than necessary, prefer patterns that generalize to a new faction being copy-and-retarget rather than a rewrite.
+**Sub-factions.** Not scoped yet, named so early architecture doesn't box it out. Splitting Gray/Green into historical sub-factions (Germans/Italians under Gray; French/UK/US/Soviets under Green, or some other split) matches AaW's structure of many factions under fewer broad alliances. Practical implication for everything above: avoid hardcoding "GRAY"/"GREEN" any more than necessary, prefer patterns that generalize to a new faction being copy-and-retarget rather than a rewrite.
+
+**First wave, confirmed: Germany (Gray) and UK (Green).** UK over US for the first wave — Britain was Italy's primary Mediterranean opponent for nearly the entire period the existing roster already centers on (Taranto, Cape Matapan, Malta convoys, the early North African campaign all predate US Mediterranean involvement, which didn't begin until Operation Torch in November 1942). UK also brings more genuinely new content to players, since it's less commonly built in the existing SE Workshop ecosystem than US equipment — the tradeoff being fewer existing builds to reference/borrow from, which is a real cost but a manageable one given the mod's existing pattern of building from scratch (Fiat 626, Renault). US remains a strong later addition, natural to pair with a Sicily/Italy-invasion-era expansion rather than this first wave.
+
+**More ore/ingot variety, SDX2-inspired.** SDX2 doesn't add a resource layer beneath their components — it just adds more raw ores and ingots alongside vanilla's existing set (lead, copper, etc., sitting next to iron, silicon, cobalt). So the actual tradeoff here is simpler than "add a new economic tier": it's whether refining/component-building recipes get more varied and specific, or stay on vanilla's existing ore set. Still a real accessibility-vs-depth call — more ore types means more mining/refining variety but also more for a new player to track — but it's additive breadth, not structural complexity. Parked for the same reason as the custom planet and map tool: not needed to prove Stage 1's core loop, easy to add later by defining new ore/ingot pairs and wiring them into whichever recipes should use them, without needing to touch the three-component system's own structure at all.
 
 ---
 
@@ -202,4 +322,4 @@ Not scoped yet, named so early architecture doesn't box it out. Splitting Gray/G
 
 The weapon rebuild has to happen first, full stop — nothing else is testable on top of a dead weapon mod. After that, Stages 1–3 are entirely trigger/XML work on the (now-rebuilt) existing roster and get a genuinely different-feeling mod — full core progression across ships/planes/tanks/bases, squadron behavior, reputation, capturable territory, salvage economy — before a single new hull needs designing. Stage 4 is deliberately small so the payoff of "new grids" gets tested cheaply before Stage 5 asks for more of them. Each stage's playable milestone stands on its own.
 
-The two parallel tracks (Custom Planet, Map Tool) sit outside this sequence deliberately — they don't block the stages and the stages don't block them. Pick up the planet work whenever the XML/grid work needs a break; leave the map tool alone until there's live territory worth mapping.
+The two parallel tracks (Custom Planet, Map Tool) mostly sit outside this sequence — they don't block the stages and the stages don't block them, with one exception: Stage 3's fuller region-based territory expansion now waits on the Custom Planet track, since it needs terrain the mod actually controls. Pick up the planet work whenever the XML/grid work needs a break; leave the map tool alone until there's live territory worth mapping.
