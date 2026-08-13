@@ -1,6 +1,6 @@
 # WW2 Encounters — Expansion Roadmap & To-Do List
 
-A staged plan for growing the mod from its current state (Naval + Air + Installations, Gray/Green factions) into a fuller PvPvE experience with Ship-Core-driven progression, borrowing proven systems from Ares at War and GV Deserts of Kharak Season 10. Ordered so small, achievable, playable milestones come first, and grid-design-heavy work comes only once the systems around it are proven.
+A staged plan for growing the mod from its current state (Naval + Air + Installations, Gray/Green factions) into a fuller PvPvE experience with Ship-Core-driven progression, borrowing proven systems from Ares at War, GV Deserts of Kharak Season 10, and MES Shared Behaviors (MSB — enenra's public MES behavior library). Ordered so small, achievable, playable milestones come first, and grid-design-heavy work comes only once the systems around it are proven. Custom C# scripting is in scope for this project where it's the right tool, but deliberately staged in after simpler XML-only versions are built and playable — see Stage 3's territory section and Stage 5 for where scripting is first introduced.
 
 ---
 
@@ -10,7 +10,7 @@ Not a stage so much as a foundation everything else sits on. The current naval w
 
 - **Naval weapons:** [Fletcher Armaments – WeaponCore Edition](https://steamcommunity.com/sharedfiles/filedetails/?id=2844434226) (Workshop 2844434226) — WeaponCore-based WW2 naval weapon pack.
 - **Air weapons:** [Consty Aircraft Pack – Ordnance (WeaponCore) 1.0](https://steamcommunity.com/sharedfiles/filedetails/?id=2881339118) by Const (Workshop 2881339118), companion to Const's Tech-Focused Aircraft Pack. Confirmed via its changelog to mix genuinely period-appropriate content (.50 cal guns, 30mm aircraft cannon, unguided bombs, rocket pods) with clearly modern/anachronistic content (AIM-7/54/120 guided missiles, 5.56mm burst rifles, 9mm SMGs, .45 handguns). The lockdown plan is sound and necessary, not just thematic tidiness — gate/exclude the modern-coded weapons, keep the period-coded ones, using the same tech-item mechanism as Stage 1's unlock currency.
-- **Ground vehicle weapons: confirmed — KONTAKT Ground Systems [WeaponCore] v1.0.** Mostly fixed weapons. Same identification and BlockGroup-building process as Fletcher Armaments/Consty's Ordnance once you're ready to pull its block SubtypeIds.
+- **Ground vehicle weapons:** [KONTAKT Ground Systems [WeaponCore] v1.0](https://steamcommunity.com/sharedfiles/filedetails/?id=2930049835) Mostly fixed weapons. Same identification and BlockGroup-building process as Fletcher Armaments/Consty's Ordnance once you're ready to pull its block SubtypeIds.
 - **CWP replacement candidates**
   - **SETB Community Tank Parts** — replace all existing armor blocks, enabling the ground vehicle rebuild off AWG CWP armor specifically.
   - **ArmourEssentials** — Mostly turret ring rotors, gunsight cameras, and rangefinders.
@@ -20,19 +20,19 @@ Not a stage so much as a foundation everything else sits on. The current naval w
 - **Dependency additions:** WeaponCore itself, plus whichever specific weapon-pack mods end up used. Worth checking MES's documented WeaponCore compatibility notes once rebuild work starts, since combining MES/RivalAI-driven NPCs with WeaponCore weapons is a well-trodden combination but has its own configuration quirks (weapon targeting profiles, ammo replenishment behavior).
 
 **To-do:**
-- [ ] Pull KONTAKT Ground Systems' block SubtypeIds and TypeId the same way Consty's Ordnance was handled.
-- [ ] Confirm whether SETB Community Tank Parts includes large grid rotors — determines if it's a full or partial AWG CWP replacement.
-- [ ] Cross-check Yakobe's Machinations' gun roster against KONTAKT's for overlapping/colliding SubtypeIds before using both.
+- [x] Pull KONTAKT Ground Systems' block SubtypeIds and TypeId the same way Consty's Ordnance was handled.
+- [x] Confirm whether SETB Community Tank Parts includes large grid rotors — determines if it's a full or partial AWG CWP replacement.
+- [x] Cross-check Yakobe's Machinations' gun roster against KONTAKT's for overlapping/colliding SubtypeIds before using both.
 - [ ] Decide final ground vehicle scale factors within the confirmed 110–120% (military) / up to 150% (civilian) ranges, and rescale the existing Fiat 626 and Renault builds if the civilian figure ends up above 100%.
 - [ ] Pull the full Consty Ordnance block list and sort into "period, keep" vs. "modern, gate or exclude" — AIM-7/54/120 and the modern small arms are confirmed non-period from the changelog alone, but the full list needs a proper pass.
 - [ ] Rebuild each existing hull's weapon fit onto Fletcher Armaments / Consty's Ordnance, replacing custom rotor/hinge turret rigs with general WeaponCore turrets. Broken out per-prefab below so each is a single sitting's work — check the box when that prefab's weapons are rebuilt and it loads clean with the old mod removed. Naval uses Fletcher Armaments; Air uses Consty's Ordnance (WW2-appropriate blocks only, per the lockdown scope above); Installations may need either or neither depending on what defenses they actually carry.
 
   **Naval:**
-  - [ ] NPC-WW2-Golo_Italian (Cargo Ship, Gray)
-  - [ ] NPC-WW2-Golo_French (Cargo Ship, Green)
-  - [ ] NPC-WW2-Gabbiano (Corvette, Gray)
-  - [ ] NPC-WW2-Spica (Torpedo Boat, Gray)
-  - [ ] NPC-WW2-Francesco_Crispi (Destroyer, Gray)
+  - [x] NPC-WW2-Golo_Italian (Cargo Ship, Gray)
+  - [x] NPC-WW2-Golo_French (Cargo Ship, Green)
+  - [x] NPC-WW2-Gabbiano (Corvette, Gray)
+  - [x] NPC-WW2-Spica (Torpedo Boat, Gray)
+  - [x] NPC-WW2-Francesco_Crispi (Destroyer, Gray)
   - [ ] NPC-WW2-Comandante_Margottini (Destroyer, Gray)
   - [ ] NPC-WW2-La_Malouine (Corvette, Green)
   - [ ] NPC-WW2-Bougainville (Aviso/Destroyer-behavior, Green)
@@ -96,17 +96,64 @@ Not a stage so much as a foundation everything else sits on. The current naval w
 
 **Existing assets affected:** the Fiat 626 (Italian) and Renault AHR-or-similar (French) are both built at 1:1 and are the natural Transport-tier hulls. If civilian scale-up is adopted, both need rescaling before use — worth deciding before further detail work goes into them at the wrong scale.
 
-### Wheeled roster (confirmed)
-
-Researched and cross-checked against real WW2 deployment history — including a look at whether either faction fielded another nation's equipment, since neither historically had a proper heavy tank of its own by international classification. Resolved without needing to borrow across the Axis/Allied divide: both factions have strong native tank-destroyer/SPG lineages that fill the Heavy tier honestly.
+### Naval roster (confirmed)
 
 | Tier | Gray (Italy) | Green (France) |
 |---|---|---|
-| **Transport** | Fiat 626 *(built)* | Renault AHR-or-similar *(built)* |
-| **Armored Car** | AB 41; **L3/35** (reclassified down from Light Tank — a 3.2-ton MG-only tankette reads closer to a light armored car by international standards than to a contemporary light tank) | Panhard 178 (AMD 35) |
-| **Light Tank** | **L6/40** (now Italy's sole Light Tank entry following L3/35's move) | Renault R35, Hotchkiss H35/H39 |
-| **Medium Tank** | M13/40, M14/41; **Semovente da 75/18** (Italy's most-produced SPG, same chassis family, arguably a better vehicle than the tank it's based on) | SOMUA S35, Char D2 |
-| **Heavy Tank** | **P26/40** (kept — Italy's own "pesante" classification, even though internationally comparable to a Panzer IV/early Sherman); **Semovente da 90/53 or da 105/25** (native tank-hunter answer to the international-heavy-tank gap, no borrowed equipment needed — final pick between the two still open) | **Char B1 (bis)** (holds up as genuinely heavy under international classification too); **M10 Wolverine** (227–443 delivered to Free French forces 1943–45, real documented combat history including the Battle of Dompaire) |
+| **Civilian** | Golo (Italian variant) | Golo (French variant) |
+| **Corvette** | Gabbiano | La Malouine |
+| **Destroyer** | Francesco Crispi, Comandante Margottini, Spica (Torpedo Boat) | Bougainville (Aviso/Destroyer-behavior), Le Triomphant |
+| **Cruiser** | Bartolomeo Colleoni (Giussano-class, famously lost at the Battle of Cape Spada) | Emile Bertin (France's only genuine light Cruiser under treaty classification) |
+| **Heavy Cruiser** | Trento, Zara | Algérie (confirmed France's only heavy cruiser under treaty limits — no sister ship, an honest asymmetry to keep rather than fix, same shape as the Italian heavy-tank gap) |
+| **Battleship** | Vittorio Veneto (Littorio-class — picked over sister ships Littorio and Roma for the broadest active-service record: present at both Taranto and Cape Matapan, rather than fame tied to a single event) | Strasbourg (Dunkerque-class; existing blueprint from an established builder, to be adapted) |
+| **Carrier** | Aquila | Bearn |
+
+**Correction on record (confirmed via research):** Trento, Zara, and Algérie are all officially classed Heavy Cruisers (Washington Treaty tonnage), not plain Cruisers — Emile Bertin alone is a genuine light Cruiser, and Bartolomeo Colleoni fills the Gray Cruiser-tier slot that opened up as a result.
+
+**Spica placement confirmed:** Spica (Torpedo Boat, Gray) is now placed in the Destroyer tier alongside Francesco Crispi and Comandante Margottini — resolves the earlier open item about it not mapping cleanly onto the ladder.
+
+**Known build issue affecting two hulls:** Algérie and Emile Bertin both carry the AWG piston/hinge catapult-floatplane assembly responsible for the grid-loading bug identified during the mod audit (root cause confirmed on Emile Bertin, same mechanism present on Algérie, absent on Trento). Factor the catapult rebuild into both hulls' timelines.
+
+---
+
+### Air roster (confirmed)
+
+| Tier | Gray (Italy) | Green (France) |
+|---|---|---|
+| **Civilian** | Ju52 *(open item — see below)* | F.222 (civilian variant) |
+| **Fighter** | Re2001, Re2000 | F4F, MS406 |
+| **Attacker** | FC20; Ba.88 *(Stage 5 addition)* | Potez630, V-156-F; MB.210 *(Stage 5 addition)* |
+| **Bomber** | SM.79 *(Stage 5 addition)*; P.108 | LeO 451 *(Stage 5 addition)*; F.222 (military variant) |
+
+**Tier naming updated:** the old "Attacker/Bomber" and "Heavy Bomber" tiers are now separate Attacker and Bomber tiers, matching the Fighter/Corvette-style single-word tier naming used elsewhere. FC20, Potez630, and V-156-F are existing built assets already tracked in the weapon-rebuild checklist; Ba.88, SM.79, MB.210, and LeO 451 are Stage 5 additions confirmed in an earlier session.
+
+**Open item: Gray Civilian-tier air.** Ju52 is German-built, not Italian — relevant to the Italian theater (Italy did operate Ju52s) but not a fully Italian aircraft, unlike Green's F.222 which is wholly French. Whether to keep Ju52 as-is, pair it with a more distinctly Italian civilian/transport type, or replace it outright is unresolved — revisit later rather than deciding now.
+
+**SM.79** ("il Gobbo Maledetto," the damned hunchback) is one of the most famous Italian aircraft of the war, especially in its torpedo-bomber ("Silurante") role — a dedicated torpedo variant is planned specifically to threaten player ships. **Ba.88** fills the lighter attack role — genuinely real and well-documented, but its actual historical reputation is "notoriously one of WW2's worst operational aircraft," which fits an entry-tier plane thematically rather well.
+
+**P.108** is Italy's only operational four-engine heavy bomber. Existing impressive model already built, needs rebuild onto the new weapon systems.
+
+**LeO 451** is widely regarded as the best French bomber of the war — the closest French equivalent to SM.79 in national significance, even though it arrived too late and in too few numbers to matter much before the armistice. **MB.210** fills the entry-tier attack role — older, more obsolescent by 1940, the same "weaker starting" role Ba.88 fills for Gray.
+
+**F.222** is confirmed via research to be far more significant than expected: explicitly classified as a heavy bomber, "the only four-engined bomber in front line service with any Allied air force" at the start of the Battle of France, flew 63 night-bombing sorties over Germany in May–June 1940, and a related variant flew the first-ever Allied bombing raid on Berlin. Civilian use was the historical *secondary* role, not primary — the reverse of how the existing asset is currently used (Civilian tier). **Build approach confirmed: the existing F.222 build will be modified into the military-spec Bomber-tier version rather than built from scratch.**
+
+---
+
+### Ground roster (confirmed)
+
+*(Renamed from "Wheeled roster" — the category isn't exclusively wheeled, and the Transport tier is renamed Civilian to match the naming convention used in Naval/Air.)*
+
+| Tier | Gray (Italy) | Green (France) |
+|---|---|---|
+| **Civilian** | Fiat 626 *(built)*; SPA Dovunque 35 | Renault AHR-or-similar *(built)*; Laffly S15 (S15T/S15R family); Laffly S20 |
+| **Armored Car** | AB 41; L3/35 (reclassified down from Light Tank — a 3.2-ton MG-only tankette reads closer to a light armored car by international standards than to a contemporary light tank) | Panhard 178 (AMD 35) |
+| **Light Tank** | L6/40 (now Italy's sole gun-turret Light Tank entry following L3/35's move); Semovente L40 da 47/32 (open-casemate SPG/tank-destroyer on the L6/40 chassis, ~400 built 1941–45 — same "SPG built on a gun-tank's chassis" pattern as the Medium tier's 75/18) | Renault R35, Hotchkiss H35/H39; FCM 36 (contemporary/competing design to R35/H35 from the same 1930s French light-tank program, 100 built 1938–39, notable as the only diesel-powered French tank of the era) |
+| **Medium Tank** | M13/40, M14/41; Semovente da 75/18 (Italy's most-produced SPG, same chassis family, arguably a better vehicle than the tank it's based on) | SOMUA S35, Char D2 |
+| **Heavy Tank** | P26/40 (kept — Italy's own "pesante" classification, even though internationally comparable to a Panzer IV/early Sherman); Semovente da 105/25 (final pick over da 90/53 — native tank-hunter answer to the international-heavy-tank gap; existing build already exists but needs a full rebuild, tracked separately from this roster decision) | Char B1 (bis) (holds up as genuinely heavy under international classification too); M10 Wolverine (227–443 delivered to Free French forces 1943–45, real documented combat history including the Battle of Dompaire) |
+
+**Open item, not yet addressed:** Green now has three Civilian-tier trucks to Gray's two. Not a problem to fix by default — flagged for awareness in case a second Gray pick is wanted later for symmetry.
+
+**Civilian tier scope, confirmed as open-ended:** the Civilian tier isn't locked to historical trucks alone. Non-historical utility vehicles players will want — mining, welding, grinding rigs, possibly articulated-arm designs — are anticipated future additions to this tier, not ruled out by the historical framing used for the rest of the roster. Not scoped yet; revisit when utility-vehicle design work actually starts.
 
 **Ruled out during research, worth remembering so it doesn't resurface as an assumption:**
 - Tiger/Panther for Italy — Germany never transferred either to Italian units; confirmed dead end, not a style choice.
@@ -194,61 +241,92 @@ Non-hostile, pre-damaged versions of existing hulls (a hulked Francesco Crispi, 
 
 ---
 
-## Stage 2 — Squadron & Reputation Depth
+## Stage 2 — Squadron, Reputation, and Morale Depth
 
-No new grids required. Two patterns adapted from Ares at War's `_FAC` shared framework:
+No new grids required. Design sourced from a three-way comparison of Ares at War (AaW), MES Shared Behaviors (MSB — enenra's public MES behavior library, github.com/enenra/mes-shared-behaviors), and GVK Deserts of Kharak S10, reconciled below. Confirmed decisions, not open questions.
 
-- **Squadron wingman tracking:** each plane in a flight broadcasts its own death via a command code; survivors track losses via boolean flags and break off once their flight is gone. Slots into existing `Behaviors-Fighter.sbc`.
-- **Layered reputation:** replace the flat ±1 `ReputationDamage` trigger with conditional logic (e.g., destroying something a faction also considers hostile improves standing with them, via a counter threshold) — richer Condition Profiles on existing triggers, no new content.
+**Squadron/escort tracking: MSB's `CommandChain` system, adopted wholesale.** AaW's own squadron pattern was considered first (each plane in a fixed numbered flight — Squadron1/2/3 — broadcasts its own death via a command code, survivors watch boolean flags for their specific wingmen and break off once all others are down) and works, but it's hand-authored per fixed slot count, not generic. MSB's `CommandChain` does the same job — leader/escort join-up, renaming, and death notification via `CommandCode` broadcast (`MSB_LeaderDead`) and boolean state (`LeaderInactive`) — but uses RivalAI's native `AssignEscortFromCommand` for slot assignment, so it scales to however many escorts actually spawn rather than needing a separately-authored trigger/condition pair per numbered slot. **Decision: use MSB's mechanism as the underlying system; flight size of 2–3 planes remains a content choice (how many fighters get spawned into a given encounter), not a constraint baked into the tracking logic itself.**
+- Add `MSB_System_CommandChain_Leader_TriggerGroup` to flight leaders, `MSB_System_CommandChain_Escort_TriggerGroup` to wingmen, per MSB's usage notes.
+- Both require one of `MSB_DynamicCommon_TriggerGroup`/`MSB_StaticCommon_TriggerGroup` present on the encounter first, per MSB's base requirements.
+
+**Layered reputation: binary contribution-threshold gate, not tiered credit.** Sourced from AaW's `_FAC` REPSystem (`FAC-Context-REPAHE.sbc` and per-faction siblings): a hostile unit's death (`Type:Compromised`) checks `CheckCustomCounters:CountPlayerDamage >= 15` before awarding reputation with the beneficiary faction (i.e., killing something a faction also considers hostile improves standing with them — "enemy of my enemy"), radius-shared so nearby faction-mates of the killer get credit too. MSB's `_DynamicCommon.sbc` separately tracks three finer-grained kill-credit outcomes (`Compromised_PlayerHelped` / `Compromised_PlayerMadeFinalShot` / `Compromised_PlayerNotHelped`) which could in principle tier the reward. **Decision: don't tier it.** Two players who both clear the damage-contribution minimum should get equal full credit — a partial-credit tier risks one contributor feeling shortchanged relative to the other for what reads, in the moment, as equivalent effort. Use AaW's binary threshold shape; MSB's finer states aren't needed for this.
+- Replace the flat ±1 `ReputationDamage` trigger with `CheckCustomCounters:CountPlayerDamage` gating a `ChangeReputationWithPlayers` action on relevant hostile-to-Gray/hostile-to-Green kills.
+- Radius-share the reputation gain to nearby faction members of the credited player, matching AaW's `ReputationChangesForAllRadiusPlayerFactionMembers`.
+
+**Morale: adopted, in scope for this stage.** Sourced from MSB's `System_Morale.sbc` (marked WIP/unfinished upstream, but functional): a decaying `CustomCounter` (starts ~100, ticks down under sustained combat, drops sharply on low health / weapons lost / leader death / nearby losses) that swaps `TargetProfile` at low-morale thresholds — a shaken unit doesn't hard-retreat, it just stops proactively hunting at range (detection range effectively shrinks). Entirely pure-XML, no scripting, self-contained — doesn't gate or get gated by anything else in this stage. Pairs conceptually with the already-built (separately tracked, not part of this roadmap item) plane disable/spiral-crash mechanic — low morale plus a real chance of visibly losing control, rather than either alone, is the intended combined effect; that mechanic will be refined and expanded on its own timeline, noted here only for context.
 
 **To-do:**
-- [ ] Group existing fighters into 2–3 plane flights; add squadron death-tracking triggers.
-- [ ] Design conditional reputation rules per faction (what counts as "an enemy of my enemy" for Gray vs. Green).
-- [ ] Playtest: confirm squadrons visibly thin out/disengage, confirm reputation responds to *who* you fight.
+- [ ] Add MSB's `_Common` TriggerGroup (Dynamic or Static as appropriate) as a base requirement to fighter behaviors before layering CommandChain on top.
+- [ ] Wire `MSB_System_CommandChain_Leader_TriggerGroup` / `_Escort_TriggerGroup` into existing fighter flights; confirm flights still read as 2–3 plane groups in practice even though the mechanism itself is N-agnostic.
+- [ ] Build the `CountPlayerDamage`-gated reputation actions for Gray/Green "enemy of my enemy" kills, radius-shared to nearby faction members.
+- [ ] Add MSB's `MoraleSystem_TriggerGroup` to fighter (and eventually other) behaviors; tune decay/threshold values against actual playtests rather than assuming MSB's defaults fit WW2 Encounters' pacing.
+- [ ] Playtest: confirm squadrons visibly thin out/disengage as CommandChain reports losses, confirm reputation responds to *who* you fight, confirm morale-driven target-profile shrinkage is noticeable without being confusing.
 
 ---
 
 ## Stage 3 — Capturable Territory
 
-No new grids required. Adapt AaW's Capturable/CapturableController pattern to one installation type (Ammo Depot is simplest) — on capture: recolor grid, flip block ownership, disable old owner's supply triggers, enable new owner's. Hooks into existing `WW2-Manipulation-AmmoDepots` and faction-override plumbing. This first-pass version doesn't need the custom planet — one installation, no spacing or terrain requirements.
+No new grids required, and no Custom Planet dependency for this base version (see the corrected territory-growth mechanism below — the earlier assumption that true radius-based expansion needed hand-placed regions on mod-controlled terrain turned out to be wrong; see next section). Adapt AaW's Capturable/CapturableController pattern to one installation type (Ammo Depot is simplest) — on capture: recolor grid, flip block ownership, disable old owner's supply triggers, enable new owner's. Hooks into existing `WW2-Manipulation-AmmoDepots` and faction-override plumbing. Confirmed via AaW's actual files: ownership state is a per-installation `SandboxBoolean` (`{Faction}{SpawnGroupName}`) re-checked at world load (`Type:Session` trigger) and re-applied via `RecolorGrid` + `ChangeBlockOwnership` — this is the pattern to replicate.
+
+**General "stay out" zones: MSB's `AreaRestriction` system, adopted broadly — not scoped to capturable installations only.** Sourced from MSB's `System_AreaRestriction.sbc`: pre-built radius tiers (100/1000/2500/5000m) that warn a neutral/hostile player on entry, then apply periodic reputation loss (`-25` every 10s in MSB's default) for as long as they linger, via a `PlayerNeutral`-gated `Manual` trigger pair (in-range/out-of-range) plus a repeating `StillInRange` timer. Functionally similar to AaW's separate `CapturableController` loiter-penalty layer, but general-purpose rather than capture-specific. **Decision: use this generically** — around capturable installations (discouraging enemy loitering pre-capture), around non-capturable but sensitive locations (a permanent naval base that should never be taken but should still be respected), and specifically to discourage players from building bases too close to non-friendly NPC installations. Treat it as a reusable tool to reach for anywhere "don't hang around here uninvited" is the desired signal, not a one-off built just for capture.
 
 **To-do:**
-- [ ] Build capture trigger chain for Ammo Depot.
+- [ ] Build capture trigger chain for Ammo Depot, using AaW's session-load boolean-check pattern.
+- [ ] Add MSB's `AreaRestriction` TriggerGroup (radius tier TBD per installation type) to the Ammo Depot and to at least one non-capturable installation, to prove the generic use case alongside the capture-specific one.
 - [ ] Wire captured territory in as a third feed into the Stage 1 unlock currency (confirmed design — see Stage 1).
-- [ ] Playtest: confirm a captured depot actively works for its new owner.
+- [ ] Playtest: confirm a captured depot actively works for its new owner, and confirm the AreaRestriction warning/reputation-loss cadence feels like a nudge rather than a punishment.
 
-### Stage 3 expansion — region-based territory growth (confirmed design, sequenced after the Custom Planet track)
+### Stage 3 expansion — territory growth, ownership model, and War Level (confirmed design, corrected and expanded from a prior version)
 
-A fuller version, worth real design attention now even though it builds later. Confirmed pieces:
+**Correction to a prior assumption in this roadmap:** an earlier version of this section assumed true radius-based territory expansion "would need MES to compute which installations currently fall inside a changing radius — not confirmed to exist as a feature," and designed around that limitation using hand-placed regions sequenced after the Custom Planet track. Reviewing GVK Deserts of Kharak S10's actual files disproves that assumption. GVK implements exactly this, in pure MES/RivalAI XML, no scripting or custom terrain required:
 
-- **Neutral installations exist.** Refineries and similar can be unthemed — owned by neither faction by default, matching the "Nobody" faction pattern already confirmed to exist in Ares at War's own structure. Reputation-gated purchases at these (buying ice/hydrogen with sufficient faction standing) is a direct reuse of the same mechanism already confirmed for Advanced Military Components in Stage 1 — same lever, applied to a new resource.
-- **Cargo delivery tracking is fully buildable now, no scripting needed.** The exact hook already exists: `WW2-Command-CargoPlane-DestinationReached` and `WW2-Command-CargoShip-DestinationReached` (the same destination-arrival commands fixed for a SubtypeId collision earlier in this project) fire exactly when a cargo vehicle reaches its drop-off point. Attach a CustomCounter-increment Action to that command, weighted differently for ships vs. planes (e.g. +20 per cargo ship delivery, less per plane), and the tracking side is just config on an existing trigger.
-- **Region-based ownership, not true geometric expansion.** A genuinely growing circular zone would need MES to compute which installations currently fall inside a changing radius — not confirmed to exist as a feature. The buildable equivalent: group installations into a small number of hand-placed regions ahead of time, give each region its own per-faction CustomCounter pair, and flip every installation in a region together once one faction's counter crosses a threshold (e.g. Gray reaches 100 in a region, that region's installations flip to Gray). Overlapping-territory "shrinks the other side" becomes two counters racing per region, not literal geometry.
-- **Players fighting both factions stop being an edge case.** Since ownership is driven by relative delivery volume between factions rather than by direct player capture, a player hostile to both sides just slows both factions' growth rather than creating a logical contradiction about who's capturing what.
-- **Confirmed dependency: sequence after the Custom Planet track.** Hand-placed regions need reliable spacing, flat buildable terrain, and sensible connectivity between locations — none of which is guaranteed on a planet that isn't under the mod's own control. This is the first case in this roadmap where a parallel track becomes a real prerequisite rather than staying non-blocking; worth remembering if this pattern comes up again.
-- **Static, invulnerable installations fit MES's existing tools.** Hand-placed static encounters with invulnerability set are a normal MES capability, not something new to build.
+- Each faction has one real zone (`{Faction}_Zone`), pre-defined at several nested radii (GVK uses 10000/20000/30000/40000/50000/55000m as an example scale — WW2 Encounters' own radii TBD), only one `Active:true` at a time.
+- A `CustomSandboxCounter` (GVK: `{Faction}_Points`) tracks standing.
+- A `Timer`-type trigger checks that counter every ~10s against per-radius-tier thresholds and fires a `ChangeZoneAtPosition` action with `ZoneRadiusChangeType:Set` and `ZoneToggleActiveMode` to resize/toggle the live zone directly, broadcasting a status chat line. Both growth and shrinkage are native — each radius tier has a paired Enable and Disable condition (`GreaterOrEqual` / `Less` against the same threshold), so territory can contract as well as expand as the counter moves.
 
-**To-do (blocked on Custom Planet completing):**
-- [ ] Design the region layout against the finished planet — count, spacing, terrain suitability.
-- [ ] Build the CustomCounter-increment Actions on the existing cargo destination-reached commands.
-- [ ] Build the per-region threshold-check and ownership-flip logic, reusing the single-installation capture mechanics above.
-- [ ] Decide neutral-installation scope: which installation types (refineries confirmed, others TBD) stay unthemed and reputation-gated rather than faction-owned from the start.
+**Decision: adopt GVK's mechanism directly as the core territory-growth engine, no Custom Planet dependency.** This removes the sequencing block the prior version of this roadmap placed on this whole section — it can be built as soon as Stage 3's basic capture mechanics are proven, independent of terrain work.
 
-### Stage 3 expansion — buyable/stealable grids, three location tiers, and War Level (confirmed design)
+**Points/counter sourcing:** reuse GVK's pattern of encounter-type-weighted point values (their scale: Base 50, Outpost 10, Cargo Ship 10, Elite Drone 15, Large/Medium/Small Drone 4/2/1 — WW2 Encounters' own values TBD) rather than the flat cargo-delivery-only counter this section previously proposed. Damaging one faction's asset should be able to simultaneously credit the opposing faction, matching GVK's paired increase/decrease actions.
 
-Built on the same cargo-delivery counter as the region-growth system above — one tracked value, two consumers, not two systems.
+**Ownership model, now explicitly split into two categories (new decision, not previously specified):**
+1. **Dynamically-spawning encounters** (regular MES ship/plane/vehicle spawns) always belong to their design-time faction — a Gray spawn stays Gray. What territory controls for these is *where* they're allowed to spawn: gated to only spawn inside that faction's current territory zone via `ZoneConditions`, same mechanism GVK uses for its salvage-quality-by-distance zones.
+2. **Fixed-location installations** (domain anchors, maintenance yards, other pinned-coordinate structures — see the buyable/stealable section below) are the ones that actually change hands. Ownership flips based on which faction currently controls the territory that location sits in, using the AaW-style session-load boolean-check/recolor/reflip pattern already confirmed for single-installation capture above.
 
-**Three location tiers, each a different point on the permanent/capturable/dynamic spectrum:**
+**Neutral installations:** the prior version of this section justified unthemed neutral installations (refineries, etc.) by citing "the 'Nobody' faction pattern already confirmed to exist in Ares at War's own structure." That citation doesn't hold up — checking AaW's actual files, `Nobody` is just a folder name organizing wreck/salvage prefabs, not a real in-game faction or a neutral-installation-with-reputation-gated-purchases pattern. The underlying design idea (unthemed refineries, reputation-gated buying) is still sound and buildable — MES/RivalAI factions and reputation don't require AaW precedent to work this way — it just isn't precedented by AaW the way previously claimed. Reputation-gated purchases at neutral installations reuse the same lever already confirmed for Advanced Military Components in Stage 1.
 
-- **Domain anchors** — one Airport and one Port per faction (four total: Gray Airport, Gray Port, Green Airport, Green Port). Permanent, faction-fixed forever, never capturable, matching the routing-endpoint anchor point from the original territory design — these aren't a new location type, they're that same anchor given a second job. Airport and Port stay deliberately separate, not combined into one mixed hub. Ground vehicles are available at both, since Ground doesn't get its own dedicated anchor (not ruled out forever, just not yet — the Ground roster is the newest and thinnest of the three domains right now). Each anchor sells its faction's complete current catalog, gated by War Level (below) rather than by regional stock.
-- **Maintenance yards** — new tier, sitting between the anchors and the hangars/garages: permanent position (doesn't relocate or despawn the way a normal dynamic encounter would), but capturable via the territory system above, with inventory reflecting whoever currently holds it.
-- **Hangars/garages** — the existing prefab tier, functioning as regular dynamic MES spawns, outside the territory system entirely.
+**War Level — a separate tracked value from territory radius, not the same counter reused.** Rises over time based on ongoing faction activity (exact feed TBD — likely a slower-accumulating derivative of the same kinds of events that feed territory Points, but tracked independently so radius and War Level don't move in lockstep). Two confirmed effects, both about spawn *composition* scaling, not just frequency:
+1. **Fixed-installation functionality/activity level** — a domain anchor or maintenance yard's stock, services, or active defenses can scale with War Level, layered on top of whichever faction currently owns it via the territory-ownership flip above.
+2. **Dynamic spawn escalation** — composition, not just difficulty, scales with War Level. Confirmed example: air cargo convoys spawn as a single unescorted plane at low War Level; at higher War Level the same convoy type can include fighter escorts, additional defensive call-ins, and/or more cargo planes per spawn. This generalizes to other dynamic spawn types (naval convoys, patrol composition) as a design pattern, not just the cargo-plane case — layers onto the existing `ThreatScoreMinimum` spawn-gating pattern already used for the carrier's threat threshold, rather than requiring new spawn-gating infrastructure.
+
+**Future upgrade path, deliberately deferred (Stage 5+): Ares at War's scripted faction-strength model.** AaW's actual implementation (`Factions.cs`) is real custom C# — a per-faction `Strength_Counter` and `Aggression_Counter`, with a `Holdings` list that sums captured installations' production into strength and gates a `ReadyForExpansion` flag. This is a genuinely richer aggregate ("how tough is this faction right now, based on everything it currently holds") than a flat points counter, but it requires scripting to sum live state across many grids — not something static XML triggers do well. **Decision: stay on the GVK-style flat counter for now (fully within Stage 3's XML-only scope); treat AaW's scripted Strength/Holdings model as a defined Stage 5+ upgrade path** once the simpler version is built and proven, at which point scripting becomes a reasonable investment rather than a Stage 3 blocker. This keeps Stage 3's playable milestone reachable without any C#, while leaving a clear, named next step for when more depth is wanted.
+
+**Players fighting both factions stop being an edge case,** same reasoning as before: since territory ownership is driven by relative faction standing rather than by direct player capture, a player hostile to both sides just slows both factions' growth rather than creating a logical contradiction about who's capturing what.
+
+**To-do:**
+- [ ] Decide WW2 Encounters' own radius tiers and point thresholds (GVK's specific numbers are a starting reference, not a requirement).
+- [ ] Build the nested `{Faction}_Zone` radius definitions and their paired Enable/Disable timer-trigger-condition sets, per GVK's pattern.
+- [ ] Build the `CustomSandboxCounter` point-award/deduction actions per encounter type (adapt GVK's weighted scale to WW2 Encounters' own roster).
+- [ ] Add `ZoneConditions` gating to existing dynamic SpawnConditions so Gray/Green spawns are restricted to their own current territory.
+- [ ] Build the fixed-installation ownership-flip logic (reuses the single-installation capture mechanics above, applied per-location based on which territory zone currently contains it).
+- [ ] Design the War Level counter's feed and decide whether it's derived from the same events as territory Points or tracked from a distinct set.
+- [ ] Build the convoy-escalation proof-of-concept: single-plane air cargo convoy at low War Level, escorted/multi-plane version unlocked at a higher tier — smallest concrete test of the spawn-composition-scaling idea before generalizing it further.
+- [ ] Decide neutral-installation scope: which installation types (refineries likely, others TBD) stay unthemed and reputation-gated rather than faction-owned from the start.
+- [ ] Playtest: confirm territory visibly grows and shrinks with faction fortunes, confirm dynamic spawns respect territory boundaries, confirm the War Level convoy example reads as a meaningful escalation rather than a stat tweak.
+
+### Stage 3 expansion — buyable/stealable grids and three location tiers (confirmed design)
+
+Built on the territory and War Level system defined above — no separate tracking system, no Custom Planet dependency (that dependency is removed along with the region-based approach it was tied to).
+
+**Three location tiers, each a different point on the permanent/capturable/dynamic spectrum — and each maps directly onto the two-category ownership model above:**
+
+- **Domain anchors** — one Airport and one Port per faction (four total: Gray Airport, Gray Port, Green Airport, Green Port). Permanent, faction-fixed forever, never capturable — these are fixed-location installations whose *ownership* never changes, though their functionality/stock still scales with War Level per the mechanism above. Airport and Port stay deliberately separate, not combined into one mixed hub. Ground vehicles are available at both, since Ground doesn't get its own dedicated anchor (not ruled out forever, just not yet — the Ground roster is the newest and thinnest of the three domains right now). Each anchor sells its faction's complete current catalog, gated by War Level rather than by regional stock.
+- **Maintenance yards** — new tier, sitting between the anchors and the hangars/garages: a fixed-location installation, permanent position, but capturable via the territory-ownership-flip mechanism above, with inventory reflecting whoever currently holds it.
+- **Hangars/garages** — the existing prefab tier, functioning as regular dynamic MES spawns: these follow the *dynamic-encounter* half of the ownership model — they stay with their design-time faction and are gated to spawn only within that faction's current territory, rather than changing hands themselves.
 
 **Steal-or-buy, same location, two paths to the same grid.** Anywhere a player can steal a vehicle, they can also buy that same vehicle — friendly/reputable players take the peaceful route, everyone else takes the risk-it route, both ending at the same actual hull. Applies at the hangar/garage tier specifically, where stealing already lives.
 
-**War Level — a second consumer of the cargo-delivery counter, not a second tracking system.** The same CustomCounter mechanism built for territory-region thresholds also drives a per-faction War Level value. Two confirmed effects:
-1. **Domain anchor stock** — higher War Level unlocks better hulls/materials in that faction's complete catalog. This is the more legible of the two signals to a player — not "spawn tables quietly shifted," but "the shelf at the anchor visibly got better."
-2. **Spawn escalation** — bigger vessels or larger squadrons become available to spawn at higher War Level, layering onto the existing `ThreatScoreMinimum` spawn-gating pattern (the same mechanism already tuned once before, for the carrier's threat threshold) rather than requiring new spawn-gating infrastructure.
+**War Level effects specific to this section** (the general War Level mechanism and its two confirmed effect categories are defined in the territory-growth section above; this is the domain-anchor-specific application of effect #1, fixed-installation functionality/activity scaling):
+- **Domain anchor stock** — higher War Level unlocks better hulls/materials in that faction's complete catalog. This is the more legible of War Level's signals to a player — not "spawn tables quietly shifted," but "the shelf at the anchor visibly got better."
 
 **Restocking has real, working precedent already shipped in this mod — it's not a new problem.** The existing Factory-Plane installations already do a persistent structure periodically spawning new grids nearby (`OffenseSpawn-Factory-Plane`, `DeliverySpawn-Factory-Plane`). Maintenance yards need the same capability aimed at ground vehicles instead of aircraft. Ownership-change restocking (when a yard flips faction) doesn't need separate infrastructure either — it's one more action added to the same capture trigger chain already designed above (recolor, flip ownership, swap supply triggers, **now also: reroll stock**).
 
@@ -256,9 +334,9 @@ Built on the same cargo-delivery counter as the region-growth system above — o
 
 **One open question, deliberately not chased down yet, held per your own instinct:** whether hostility toward a specific player can be dynamically gated by that player's own threat score or prior aggression, independent of whether bigger NPCs simply exist in the world at a given War Level. This is what would let a slow/non-combat player see the war escalate around them without personally being targeted by it. Threat score is confirmed to exist and gate spawning; whether it (or reputation/counter logic) can additionally gate an NPC's *initial aggression state toward a specific player* dynamically, versus only being checked at spawn time, is unverified — worth an empirical check before this becomes load-bearing, same treatment as the P.108 gun question.
 
-**SDX2's mission system — flagged as interesting, not yet enough information to design against.** No specifics have been described yet beyond "really cool"; revisit once there's something concrete to evaluate against MES's actual Event system rather than designing around a description that isn't there yet.
+**SDX2's mission system — no longer pursuable as a reference.** SDX2's GitHub isn't public and no MES-related files could be located on the Steam Workshop (likely unlisted). Flagged as interesting in an earlier session but there's nothing concrete to evaluate against MES's actual Event system, and no further avenue to get one — dropped as a reference source rather than left open.
 
-**To-do (blocked on the region-growth to-dos above, plus Custom Planet):**
+**To-do (blocked on the territory-growth to-dos above; Custom Planet dependency removed):**
 - [ ] Build/place the four domain anchors (Gray/Green × Airport/Port).
 - [ ] Design the "complete catalog" concept — which hulls are sellable at all, and how War Level gates the list.
 - [ ] Build cored/sellable versions of existing hangar/garage prefabs (a cored variant alongside the stealable one).
@@ -312,8 +390,8 @@ By now the loop is proven end to end. Roughly in order of effort:
 
 - **Upgrade Modules:** convert core-swap progression to modules-on-top-of-one-core where it improves the feel (per the confirmed schema support above).
 - **Retaliation/escalation** (from AaW): tiered "strike back" raids against captured territory, cooldown-limited. Reuses Stage 3's capture plumbing.
-- **Fleet/Escort formalization** (from AaW's EscortSystem): generalize the existing `CarrierSpawn` escort pattern into something reusable across ship classes.
-- **Dynamic territory framing** (from GVK S10): even a coarse "who holds more captured installations" counter feeding spawn frequency/difficulty gets most of the value of GVK's full alliance-strength system.
+- **Fleet/Escort formalization:** generalize the existing `CarrierSpawn` escort pattern into something reusable across ship classes. Now that Stage 2 adopts MSB's `CommandChain` for squadron/escort tracking (see Stage 2 — this superseded the originally-planned AaW `EscortSystem` port, since MSB's version is already N-agnostic rather than needing generalization from a fixed-slot pattern), this item is really "apply the existing CommandChain mechanism to carriers and their escorts," not a new system.
+- **Faction Strength/Holdings scripting** (from AaW, deferred from Stage 3): the scripted upgrade path already named in Stage 3's territory section — aggregate captured-installation production into a real per-faction Strength value once the flat GVK-style counter has been proven. This is the natural point to introduce custom scripting into the project, staged deliberately after Stage 3's simpler XML-only version is playable.
 - **Narrative flavor:** ScenarioTools for MES Events (Workshop 2998575759) for NewsFeed broadcasts and dynamic GPS markers, no custom C# required.
 - **Economy stations** (AaW + GVK both): superseded by the fuller domain-anchor/maintenance-yard/hangar design confirmed in Stage 3's expansion — see there for the current version rather than this placeholder.
 
@@ -321,7 +399,9 @@ By now the loop is proven end to end. Roughly in order of effort:
 
 ## Parallel track — Custom Planet
 
-Doesn't block or get blocked by the numbered stages themselves — new terrain doesn't need Stage 4's new hulls to exist, and Stage 4's hulls don't need new terrain either. Pick this up whenever, including alongside the weapon rebuild, since it's a genuinely different skill (terrain/image work, not XML/grid design) and switching between them may be a welcome break rather than a distraction. **One real dependency exists, though:** Stage 3's region-based territory expansion (see Stage 3) needs this track finished first — hand-placed capture regions need reliable spacing and terrain that only a planet under the mod's own control can guarantee. First case in this roadmap where a parallel track became a genuine prerequisite; the original Stage 3 single-installation capture doesn't share this dependency.
+Doesn't block or get blocked by the numbered stages themselves — new terrain doesn't need Stage 4's new hulls to exist, and Stage 4's hulls don't need new terrain either. Pick this up whenever, including alongside the weapon rebuild, since it's a genuinely different skill (terrain/image work, not XML/grid design) and switching between them may be a welcome break rather than a distraction.
+
+**Correction to a prior version of this roadmap:** this section previously claimed Stage 3's territory expansion had a hard dependency on the Custom Planet track, since the design at the time relied on hand-placed capture regions needing reliable spacing and terrain under the mod's own control. That design has since been replaced — GVK Deserts of Kharak S10's actual files show true radius-based territory growth is achievable in pure MES/RivalAI XML via `ChangeZoneAtPosition`, with no terrain requirements at all (see Stage 3). The Custom Planet track is once again fully non-blocking, same as every other parallel track — pick it up purely on its own merits (a Mediterranean coastline is still a strong fit for this mod's setting), not because anything else is waiting on it.
 
 **What a custom planet actually is:** a `PlanetGeneratorDefinition` (.sbc) plus a heightmap (6 tiled grayscale textures forming the terrain) plus a biome map (6 more tiled textures, RGB-channel-encoded: RED = ground material, GREEN = foliage, BLUE = ore placement). Ports and convoy routes aren't part of the planet file itself — those are just where you place your existing installation prefabs and patrol GPS points once terrain exists, which is work you already know how to do. The new skill is specifically coastline/terrain shaping.
 
@@ -361,4 +441,4 @@ Not scoped yet on purpose — see the ROI discussion above. Revisit once Stage 3
 
 The weapon rebuild has to happen first, full stop — nothing else is testable on top of a dead weapon mod. After that, Stages 1–3 are entirely trigger/XML work on the (now-rebuilt) existing roster and get a genuinely different-feeling mod — full core progression across ships/planes/tanks/bases, squadron behavior, reputation, capturable territory, salvage economy — before a single new hull needs designing. Stage 4 is deliberately small so the payoff of "new grids" gets tested cheaply before Stage 5 asks for more of them. Each stage's playable milestone stands on its own.
 
-The two parallel tracks (Custom Planet, Map Tool) mostly sit outside this sequence — they don't block the stages and the stages don't block them, with one exception: Stage 3's fuller region-based territory expansion now waits on the Custom Planet track, since it needs terrain the mod actually controls. Pick up the planet work whenever the XML/grid work needs a break; leave the map tool alone until there's live territory worth mapping.
+The two parallel tracks (Custom Planet, Map Tool) sit fully outside this sequence — they don't block the stages and the stages don't block them. An earlier version of this roadmap had Stage 3's fuller territory expansion waiting on the Custom Planet track; that dependency is gone now that GVK's radius-growth mechanism (see Stage 3) proved terrain control was never actually required. Pick up the planet work whenever the XML/grid work needs a break; leave the map tool alone until there's live territory worth mapping.
