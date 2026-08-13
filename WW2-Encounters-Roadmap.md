@@ -10,12 +10,19 @@ Not a stage so much as a foundation everything else sits on. The current naval w
 
 - **Naval weapons:** [Fletcher Armaments – WeaponCore Edition](https://steamcommunity.com/sharedfiles/filedetails/?id=2844434226) (Workshop 2844434226) — WeaponCore-based WW2 naval weapon pack.
 - **Air weapons:** [Consty Aircraft Pack – Ordnance (WeaponCore) 1.0](https://steamcommunity.com/sharedfiles/filedetails/?id=2881339118) by Const (Workshop 2881339118), companion to Const's Tech-Focused Aircraft Pack. Confirmed via its changelog to mix genuinely period-appropriate content (.50 cal guns, 30mm aircraft cannon, unguided bombs, rocket pods) with clearly modern/anachronistic content (AIM-7/54/120 guided missiles, 5.56mm burst rifles, 9mm SMGs, .45 handguns). The lockdown plan is sound and necessary, not just thematic tidiness — gate/exclude the modern-coded weapons, keep the period-coded ones, using the same tech-item mechanism as Stage 1's unlock currency.
-- **Ground vehicle weapons:** neither Fletcher Armaments nor Consty's Ordnance cover this — a third mod is needed, most likely AWG's WeaponCore-era continuation pack. Name/Workshop ID not yet confirmed; same identification and BlockGroup-building process as the other two once it is.
+- **Ground vehicle weapons: confirmed — KONTAKT Ground Systems [WeaponCore] v1.0.** Mostly fixed weapons. Same identification and BlockGroup-building process as Fletcher Armaments/Consty's Ordnance once you're ready to pull its block SubtypeIds.
+- **CWP replacement candidates**
+  - **SETB Community Tank Parts** — replace all existing armor blocks, enabling the ground vehicle rebuild off AWG CWP armor specifically.
+  - **ArmourEssentials** — Mostly turret ring rotors, gunsight cameras, and rangefinders.
+  - **Yakobe's Machinations** — wheels/suspension sourced from CWP, plus additional guns.
+  - **SETB - Multicrew - MODPACK** — the full SETB bundle. Not intended for wholesale adoption, but worth keeping as a reference source.
 - **Turret philosophy shift:** moving away from custom rotor/hinge-built turrets toward general WeaponCore turret blocks. This should make future `BlockGroup`/`BlockLimit` definitions for the Core system far more stable, since they'll reference known WeaponCore block types instead of a dead mod's custom subtypes.
 - **Dependency additions:** WeaponCore itself, plus whichever specific weapon-pack mods end up used. Worth checking MES's documented WeaponCore compatibility notes once rebuild work starts, since combining MES/RivalAI-driven NPCs with WeaponCore weapons is a well-trodden combination but has its own configuration quirks (weapon targeting profiles, ammo replenishment behavior).
 
 **To-do:**
-- [ ] Identify the specific AWG ground-vehicle-weapons continuation mod (name/Workshop ID), then pull its block SubtypeIds and TypeId the same way Consty's Ordnance was handled.
+- [ ] Pull KONTAKT Ground Systems' block SubtypeIds and TypeId the same way Consty's Ordnance was handled.
+- [ ] Confirm whether SETB Community Tank Parts includes large grid rotors — determines if it's a full or partial AWG CWP replacement.
+- [ ] Cross-check Yakobe's Machinations' gun roster against KONTAKT's for overlapping/colliding SubtypeIds before using both.
 - [ ] Decide final ground vehicle scale factors within the confirmed 110–120% (military) / up to 150% (civilian) ranges, and rescale the existing Fiat 626 and Renault builds if the civilian figure ends up above 100%.
 - [ ] Pull the full Consty Ordnance block list and sort into "period, keep" vs. "modern, gate or exclude" — AIM-7/54/120 and the modern small arms are confirmed non-period from the changelog alone, but the full list needs a proper pass.
 - [ ] Rebuild each existing hull's weapon fit onto Fletcher Armaments / Consty's Ordnance, replacing custom rotor/hinge turret rigs with general WeaponCore turrets. Broken out per-prefab below so each is a single sitting's work — check the box when that prefab's weapons are rebuilt and it loads clean with the old mod removed. Naval uses Fletcher Armaments; Air uses Consty's Ordnance (WW2-appropriate blocks only, per the lockdown scope above); Installations may need either or neither depending on what defenses they actually carry.
@@ -81,9 +88,7 @@ Not a stage so much as a foundation everything else sits on. The current naval w
 
 **No large grid wheels — the entire Wheeled category is small grid only.** This is a firm constraint, not a default: no large-grid wheeled vehicles exist anywhere in the ladder.
 
-**Weapon dependency confirmed:** neither Fletcher Armaments (naval) nor Consty's Ordnance (air) cover ground vehicle weapons — a third weapon mod is needed, most likely AWG's WeaponCore-era continuation pack (name/Workshop ID TBD once confirmed). Same treatment as the other two once identified: local file lookup for exact block SubtypeIds, a dedicated `WeaponBlocks` `BlockGroup` split, added to the Prerequisite phase alongside Fletcher Armaments and Consty's Ordnance.
-
-**Scale factor: two-tier, driven by functional-block real estate, not wheel proportions.** Correction from earlier: AWG's CWP already provides correctly-sized wheels, so 1:1 is viable on that front — the actual driver is fitting functional blocks (cockpit, respawn kit, cargo, weapon mount) inside a genuinely small real-world hull at small-grid's 0.5m block size. This hits Armored Cars hardest — historically some of the smallest vehicles in the whole roster, and the tightest fit for the same reason. Same two-tier structure still applies, just for the corrected reason: weapon blocks are fixed dimensions that don't rescale with the hull, so military vehicles stay conservative; civilian vehicles have no such anchor and can flex further if it helps fit functional blocks comfortably.
+**Scale factor: two-tier, driven by functional-block real estate, not wheel proportions.** Correctly-sized wheels exist, so 1:1 is viable on that front — the actual driver is fitting functional blocks (cockpit, respawn kit, cargo, weapon mount) inside a genuinely small real-world hull at small-grid's 0.5m block size. This hits Armored Cars hardest — historically some of the smallest vehicles in the whole roster, and the tightest fit for the same reason. Same two-tier structure still applies, just for the corrected reason: weapon blocks are fixed dimensions that don't rescale with the hull, so military vehicles stay conservative; civilian vehicles have no such anchor and can flex further if it helps fit functional blocks comfortably.
 - **Military track (Armored Car → Heavy Tank):** capped around **110–120%** of real-world scale.
 - **Civilian track (Transport):** allowed up to **150%**.
 
@@ -115,7 +120,7 @@ Researched and cross-checked against real WW2 deployment history — including a
 - **Civilian vs. Military differentiation:** two levers —
   1. `Modifiers` — Military cores get `RefineSpeed`/`RefineEfficiency`/`AssemblerSpeed` reduced (~0.5) even where a few production blocks are allowed; Civilian cores stay at baseline or above.
   2. `BlockLimits` — cap weapon block counts low on Civilian cores, cap production/cargo block counts low on Military cores, via `BlockGroup` definitions. Blocked on the weapon rebuild above for the weapon-side groups; production/cargo/tool-side groups can be written now since they're vanilla block types.
-- **Speed/boost:** `MaxSpeed`/`MaxBoost` are fractions of the world's `MaxPossibleSpeedMetersPerSecond` (confirmed set to 150 m/s). Boost is duration/cooldown-limited only — the framework has no native fuel-drain boost mode. Naval "flank speed" will use the same duration/cooldown mechanism as air/wheeled for now (tuned with a longer duration to read as "sustained" rather than "burst"); a true fuel-cost mechanic is a possible custom-trigger addition later if the simple version doesn't feel right.
+- **Speed/boost:** `MaxSpeed`/`MaxBoost` are fractions of the world's `MaxPossibleSpeedMetersPerSecond`, not absolute values — changing the world setting rescales every core's absolute speed automatically without touching individual core files. Currently set to 150 m/s; **raising to 250 m/s under consideration, blocked on a physics test.** A known subgrid pitch-down bug (planes tipping toward the ground) has previously appeared around 150 m/s+ in testing — general subgrid pitch/tilt bugs are well-documented in the wider SE community (dampeners not accounting for subgrid mass, phantom forces from unshared inertia tensors), but the specific 150 m/s threshold isn't something I could independently confirm as a documented trigger, so it's this project's own prior finding, not a verified external one. Test incrementally on an actual subgrid-bearing plane before committing to 250. If adopted, revisit the tuning (not just the mechanics) of every already-written `MaxSpeed`/`MaxBoost` fraction — they'll still function unchanged, but the resulting absolute speeds may no longer match the intended feel. Boost itself is duration/cooldown-limited only — the framework has no native fuel-drain boost mode. Naval "flank speed" will use the same duration/cooldown mechanism as air/wheeled for now (tuned with a longer duration to read as "sustained" rather than "burst"); a true fuel-cost mechanic is a possible custom-trigger addition later if the simple version doesn't feel right.
 - **Upgrade path (confirmed, deferred to later):** the "upgrade a Corvette core to allow more guns/propellers" idea maps directly onto `UpgradeModule.BlockLimitModifiers` — a real, first-class feature of the framework, not something to build custom. Stage 1 doesn't need this yet; Stage 1 is core-swap only (place a better core block outright). Converting to upgrade-modules-on-top-of-one-core is a clean later refinement once tier numbers are proven, not a Stage 1 requirement.
 
 ### Unlock economy
@@ -127,15 +132,15 @@ Researched and cross-checked against real WW2 deployment history — including a
 
 Both routes reward exploring and engaging with the world rather than a pure kill-counter. Territory control (Stage 3) becomes a further feed once captured installations exist — not part of Stage 1, since territory doesn't exist yet.
 
-**Confirmed component names, structure, and sourcing rules.** Three materials, not one generic currency:
+**Confirmed component names, structure, and sourcing rules.** Three different components, not one generic currency:
 
 - **Industrial Components** — gates Advanced Civilian production blocks. Sourced from: advanced production blocks (a player can *manufacture* these, not just find them), trade-location purchases, and loot — weighted heavily toward civilian-themed spawns, present in smaller amounts on military-themed spawns too.
-- **Military Components** — gates first-tier combat hulls at low quantity. Sourced from: non-basic weapon blocks (advanced production output), trade-location purchases, and loot — weighted heavily toward military-themed spawns, present in smaller amounts on civilian-themed spawns too.
-- **Advanced Military Components** — gates top-tier combat hulls. Sourced from: advanced weapons (advanced production output), trade-location purchases (**gated behind good faction standing**, not just currency), and loot — at very low quantity on spawn classes that wouldn't themselves need Advanced Military Components to build as a player core, and at meaningfully higher quantity on spawn classes that would. This ties loot value directly to the same tier scale as build cost, rather than being a separate system that happens to coexist with it.
+- **Military Components** — gates first-tier combat hulls at low quantity. Sourced from: non-basic weapon blocks, advanced production output, trade-location purchases, and loot — weighted heavily toward military-themed spawns, present in smaller amounts on civilian-themed spawns too.
+- **Advanced Military Components** — gates top-tier combat hulls. Sourced from: advanced weapons, advanced production output, trade-location purchases (**gated behind good faction standing**, not just currency), and loot — at very low quantity on spawn classes that wouldn't themselves need Advanced Military Components to build as a player core, and at meaningfully higher quantity on spawn classes that would. This ties loot value directly to the same tier scale as build cost, rather than being a separate system that happens to coexist with it.
 
 **Basic/starting-tier everything uses plain vanilla components, no specialized item at all** — the unlock materials only enter the picture once a player is unlocking *beyond* the starting rung. This applies to weapons too: **basic weapons cost vanilla components, non-basic/advanced weapons cost Military Components** (or Advanced Military Components at the top end) — the same tiering logic already applied to hulls, applied consistently to weapon blocks as well. Practical implication for the weapon rebuild: the `WeaponBlocks` BlockGroup splits already done (Guns/Bombs/Torpedoes/Smoke) will need a further basic/advanced sub-classification once real costing starts — flagged as a to-do, not resolved yet.
 
-**Trade locations** (Stage 5's planned economy stations) will eventually sell Industrial and Military Components directly, with Advanced Military Components specifically locked behind good faction standing — the first concrete gameplay payoff for Stage 2's reputation system, which otherwise is purely behavioral/flavor. Reputation stops being just "how NPCs act toward you" and becomes something that gates real economic access.
+**Trade locations** (Stage 5's planned economy stations) will eventually sell Industrial, Military Components, and Advanced Military Components all locked behind good faction standing — the first concrete gameplay payoff for Stage 2's reputation system, which otherwise is purely behavioral/flavor. Reputation stops being just "how NPCs act toward you" and becomes something that gates real economic access.
 
 **Fleet-size limiting: fixed cost + finite income, not escalating price.** A core costs a flat amount of a genuinely scarce component; since the component is earned at a tuned (slow) rate, a player's standing fleet is naturally capped by how much they've banked and haven't spent — no special mechanic needed for this, it's just a normal crafting cost against a limited income rate. An escalating-cost variant (each *additional* core of a type costing more, based on how many are currently built and standing — not lifetime built, resets on loss) is a genuinely different and harder feature, since it requires live-tracking currently-placed grids and dynamically adjusting a cost, which needs real scripting rather than static XML. Interesting for later, but it's a Stage 5+ idea, not Stage 1.
 
@@ -144,7 +149,7 @@ Both routes reward exploring and engaging with the world rather than a pure kill
 ### Two smaller open items
 
 - **Static defensive-only grids** (a "gun outpost" concept) — already covered by the existing Base/Outpost `WeaponCap` BlockLimits (4 and 2 respectively), no new core type needed. Revisit only if that turns out to feel insufficient in practice.
-- **Small utility grids with no functional blocks** (ramps, bridges, similar) — most core-limiting mods of this style allow a small default block count on any grid with no core placed at all, specifically so minor builds aren't blocked. Not confirmed for Ship Core Framework specifically — needs an actual check against the framework's real behavior, not an assumption either way.
+- **Small utility grids with no functional blocks** (ramps, bridges, similar) — most core-limiting mods of this style allow a small default block count on any grid with no core placed at all, specifically so minor builds aren't blocked. Confirmed for Ship Core Framework specifically. Non core grids will also have a production block limit of 0.
 
 ### Core costs by tier (confirmed)
 
@@ -170,17 +175,17 @@ Non-hostile, pre-damaged versions of existing hulls (a hulked Francesco Crispi, 
 **Working answer: no.** Ship Core Framework's `MaxPerFaction`/`MaxPerPlayer` design is oriented around limiting player-built grids — an MES-spawned NPC ship isn't "progressing," it's pre-built encounter content, same as today. This matches the broader ecosystem convention (Block Restrictions explicitly differentiates `AllowedForNPC`/`AllowedForPlayer`/`AllowedForUnowned`) of exempting NPC ownership from player-progression systems by default. Not fully settled, though — found a real, unresolved forum comment from someone hitting this exact ambiguity in practice with a different but related core mod ("tried spawning ships with the core[s] on them there was no level set to them"). Treat as a real to-do, not an assumption. (Note: your own correction — SDX2 runs MES underneath, with AI Enabled/Crew Enabled as supplementary systems rather than a replacement — makes SDX2 more relevant evidence here than originally credited, not less, since it's a real MES-based server coexisting with a core-progression mod.)
 
 **To-do:**
-- [ ] Once Ship Core Framework is actually integrated, test spawning an NPC ship with no core at all — confirm it isn't rejected, capped, or otherwise affected before assuming NPCs can stay core-free.
-- [ ] Check Ship Core Framework's actual default behavior for coreless/small grids — confirm whether a minor build (ramp, bridge, similar) below some threshold is naturally exempt, per the "Two smaller open items" note above.
+- [ ] Once Ship Core Framework is actually integrated, test spawning an NPC ship with no core at all — confirm it isn't rejected, capped, or otherwise affected before assuming NPCs can stay core-free..
 - [ ] Add type-appropriate ammo to NPC cargo loot — naval gun ammo on ships, aircraft gun ammo on planes — extending the existing `WW2-Loot-*` profiles per ship class. Blocked on confirmed ammo magazine SubtypeIds from Fletcher Armaments/Consty's Ordnance (separate from the weapon *block* IDs already gathered — ammo magazine IDs are typically distinct strings, need their own lookup pass once the weapon rebuild settles).
 
 **To-do:**
 - [ ] Add Industrial/Military/Advanced Military Components to existing `WW2-Loot-*` container profiles at tuned drop frequencies, per the military/civilian sourcing split confirmed above.
 - [ ] Sub-classify the existing `WeaponBlocks` `BlockGroup` split (Guns/Bombs/Torpedoes/Smoke) into basic vs. advanced, to support vanilla-vs-Military-Component weapon costing.
-- [ ] Write `ShipCoreConfig_World.xml` (confirm `MaxPossibleSpeedMetersPerSecond:150`, `MassTypeMode`, `FrictionSpeedValueMode`).
+- [ ] Test subgrid pitch-down behavior on an actual plane incrementally from 150 up toward 250 m/s before committing to the world speed increase.
+- [ ] Write `ShipCoreConfig_World.xml` (confirm `MaxPossibleSpeedMetersPerSecond` — 150 or 250 pending the physics test above — plus `MassTypeMode`, `FrictionSpeedValueMode`).
 - [ ] Write `BlockGroup` definitions: `ProductionBlocks`, `CargoBlocks`, `ToolBlocks` (can start now, vanilla types) and `WeaponBlocks` (blocked on weapon rebuild).
 - [ ] Add Ship Core Framework as a mod dependency to the world/mod list.
-- [ ] Smoke test before committing further: write one minimal `ShipCore` definition (no component cost, just a block limit or two) and place it on a throwaway test grid. Confirm the block limit actually enforces, `/core` commands respond as documented, and `MaxPossibleSpeedMetersPerSecond:150` is taking effect — before writing any of the real definitions below on top of an unverified foundation.
+- [ ] Smoke test before committing further: write one minimal `ShipCore` definition (no component cost, just a block limit or two) and place it on a throwaway test grid. Confirm the block limit actually enforces, `/core` commands respond as documented, and the correct `MaxPossibleSpeedMetersPerSecond` value is taking effect — before writing any of the real definitions below on top of an unverified foundation.
 - [ ] Write the eight Stage 1 `ShipCore` XML definitions (Civilian Naval, Corvette Naval, Cargo Plane, Fighter, Transport, Armored Car, Base, Outpost) — vanilla-component cost.
 - [ ] Write the Destroyer `ShipCore` definition — low Military Components cost — as the Stage 1 proof-of-concept unlock tier.
 - [ ] Design and build the Corvette → Destroyer unlock trigger chain as the proof-of-concept for the whole gating system.
@@ -229,6 +234,40 @@ A fuller version, worth real design attention now even though it builds later. C
 - [ ] Build the per-region threshold-check and ownership-flip logic, reusing the single-installation capture mechanics above.
 - [ ] Decide neutral-installation scope: which installation types (refineries confirmed, others TBD) stay unthemed and reputation-gated rather than faction-owned from the start.
 
+### Stage 3 expansion — buyable/stealable grids, three location tiers, and War Level (confirmed design)
+
+Built on the same cargo-delivery counter as the region-growth system above — one tracked value, two consumers, not two systems.
+
+**Three location tiers, each a different point on the permanent/capturable/dynamic spectrum:**
+
+- **Domain anchors** — one Airport and one Port per faction (four total: Gray Airport, Gray Port, Green Airport, Green Port). Permanent, faction-fixed forever, never capturable, matching the routing-endpoint anchor point from the original territory design — these aren't a new location type, they're that same anchor given a second job. Airport and Port stay deliberately separate, not combined into one mixed hub. Ground vehicles are available at both, since Ground doesn't get its own dedicated anchor (not ruled out forever, just not yet — the Ground roster is the newest and thinnest of the three domains right now). Each anchor sells its faction's complete current catalog, gated by War Level (below) rather than by regional stock.
+- **Maintenance yards** — new tier, sitting between the anchors and the hangars/garages: permanent position (doesn't relocate or despawn the way a normal dynamic encounter would), but capturable via the territory system above, with inventory reflecting whoever currently holds it.
+- **Hangars/garages** — the existing prefab tier, functioning as regular dynamic MES spawns, outside the territory system entirely.
+
+**Steal-or-buy, same location, two paths to the same grid.** Anywhere a player can steal a vehicle, they can also buy that same vehicle — friendly/reputable players take the peaceful route, everyone else takes the risk-it route, both ending at the same actual hull. Applies at the hangar/garage tier specifically, where stealing already lives.
+
+**War Level — a second consumer of the cargo-delivery counter, not a second tracking system.** The same CustomCounter mechanism built for territory-region thresholds also drives a per-faction War Level value. Two confirmed effects:
+1. **Domain anchor stock** — higher War Level unlocks better hulls/materials in that faction's complete catalog. This is the more legible of the two signals to a player — not "spawn tables quietly shifted," but "the shelf at the anchor visibly got better."
+2. **Spawn escalation** — bigger vessels or larger squadrons become available to spawn at higher War Level, layering onto the existing `ThreatScoreMinimum` spawn-gating pattern (the same mechanism already tuned once before, for the carrier's threat threshold) rather than requiring new spawn-gating infrastructure.
+
+**Restocking has real, working precedent already shipped in this mod — it's not a new problem.** The existing Factory-Plane installations already do a persistent structure periodically spawning new grids nearby (`OffenseSpawn-Factory-Plane`, `DeliverySpawn-Factory-Plane`). Maintenance yards need the same capability aimed at ground vehicles instead of aircraft. Ownership-change restocking (when a yard flips faction) doesn't need separate infrastructure either — it's one more action added to the same capture trigger chain already designed above (recolor, flip ownership, swap supply triggers, **now also: reroll stock**).
+
+**One real, unverified gap in the restocking plan: precise spawning inside a tight interior bay.** Factory-Plane's precedent is proven for aircraft, which tolerate minor spawn-point imprecision by simply flying away; a ground vehicle spawned slightly off inside a garage bay can clip through walls or get stuck. Recommended sequencing: prove the restocking mechanic on **open platforms in an outdoor supply yard first** (no tight geometry to clip through), and only attempt precise interior-bay spawning as a stretch goal once the basic mechanic is confirmed reliable — building the harder version first risks discovering it doesn't work after already committing to it.
+
+**One open question, deliberately not chased down yet, held per your own instinct:** whether hostility toward a specific player can be dynamically gated by that player's own threat score or prior aggression, independent of whether bigger NPCs simply exist in the world at a given War Level. This is what would let a slow/non-combat player see the war escalate around them without personally being targeted by it. Threat score is confirmed to exist and gate spawning; whether it (or reputation/counter logic) can additionally gate an NPC's *initial aggression state toward a specific player* dynamically, versus only being checked at spawn time, is unverified — worth an empirical check before this becomes load-bearing, same treatment as the P.108 gun question.
+
+**SDX2's mission system — flagged as interesting, not yet enough information to design against.** No specifics have been described yet beyond "really cool"; revisit once there's something concrete to evaluate against MES's actual Event system rather than designing around a description that isn't there yet.
+
+**To-do (blocked on the region-growth to-dos above, plus Custom Planet):**
+- [ ] Build/place the four domain anchors (Gray/Green × Airport/Port).
+- [ ] Design the "complete catalog" concept — which hulls are sellable at all, and how War Level gates the list.
+- [ ] Build cored/sellable versions of existing hangar/garage prefabs (a cored variant alongside the stealable one).
+- [ ] Wire buy-capability into existing hangar/garage locations alongside the existing steal mechanic.
+- [ ] Design and place maintenance yards as a new prefab tier, distinct from both anchors and hangars.
+- [ ] Prototype restocking on an open-air supply yard before attempting interior-bay spawning.
+- [ ] Add "reroll stock" as an action in the capture trigger chain for maintenance yards.
+- [ ] Verify whether per-player dynamic hostility gating (threat score/reputation-based) is actually achievable in MES, before committing the "big stuff exists but isn't aggressive unless provoked" design to it.
+
 ---
 
 ## Stage 4 — First New Grids: Basic-Tier Starters
@@ -276,7 +315,7 @@ By now the loop is proven end to end. Roughly in order of effort:
 - **Fleet/Escort formalization** (from AaW's EscortSystem): generalize the existing `CarrierSpawn` escort pattern into something reusable across ship classes.
 - **Dynamic territory framing** (from GVK S10): even a coarse "who holds more captured installations" counter feeding spawn frequency/difficulty gets most of the value of GVK's full alliance-strength system.
 - **Narrative flavor:** ScenarioTools for MES Events (Workshop 2998575759) for NewsFeed broadcasts and dynamic GPS markers, no custom C# required.
-- **Economy stations** (AaW + GVK both): friendly ports buying/selling fuel, ammo, repairs, on top of the Stage 1 player-base economy.
+- **Economy stations** (AaW + GVK both): superseded by the fuller domain-anchor/maintenance-yard/hangar design confirmed in Stage 3's expansion — see there for the current version rather than this placeholder.
 
 ---
 
