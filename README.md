@@ -1,4 +1,4 @@
-# WW2 Encounters
+# WW2: War in the Mediterranean
 
 The Mediterranean, sometime in the early 1940s. Two navies contest the sea lanes. Two air forces trade blows over convoys and coastlines. Two armies dig in on the ground between them. This is a Space Engineers encounters mod built around that theater. Ships, aircraft, ground vehicles, and installations, all added to the world through Modular Encounters Systems.
 
@@ -22,4 +22,14 @@ The mod is built with room to grow. A custom Mediterranean coastline is one dire
 
 ---
 
-*For active development status, including staged build order, technical decisions, and open questions, see the project roadmap.*
+## Repository structure
+
+This repo covers two Workshop mods, developed together:
+
+- **`WW2-WitM-MES/`** — Modular Encounters Systems content: spawn groups, behaviors, factions, loot.
+- **`WW2-WitM_Framework/`** — mechanics and scenario systems: Ship Core progression, suit tweaks, respawn vehicles.
+
+## More detail
+
+- [WW2-WitM-Roadmap.md](WW2-WitM-Roadmap.md) — staged build order, confirmed technical decisions, open questions.
+- [WW2-WitM-Modlist.md](WW2-WitM-Modlist.md) — required/optional/retiring mod dependencies.
