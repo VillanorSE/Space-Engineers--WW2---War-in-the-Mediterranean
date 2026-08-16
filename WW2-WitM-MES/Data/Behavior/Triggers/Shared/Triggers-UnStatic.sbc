@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <EntityComponents>
+
+<!-- Makes Grid Dynamic -->
+		<EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
+            <Id>
+                <TypeId>Inventory</TypeId>
+                <SubtypeId>WW2-Trigger-UnStatic</SubtypeId>
+            </Id>
+            <Description>
+			
+			[RivalAI Trigger]
+			
+			[UseTrigger:true]
+			[Type:Timer]
+			
+			[MinCooldownMs:1000]
+			[MaxCooldownMs:1001]
+			[StartsReady:true]
+			
+			[MaxActions:1]
+			[Actions:WW2-Action-UnStatic]
+			
+			</Description>
+        </EntityComponent>
+
+		<EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
+            <Id>
+                <TypeId>Inventory</TypeId>
+                <SubtypeId>WW2-Action-UnStatic</SubtypeId>
+            </Id>
+            <Description>
+			
+			[RivalAI Action]
+			
+			[SetGridToDynamic:true]
+
+			</Description>
+        </EntityComponent>
+<!-- End Makes Grid Dynamic -->
+
+	</EntityComponents>
+</Definitions>

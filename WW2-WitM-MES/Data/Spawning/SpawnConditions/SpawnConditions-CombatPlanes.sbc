@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<Definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<EntityComponents>
+
+<!-- Spawn Conditions for Fighters to be Rival AI only spawns -->
+	<EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
+		<Id>
+			<TypeId>Inventory</TypeId>
+			<SubtypeId>WW2-SpawnConditions-Fighters</SubtypeId>
+		</Id>
+		<Description>
+		
+			[MES Spawn Conditions]
+			
+			[RivalAiSpawn:true]
+			
+			[RotateFirstCockpitToForward:true]
+			[ReplenishSystems:true]
+			
+			[MaxSpawnFromPlanetSurface:5000]
+			[PlanetRequiresAtmo:true]
+			[UsePlayerCountCheck:true]
+			[MinimumPlayers:1]
+			
+			[IgnoreCombatPhase:true]
+			[IgnoreShieldProviderMod:true]
+			[IgnoreWeaponRandomizerMod:true]
+
+		</Description>
+	</EntityComponent>
+
+	</EntityComponents>
+</Definitions>
+

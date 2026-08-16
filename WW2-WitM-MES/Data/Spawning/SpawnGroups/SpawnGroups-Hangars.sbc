@@ -1,0 +1,175 @@
+<?xml version="1.0"?>
+<Definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<SpawnGroups>
+
+<!-- Hangar Spawns -->
+	<!-- Gray Re. 2001 Factory -->
+	<SpawnGroup>
+		<Id>
+			<TypeId>SpawnGroupDefinition</TypeId>
+			<SubtypeId>NPC-WW2-Hangar-Re2001</SubtypeId>
+		</Id>
+		<Description>
+		
+		[Modular Encounters SpawnGroup]
+	
+		[PlanetaryInstallationType:Medium]
+		
+		[SpawnConditionsProfiles:WW2-SpawnConditions-Installations]
+		[ManipulationProfiles:MES-Manipulation-RivalAi]
+		
+		[FactionOverride:GRAY]
+		[SpawnRandomCargo:true]
+	
+		[UseContainerTypeAssignment:true]
+		[ContainerTypeAssignBlockName:Small Cargo Container]
+		[ContainerTypeAssignSubtypeId:WW2-SmallCargo]
+
+		[ContainerTypeAssignBlockName:Medium Cargo Container]
+		[ContainerTypeAssignSubtypeId:WW2-MediumCargo]
+
+		</Description>
+		<Frequency>1.0</Frequency>
+		<IsPirate>true</IsPirate>
+		<Prefabs>
+			<Prefab SubtypeId="NPC-WW2-Hangar-Re2001">
+ 				<Position>
+					<X>0.0</X>
+					<Y>5.5</Y>
+					<Z>0.0</Z>
+				</Position>
+				<Behaviour>WW2-Behavior-Hangar-Gray</Behaviour>
+				<Speed>0.0</Speed>
+			</Prefab>
+		</Prefabs>
+	</SpawnGroup>
+
+	<!-- Gray FC 20 Factory -->
+	<SpawnGroup>
+		<Id>
+			<TypeId>SpawnGroupDefinition</TypeId>
+			<SubtypeId>NPC-WW2-Hangar-FC20</SubtypeId>
+		</Id>
+		<Description>
+		
+		[Modular Encounters SpawnGroup]
+	
+		[PlanetaryInstallationType:Medium]
+		
+		[SpawnConditionsProfiles:WW2-SpawnConditions-Installations]
+		[ManipulationProfiles:MES-Manipulation-RivalAi]
+		
+		[FactionOverride:GRAY]
+		[SpawnRandomCargo:true]
+	
+		[UseContainerTypeAssignment:true]
+		[ContainerTypeAssignBlockName:Small Cargo Container]
+		[ContainerTypeAssignSubtypeId:WW2-SmallCargo]
+
+		[ContainerTypeAssignBlockName:Medium Cargo Container]
+		[ContainerTypeAssignSubtypeId:WW2-MediumCargo]
+
+		</Description>
+		<Frequency>1.0</Frequency>
+		<IsPirate>true</IsPirate>
+		<Prefabs>
+			<Prefab SubtypeId="NPC-WW2-Hangar-FC20">
+ 				<Position>
+					<X>0.0</X>
+					<Y>5.5</Y>
+					<Z>0.0</Z>
+				</Position>
+				<Behaviour>WW2-Behavior-Hangar-Gray</Behaviour>
+				<Speed>0.0</Speed>
+			</Prefab>
+		</Prefabs>
+	</SpawnGroup>
+	
+	<!-- Green MS406 Factory -->
+	<SpawnGroup>
+		<Id>
+			<TypeId>SpawnGroupDefinition</TypeId>
+			<SubtypeId>NPC-WW2-Hangar-MS406</SubtypeId>
+		</Id>
+		<Description>
+		
+		[Modular Encounters SpawnGroup]
+	
+		[PlanetaryInstallationType:Medium]
+		
+		[SpawnConditionsProfiles:WW2-SpawnConditions-Installations]
+		[ManipulationProfiles:MES-Manipulation-RivalAi]
+		
+		
+		[FactionOverride:GREEN]
+		[SpawnRandomCargo:true]
+	
+		[UseContainerTypeAssignment:true]
+		[ContainerTypeAssignBlockName:Small Cargo Container]
+		[ContainerTypeAssignSubtypeId:WW2-SmallCargo]
+
+		[ContainerTypeAssignBlockName:Medium Cargo Container]
+		[ContainerTypeAssignSubtypeId:WW2-MediumCargo]
+		
+		</Description>
+		<Frequency>1.0</Frequency>
+		<IsPirate>true</IsPirate>
+		<Prefabs>
+			<Prefab SubtypeId="NPC-WW2-Hangar-MS406">
+ 				<Position>
+					<X>0.0</X>
+					<Y>5.5</Y>
+					<Z>0.0</Z>
+				</Position>
+				<Behaviour>WW2-Behavior-Hangar-Green</Behaviour>
+				<Speed>0.0</Speed>
+			</Prefab>
+		</Prefabs>
+	</SpawnGroup>
+	
+	<!-- Green Potez 630 Factory -->
+	<SpawnGroup>
+		<Id>
+			<TypeId>SpawnGroupDefinition</TypeId>
+			<SubtypeId>NPC-WW2-Hangar-Potez630</SubtypeId>
+		</Id>
+		<Description>
+		
+		[Modular Encounters SpawnGroup]
+	
+		[PlanetaryInstallationType:Medium]
+		
+		[SpawnConditionsProfiles:WW2-SpawnConditions-Installations]
+		[ManipulationProfiles:MES-Manipulation-RivalAi]
+		
+		
+		[FactionOverride:GREEN]
+		[SpawnRandomCargo:true]
+	
+		[UseContainerTypeAssignment:true]
+		[ContainerTypeAssignBlockName:Small Cargo Container]
+		[ContainerTypeAssignSubtypeId:WW2-SmallCargo]
+
+		[ContainerTypeAssignBlockName:Medium Cargo Container]
+		[ContainerTypeAssignSubtypeId:WW2-MediumCargo]
+		
+		</Description>
+		<Frequency>1.0</Frequency>
+		<IsPirate>true</IsPirate>
+		<Prefabs>
+			<Prefab SubtypeId="NPC-WW2-Hangar-Potez630">
+ 				<Position>
+					<X>0.0</X>
+					<Y>5.5</Y>
+					<Z>0.0</Z>
+				</Position>
+				<Behaviour>WW2-Behavior-Hangar-Green</Behaviour>
+				<Speed>0.0</Speed>
+			</Prefab>
+		</Prefabs>
+	</SpawnGroup>
+
+<!-- End Hangar Spawns -->
+
+	</SpawnGroups>
+</Definitions>

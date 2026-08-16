@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <EntityComponents>
+
+<!-- Gray Factory Behaviors -->
+		<EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
+            <Id>
+                <TypeId>Inventory</TypeId>
+                <SubtypeId>WW2-Behavior-Factory-Plane-Re2000</SubtypeId>
+            </Id>
+            <Description>
+			[RivalAI Behavior]
+			[BehaviorName:Passive]
+
+			[Triggers:WW2-Trigger-ReputationDamage-Gray]
+			[Triggers:WW2-Trigger-Announcement-Factory]
+
+			[Triggers:WW2-Trigger-ProjectorBuild-Factory]
+			[Triggers:WW2-Trigger-DeliverySpawn-Factory-Plane-Gray]
+			[Triggers:WW2-Trigger-CallCargoPlane]
+			
+			[Triggers:WW2-Trigger-Activation-Factory-Plane-Gray]
+			[Triggers:WW2-Trigger-BotCrew-3]
+			[Triggers:WW2-Trigger-DefenseSpawn-Factory-Plane-Gray]
+			[Triggers:WW2-Trigger-OffenseSpawn-Factory-Plane-Re2000]
+
+			</Description>
+        </EntityComponent>
+		
+		<EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
+            <Id>
+                <TypeId>Inventory</TypeId>
+                <SubtypeId>WW2-Behavior-Factory-Plane-Re2001</SubtypeId>
+            </Id>
+            <Description>
+			[RivalAI Behavior]
+			[BehaviorName:Passive]
+
+			[Triggers:WW2-Trigger-ReputationDamage-Gray]
+			[Triggers:WW2-Trigger-Announcement-Factory]
+
+			[Triggers:WW2-Trigger-ProjectorBuild-Factory]
+			[Triggers:WW2-Trigger-DeliverySpawn-Factory-Plane-Gray]
+			[Triggers:WW2-Trigger-CallCargoPlane]
+			
+			[Triggers:WW2-Trigger-Activation-Factory-Plane-Gray]
+			[Triggers:WW2-Trigger-BotCrew-3]
+			[Triggers:WW2-Trigger-DefenseSpawn-Factory-Plane-Gray]
+			[Triggers:WW2-Trigger-OffenseSpawn-Factory-Plane-Re2001]
+
+			</Description>
+        </EntityComponent>
+		
+		<EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
+            <Id>
+                <TypeId>Inventory</TypeId>
+                <SubtypeId>WW2-Behavior-Factory-Plane-FC20</SubtypeId>
+            </Id>
+            <Description>
+			[RivalAI Behavior]
+			[BehaviorName:Passive]
+
+			[Triggers:WW2-Trigger-ReputationDamage-Gray]
+			[Triggers:WW2-Trigger-Announcement-Factory]
+
+			[Triggers:WW2-Trigger-ProjectorBuild-Factory]
+			[Triggers:WW2-Trigger-DeliverySpawn-Factory-Plane-Gray]
+			[Triggers:WW2-Trigger-CallCargoPlane]
+			
+			[Triggers:WW2-Trigger-Activation-Factory-Plane-Gray]
+			[Triggers:WW2-Trigger-BotCrew-3]
+			[Triggers:WW2-Trigger-DefenseSpawn-Factory-Plane-Gray]
+			[Triggers:WW2-Trigger-OffenseSpawn-Factory-Plane-FC20]
+
+			</Description>
+        </EntityComponent>
+<!-- End Gray Factory Behaviors -->
+
+<!-- Green Factory Behaviors -->
+		<EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
+            <Id>
+                <TypeId>Inventory</TypeId>
+                <SubtypeId>WW2-Behavior-Factory-Plane-MS406</SubtypeId>
+            </Id>
+            <Description>
+			[RivalAI Behavior]
+			[BehaviorName:Passive]
+
+			[Triggers:WW2-Trigger-ReputationDamage-Green]
+			[Triggers:WW2-Trigger-Announcement-Factory]
+			
+			[Triggers:WW2-Trigger-ProjectorBuild-Factory]
+			[Triggers:WW2-Trigger-DeliverySpawn-Factory-Plane-Green]
+			[Triggers:WW2-Trigger-CallCargoPlane]
+			
+			[Triggers:WW2-Trigger-Activation-Factory-Plane-Green]
+			[Triggers:WW2-Trigger-BotCrew-3]
+			[Triggers:WW2-Trigger-DefenseSpawn-Factory-Plane-Green]
+			[Triggers:WW2-Trigger-OffenseSpawn-Factory-Plane-MS406]
+
+			</Description>
+        </EntityComponent>
+		
+		<EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
+            <Id>
+                <TypeId>Inventory</TypeId>
+                <SubtypeId>WW2-Behavior-Factory-Plane-Potez630</SubtypeId>
+            </Id>
+            <Description>
+			[RivalAI Behavior]
+			[BehaviorName:Passive]
+
+			[Triggers:WW2-Trigger-ReputationDamage-Green]
+			[Triggers:WW2-Trigger-Announcement-Factory]
+			
+			[Triggers:WW2-Trigger-ProjectorBuild-Factory]
+			[Triggers:WW2-Trigger-DeliverySpawn-Factory-Plane-Green]
+			[Triggers:WW2-Trigger-CallCargoPlane]
+			
+			[Triggers:WW2-Trigger-Activation-Factory-Plane-Green]
+			[Triggers:WW2-Trigger-BotCrew-3]
+			[Triggers:WW2-Trigger-DefenseSpawn-Factory-Plane-Green]
+			[Triggers:WW2-Trigger-OffenseSpawn-Factory-Plane-Potez630]
+
+			</Description>
+        </EntityComponent>
+<!-- End Green Factory Behaviors -->
+
+	</EntityComponents>
+</Definitions>
