@@ -4,6 +4,15 @@ A staged plan for growing the mod from its current state (Naval + Air + Installa
 
 ---
 
+## Prefab naming convention (confirmed)
+
+Two parallel prefab families per hull, distinguished by purpose rather than just faction/class:
+
+- **`Player-WW2-[name]`** — configured for player use (includes landing gear). Used at hangars, garages, factories, and stores — the buyable/stealable grid tier described in Stage 3's expansion.
+- **`NPC-WW2-[name]`** — used for NPC-controlled encounters, matching the existing convention already reflected throughout the weapon-rebuild checklist below.
+
+---
+
 ## Prerequisite — Weapon System Rebuild
 
 Not a stage so much as a foundation everything else sits on. The current naval weapon mod is effectively dead, so every existing ship and plane needs rebuilding onto a new weapon system before Ship Core work can be meaningfully tested — the whole premise of Stage 1 is gating access to ships you already have, and that doesn't hold if those ships don't load.
@@ -39,33 +48,33 @@ Not a stage so much as a foundation everything else sits on. The current naval w
   - [x] NPC-WW2-Le_Triomphant (Destroyer, Green)
   - [x] NPC-WW2-Algerie (Cruiser, Green)
   - [x] NPC-WW2-Emile_Bertin (Cruiser, Green) — **confirmed root cause found:** the AWG piston/hinge-based catapult+floatplane assembly (Loire 130) silently breaks grid loading — no exception, no error, just fails to register as an entity. Reproduced and fixed by surgical removal in a build-world test; same mechanism confirmed present on Algerie (Green Heavy Cruiser) and absent on Trento (Gray Heavy Cruiser, which has never shown the failure — clean independent confirmation). Rebuild the catapult using non-AWG piston/hinge parts (or the general WeaponCore turret approach already planned for weapons) before this hull is usable in a SpawnGroup.
-  - [ ] NPC-WW2-Aquila (Carrier, Gray) - Fix tower and cranes once KONTAKT mod is fixed.
-  - [ ] NPC-WW2-Bearn (Carrier, Green)
+  - [x] NPC-WW2-Aquila (Carrier, Gray) - Fix tower and cranes once KONTAKT mod is fixed.
+  - [x] NPC-WW2-Bearn (Carrier, Green)
 
   **Air:**
-  - [ ] NPC-WW2-Re2001 (Fighter, Gray) - Replace conveyors, engines, glass, and side MG covers once KONTAKT is fixed.
+  - [x] NPC-WW2-Re2001 (Fighter, Gray) - Replace conveyors, engines, glass, and side MG covers once KONTAKT is fixed.
   - [ ] NPC-WW2-Re2000 (Fighter, Gray)
   - [ ] NPC-WW2-FC20 (Attacker, Gray)
   - [ ] NPC-WW2-Loire130 (Recon, Green)
   - [ ] NPC-WW2-F4F (Fighter, Green)
-  - [ ] NPC-WW2-MS406 (Fighter, Green)
+  - [x] NPC-WW2-MS406 (Fighter, Green)
   - [ ] NPC-WW2-Potez630 (Attacker, Green)
-  - [ ] NPC-WW2-V-156-F (Attacker, Green)
+  - [x] NPC-WW2-V-156-F-Bomber (Attacker, Green)
+  - [x] NPC-WW2-V-156-F-Torpedo (Attacker, Green)
   - [ ] NPC-WW2-Ju52 (Cargo Plane, Gray)
   - [ ] NPC-WW2-F222 (Cargo Plane, Green)
   - [ ] NPC-WW2-C47 — **not a rebuild task.** Already orphaned/unused, superseded by F222. Decide retire-vs-rebuild first; don't spend a session rebuilding a hull you've already said you don't want.
 
-  **Installations:**
+  **Installations (architecture superseded, confirmed):** the old one-hangar/one-factory-per-plane-type model is retired. No more rebuilding a separate Hangar or Factory prefab for every plane variant that gets added — one general Hangar, one general Factory, and one general Garage per faction instead, with MES handling which vehicle variant spawns inside via SpawnGroup selection rather than the installation itself being hardcoded to one plane. This is the direct generalization of the Factory rework architecture (one factory shell per faction per class, spawning independent small-grid planes into fixed interior points, proven by the existing `OffenseSpawn-Factory-Plane`/`DeliverySpawn-Factory-Plane` mechanism) taken one step further: one shell per faction *per installation type*, not per class either.
+
+  Prefab names below follow the naming convention above and are inferred from the existing pattern, not yet confirmed against actual file names — flag if these don't match:
   - [ ] NPC-WW2-Ammo-Depot-1
-  - [ ] NPC-WW2-Hangar-FC20
-  - [ ] NPC-WW2-Hangar-MS406
-  - [ ] NPC-WW2-Hangar-Potez630
-  - [ ] NPC-WW2-Hangar-Re2001
-  - [ ] NPC-WW2-Factory-Plane-FC20
-  - [ ] NPC-WW2-Factory-Plane-MS406
-  - [ ] NPC-WW2-Factory-Plane-Potez630
-  - [ ] NPC-WW2-Factory-Plane-Re2000
-  - [ ] NPC-WW2-Factory-Plane-Re2001
+  - [ ] NPC-WW2-Hangar-Gray
+  - [ ] NPC-WW2-Hangar-Green
+  - [ ] NPC-WW2-Factory-Plane-Gray
+  - [x] NPC-WW2-Factory-Plane-Green
+  - [ ] NPC-WW2-Garage-Gray
+  - [ ] NPC-WW2-Garage-Green
 - [ ] Re-verify SpawnGroups/Behaviors/Loot still reference correct ammo/weapon subtype IDs after rebuild (loot container definitions currently reference old ammo names like `FiddyShellWC`, `HispanoDrumAP` — these will need updating).
 - [ ] Once rebuilt, re-run the same cross-reference audit process used earlier in this project (defined-vs-referenced SubtypeId sweep) to catch anything broken by the swap.
 
@@ -137,7 +146,7 @@ Not a stage so much as a foundation everything else sits on. The current naval w
 |---|---|---|
 | **Civilian** | Ju52 *(open item — see below)* | F.222 (civilian variant) |
 | **Fighter** | Re2001, Re2000; **Macchi C.202 Folgore** | F4F, MS406; **Dewoitine D.520** |
-| **Attacker** | FC20; Ba.88 *(Stage 5 addition)* | Potez630, V-156-F; MB.210 *(Stage 5 addition)* |
+| **Attacker** | FC20; Ba.88 *(Stage 5 addition)* | Potez630, V-156-F-Bomber, V-156-F-Torpedo; MB.210 *(Stage 5 addition)* |
 | **Bomber** | SM.79 *(Stage 5 addition)*; P.108 | LeO 451 *(Stage 5 addition)*; F.222 (military variant) |
 | **Recon** | IMAM Ro.43 | Loire 130 |
 
@@ -146,6 +155,8 @@ Not a stage so much as a foundation everything else sits on. The current naval w
 **Dewoitine D.520 added (confirmed).** Same pattern on the French side: widely documented as the only French fighter able to meet the Bf 109E on roughly equal terms, and the best fighter available to the Armée de l'Air during the Battle of France — a stronger claim than MS406, which multiple sources describe as already outclassed by 1940. 905 built. Possible existing build to check against before starting from scratch.
 
 **Tier naming updated:** the old "Attacker/Bomber" and "Heavy Bomber" tiers are now separate Attacker and Bomber tiers, matching the Fighter/Corvette-style single-word tier naming used elsewhere. FC20, Potez630, and V-156-F are existing built assets already tracked in the weapon-rebuild checklist; Ba.88, SM.79, MB.210, and LeO 451 are Stage 5 additions confirmed in an earlier session.
+
+**V-156-F split into two variants (confirmed):** the single V-156-F build has been split into `V-156-F-Bomber` and `V-156-F-Torpedo`, tracked as two separate hulls (`NPC-WW2-V-156-F-Bomber`, `NPC-WW2-V-156-F-Torpedo`) in the weapon-rebuild checklist rather than one.
 
 **Recon tier added (confirmed).** Catapult-launched shipborne reconnaissance floatplanes, standalone Air roster entry rather than folded into Civilian or treated as Fighters — they carry no cargo (poor Civilian-tier loot fit) and weren't used in a delivery/transport role, and their real-world job (scouting, gunnery spotting) doesn't match Fighter-tier combat behavior. **Loire 130** (Green) is a confirmed real French Navy catapult reconnaissance floatplane, carried aboard cruisers and battleships for scouting and gunnery observation, 125 built, in service 1937–38 — the existing built Loire 130 grid (already referenced in the weapon-rebuild checklist as part of Emile Bertin's catapult assembly) is the asset for this slot. **IMAM Ro.43** (Gray) is the Italian equivalent: same requirement type (a 1933 Regia Marina spec for a catapult reconnaissance floatplane), carried aboard Trento-, Zara-, and Littorio-class ships, real combat history spotting the British fleet at Calabria and Cape Spartivento and directing gunfire at the Second Battle of Sirte. Both are lightly armed (Ro.43: two 7.7mm Breda-SAFAT MGs) consistent with a scout role rather than a combat one. **Mechanics (spawn behavior, ship-attachment vs. standalone spawning, any progression-tier implications) deliberately deferred to a separate thread — this entry is roster/historical only.**
 
@@ -332,14 +343,18 @@ Built on the territory and War Level system defined above — no separate tracki
   **Terrain fitting, confirmed technique:** MES's voxel-spawning capability will be used to carve/scoop the correct berth/slip shapes and level the surrounding ground so the Port anchor's pier, construction slip, and quay structures sit correctly into planet terrain, rather than requiring hand-sculpted terrain to already exist at the anchor's fixed coordinates before the installation is placed.
 
 - **Maintenance yards** — new tier, sitting between the anchors and the hangars/garages: a fixed-location installation, permanent position, but capturable via the territory-ownership-flip mechanism above, with inventory reflecting whoever currently holds it.
-- **Hangars/garages** — the existing prefab tier, functioning as regular dynamic MES spawns: these follow the *dynamic-encounter* half of the ownership model — they stay with their design-time faction and are gated to spawn only within that faction's current territory, rather than changing hands themselves.
+- **Hangars/garages/factories** — one general prefab per faction per installation type (not per plane/vehicle variant, see the Prerequisite section's Installations note), functioning as regular dynamic MES spawns: these follow the *dynamic-encounter* half of the ownership model — they stay with their design-time faction and are gated to spawn only within that faction's current territory, rather than changing hands themselves. Which specific vehicle variant appears inside is an MES SpawnGroup selection made at spawn time, not baked into the installation prefab itself.
+
+  **Factory production-line build states (confirmed, Fighter tier):** a Factory's interior spawn points fill with sub-spawns representing a production line rather than uniformly finished hulls. Fighter-tier factories use 6 slots: 2 fully built (100%, the untouched blueprint, no manipulation needed), 2 at a randomized 50–75% build state, 2 at a randomized 25–50% build state, using MES's `ReduceBlockBuildStates` manipulation (confirmed to only affect non-essential blocks like armor/glass, not functional blocks) via two reusable Manipulation Profiles (`WW2-Manipulation-BuildState-Stage2`, `WW2-Manipulation-BuildState-Stage1`) applied uniformly across each affected hull rather than to a random subset of its blocks. Applied identically across every Fighter variant rather than authored per-plane. Attacker tier (3–4 slots, exact count and percentage scheme TBD pending checking previous builds for what physically fits) needs its own profile(s) once confirmed.
+
+  Each Factory instance randomly commits to one class per spawn cycle — a 6-slot Fighter production line (all 6 the same randomly-selected Fighter variant) or a 3–4-slot Attacker line (all slots the same randomly-selected Attacker variant) — never mixed within one factory instance.
 
 **Steal-or-buy, same location, two paths to the same grid.** Anywhere a player can steal a vehicle, they can also buy that same vehicle — friendly/reputable players take the peaceful route, everyone else takes the risk-it route, both ending at the same actual hull. Applies at the hangar/garage tier specifically, where stealing already lives.
 
 **War Level effects specific to this section** (the general War Level mechanism and its two confirmed effect categories are defined in the territory-growth section above; this is the domain-anchor-specific application of effect #1, fixed-installation functionality/activity scaling):
 - **Domain anchor stock** — higher War Level unlocks better hulls/materials in that faction's complete catalog. This is the more legible of War Level's signals to a player — not "spawn tables quietly shifted," but "the shelf at the anchor visibly got better."
 
-**Restocking has real, working precedent already shipped in this mod — it's not a new problem.** The existing Factory-Plane installations already do a persistent structure periodically spawning new grids nearby (`OffenseSpawn-Factory-Plane`, `DeliverySpawn-Factory-Plane`). Maintenance yards need the same capability aimed at ground vehicles instead of aircraft. Ownership-change restocking (when a yard flips faction) doesn't need separate infrastructure either — it's one more action added to the same capture trigger chain already designed above (recolor, flip ownership, swap supply triggers, **now also: reroll stock**).
+**Restocking has real, working precedent already shipped in this mod — it's not a new problem.** The general per-faction Factory installations already use a persistent structure periodically spawning new grids nearby (`OffenseSpawn-Factory-Plane`, `DeliverySpawn-Factory-Plane`), now generalized to spawn whichever plane variant a SpawnGroup selects rather than one hardcoded plane per Factory prefab. Maintenance yards need the same capability aimed at ground vehicles instead of aircraft. Ownership-change restocking (when a yard flips faction) doesn't need separate infrastructure either — it's one more action added to the same capture trigger chain already designed above (recolor, flip ownership, swap supply triggers, **now also: reroll stock**).
 
 **One real, unverified gap in the restocking plan: precise spawning inside a tight interior bay.** Factory-Plane's precedent is proven for aircraft, which tolerate minor spawn-point imprecision by simply flying away; a ground vehicle spawned slightly off inside a garage bay can clip through walls or get stuck. Recommended sequencing: prove the restocking mechanic on **open platforms in an outdoor supply yard first** (no tight geometry to clip through), and only attempt precise interior-bay spawning as a stretch goal once the basic mechanic is confirmed reliable — building the harder version first risks discovering it doesn't work after already committing to it.
 
@@ -350,7 +365,7 @@ Built on the territory and War Level system defined above — no separate tracki
 **To-do (blocked on the territory-growth to-dos above; Custom Planet dependency removed):**
 - [ ] Build/place the four domain anchors (Gray/Green × Airport/Port).
 - [ ] Design the "complete catalog" concept — which hulls are sellable at all, and how War Level gates the list.
-- [ ] Build cored/sellable versions of existing hangar/garage prefabs (a cored variant alongside the stealable one).
+- [ ] Build cored/sellable versions of the general per-faction hangar/garage prefabs (a cored variant alongside the stealable one).
 - [ ] Wire buy-capability into existing hangar/garage locations alongside the existing steal mechanic.
 - [ ] Design and place maintenance yards as a new prefab tier, distinct from both anchors and hangars.
 - [ ] Prototype restocking on an open-air supply yard before attempting interior-bay spawning.

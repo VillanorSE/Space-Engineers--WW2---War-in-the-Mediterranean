@@ -5,8 +5,13 @@
              WW2 Encounters: Ship Core blocks.
              Design confirmed in chat: components and model reused from vanilla Remote
              Control (grid-size-matched), full 6-side mount points and IsAirTight
-             reused from vanilla armor block. Plain CubeBlock TypeId, no
-             RemoteControl functionality.
+             reused from vanilla armor block.
+             TypeId is FunctionalBlock (xsi:type MyObjectBuilder_FunctionalBlockDefinition),
+             matching Arcane Cores' proven working pattern : required because a block
+             containing a Computer component needs a terminal-capable TypeId for
+             ownership to be reassignable via the terminal, confirmed by an actual
+             MOD_ERROR from a real load-test log. FunctionalBlock carries no RC-style
+             autopilot/EnableShipControl functionality on its own.
              Component lists are the vanilla RC baseline as a starting point only;
              higher-tier cores still need Industrial/Military/Advanced Military
              Components layered in per the Roadmap's unlock-economy design, once
@@ -14,15 +19,16 @@
              Icon, model, and BuildProgressModels are placeholder reuse of vanilla
              RC assets pending final custom art.
         -->
-        <Definition>
+        <Definition xsi:type="MyObjectBuilder_FunctionalBlockDefinition">
             <Id>
-                <TypeId>CubeBlock</TypeId>
+                <TypeId>FunctionalBlock</TypeId>
                 <SubtypeId>WW2-Core-Naval-Civilian</SubtypeId>
             </Id>
             <DisplayName>Civilian Naval Core</DisplayName>
             <Icon>Textures\GUI\Icons\Cubes\RemoteControl.dds</Icon>
             <Description>WW2 Encounters Ship Core: Civilian Naval Core. Placeholder visuals and components reused from vanilla Remote Control pending final art and component-cost tuning.</Description>
             <CubeSize>Large</CubeSize>
+            <GuiVisible>false</GuiVisible>
             <BlockTopology>TriangleMesh</BlockTopology>
             <Size x="1" y="1" z="1" />
             <ModelOffset x="0" y="0" z="0" />
@@ -54,21 +60,23 @@
             <Public>true</Public>
             <DamageEffectName>Damage_Electrical_Damaged</DamageEffectName>
             <DamagedSound>ParticleElectrical</DamagedSound>
+            <ResourceSinkGroup>Utility</ResourceSinkGroup>
             <EmissiveColorPreset>Extended</EmissiveColorPreset>
             <DestroyEffect>BlockDestroyedExplosion_Large</DestroyEffect>
             <DestroySound>WepSmallWarheadExpl</DestroySound>
             <PCU>25</PCU>
             <IsAirTight>true</IsAirTight>
         </Definition>
-        <Definition>
+        <Definition xsi:type="MyObjectBuilder_FunctionalBlockDefinition">
             <Id>
-                <TypeId>CubeBlock</TypeId>
+                <TypeId>FunctionalBlock</TypeId>
                 <SubtypeId>WW2-Core-Naval-Corvette</SubtypeId>
             </Id>
             <DisplayName>Corvette Core</DisplayName>
             <Icon>Textures\GUI\Icons\Cubes\RemoteControl.dds</Icon>
             <Description>WW2 Encounters Ship Core: Corvette Core. Placeholder visuals and components reused from vanilla Remote Control pending final art and component-cost tuning.</Description>
             <CubeSize>Large</CubeSize>
+            <GuiVisible>false</GuiVisible>
             <BlockTopology>TriangleMesh</BlockTopology>
             <Size x="1" y="1" z="1" />
             <ModelOffset x="0" y="0" z="0" />
@@ -100,21 +108,23 @@
             <Public>true</Public>
             <DamageEffectName>Damage_Electrical_Damaged</DamageEffectName>
             <DamagedSound>ParticleElectrical</DamagedSound>
+            <ResourceSinkGroup>Utility</ResourceSinkGroup>
             <EmissiveColorPreset>Extended</EmissiveColorPreset>
             <DestroyEffect>BlockDestroyedExplosion_Large</DestroyEffect>
             <DestroySound>WepSmallWarheadExpl</DestroySound>
             <PCU>25</PCU>
             <IsAirTight>true</IsAirTight>
         </Definition>
-        <Definition>
+        <Definition xsi:type="MyObjectBuilder_FunctionalBlockDefinition">
             <Id>
-                <TypeId>CubeBlock</TypeId>
+                <TypeId>FunctionalBlock</TypeId>
                 <SubtypeId>WW2-Core-Naval-Destroyer</SubtypeId>
             </Id>
             <DisplayName>Destroyer Core</DisplayName>
             <Icon>Textures\GUI\Icons\Cubes\RemoteControl.dds</Icon>
             <Description>WW2 Encounters Ship Core: Destroyer Core. Placeholder visuals and components reused from vanilla Remote Control pending final art and component-cost tuning.</Description>
             <CubeSize>Large</CubeSize>
+            <GuiVisible>false</GuiVisible>
             <BlockTopology>TriangleMesh</BlockTopology>
             <Size x="1" y="1" z="1" />
             <ModelOffset x="0" y="0" z="0" />
@@ -146,21 +156,23 @@
             <Public>true</Public>
             <DamageEffectName>Damage_Electrical_Damaged</DamageEffectName>
             <DamagedSound>ParticleElectrical</DamagedSound>
+            <ResourceSinkGroup>Utility</ResourceSinkGroup>
             <EmissiveColorPreset>Extended</EmissiveColorPreset>
             <DestroyEffect>BlockDestroyedExplosion_Large</DestroyEffect>
             <DestroySound>WepSmallWarheadExpl</DestroySound>
             <PCU>25</PCU>
             <IsAirTight>true</IsAirTight>
         </Definition>
-        <Definition>
+        <Definition xsi:type="MyObjectBuilder_FunctionalBlockDefinition">
             <Id>
-                <TypeId>CubeBlock</TypeId>
+                <TypeId>FunctionalBlock</TypeId>
                 <SubtypeId>WW2-Core-Base</SubtypeId>
             </Id>
             <DisplayName>Base Core</DisplayName>
             <Icon>Textures\GUI\Icons\Cubes\RemoteControl.dds</Icon>
             <Description>WW2 Encounters Ship Core: Base Core. Placeholder visuals and components reused from vanilla Remote Control pending final art and component-cost tuning.</Description>
             <CubeSize>Large</CubeSize>
+            <GuiVisible>false</GuiVisible>
             <BlockTopology>TriangleMesh</BlockTopology>
             <Size x="1" y="1" z="1" />
             <ModelOffset x="0" y="0" z="0" />
@@ -192,21 +204,23 @@
             <Public>true</Public>
             <DamageEffectName>Damage_Electrical_Damaged</DamageEffectName>
             <DamagedSound>ParticleElectrical</DamagedSound>
+            <ResourceSinkGroup>Utility</ResourceSinkGroup>
             <EmissiveColorPreset>Extended</EmissiveColorPreset>
             <DestroyEffect>BlockDestroyedExplosion_Large</DestroyEffect>
             <DestroySound>WepSmallWarheadExpl</DestroySound>
             <PCU>25</PCU>
             <IsAirTight>true</IsAirTight>
         </Definition>
-        <Definition>
+        <Definition xsi:type="MyObjectBuilder_FunctionalBlockDefinition">
             <Id>
-                <TypeId>CubeBlock</TypeId>
+                <TypeId>FunctionalBlock</TypeId>
                 <SubtypeId>WW2-Core-Outpost</SubtypeId>
             </Id>
             <DisplayName>Outpost Core</DisplayName>
             <Icon>Textures\GUI\Icons\Cubes\RemoteControl.dds</Icon>
             <Description>WW2 Encounters Ship Core: Outpost Core. Placeholder visuals and components reused from vanilla Remote Control pending final art and component-cost tuning.</Description>
             <CubeSize>Large</CubeSize>
+            <GuiVisible>false</GuiVisible>
             <BlockTopology>TriangleMesh</BlockTopology>
             <Size x="1" y="1" z="1" />
             <ModelOffset x="0" y="0" z="0" />
@@ -238,21 +252,23 @@
             <Public>true</Public>
             <DamageEffectName>Damage_Electrical_Damaged</DamageEffectName>
             <DamagedSound>ParticleElectrical</DamagedSound>
+            <ResourceSinkGroup>Utility</ResourceSinkGroup>
             <EmissiveColorPreset>Extended</EmissiveColorPreset>
             <DestroyEffect>BlockDestroyedExplosion_Large</DestroyEffect>
             <DestroySound>WepSmallWarheadExpl</DestroySound>
             <PCU>25</PCU>
             <IsAirTight>true</IsAirTight>
         </Definition>
-        <Definition>
+        <Definition xsi:type="MyObjectBuilder_FunctionalBlockDefinition">
             <Id>
-                <TypeId>CubeBlock</TypeId>
+                <TypeId>FunctionalBlock</TypeId>
                 <SubtypeId>WW2-Core-Air-Civilian</SubtypeId>
             </Id>
             <DisplayName>Civilian Air Core</DisplayName>
             <Icon>Textures\GUI\Icons\Cubes\RemoteControl.dds</Icon>
             <Description>WW2 Encounters Ship Core: Civilian Air Core. Placeholder visuals and components reused from vanilla Remote Control pending final art and component-cost tuning.</Description>
             <CubeSize>Small</CubeSize>
+            <GuiVisible>false</GuiVisible>
             <BlockTopology>TriangleMesh</BlockTopology>
             <Size x="1" y="1" z="1" />
             <ModelOffset x="0" y="0" z="0" />
@@ -284,21 +300,23 @@
             <Public>true</Public>
             <DamageEffectName>Damage_Electrical_Damaged</DamageEffectName>
             <DamagedSound>ParticleElectrical</DamagedSound>
+            <ResourceSinkGroup>Utility</ResourceSinkGroup>
             <EmissiveColorPreset>Extended</EmissiveColorPreset>
             <DestroyEffect>BlockDestroyedExplosion_Small</DestroyEffect>
             <DestroySound>WepSmallWarheadExpl</DestroySound>
             <PCU>25</PCU>
             <IsAirTight>true</IsAirTight>
         </Definition>
-        <Definition>
+        <Definition xsi:type="MyObjectBuilder_FunctionalBlockDefinition">
             <Id>
-                <TypeId>CubeBlock</TypeId>
+                <TypeId>FunctionalBlock</TypeId>
                 <SubtypeId>WW2-Core-Air-Fighter</SubtypeId>
             </Id>
             <DisplayName>Fighter Core</DisplayName>
             <Icon>Textures\GUI\Icons\Cubes\RemoteControl.dds</Icon>
             <Description>WW2 Encounters Ship Core: Fighter Core. Placeholder visuals and components reused from vanilla Remote Control pending final art and component-cost tuning.</Description>
             <CubeSize>Small</CubeSize>
+            <GuiVisible>false</GuiVisible>
             <BlockTopology>TriangleMesh</BlockTopology>
             <Size x="1" y="1" z="1" />
             <ModelOffset x="0" y="0" z="0" />
@@ -330,21 +348,23 @@
             <Public>true</Public>
             <DamageEffectName>Damage_Electrical_Damaged</DamageEffectName>
             <DamagedSound>ParticleElectrical</DamagedSound>
+            <ResourceSinkGroup>Utility</ResourceSinkGroup>
             <EmissiveColorPreset>Extended</EmissiveColorPreset>
             <DestroyEffect>BlockDestroyedExplosion_Small</DestroyEffect>
             <DestroySound>WepSmallWarheadExpl</DestroySound>
             <PCU>25</PCU>
             <IsAirTight>true</IsAirTight>
         </Definition>
-        <Definition>
+        <Definition xsi:type="MyObjectBuilder_FunctionalBlockDefinition">
             <Id>
-                <TypeId>CubeBlock</TypeId>
+                <TypeId>FunctionalBlock</TypeId>
                 <SubtypeId>WW2-Core-Wheeled-Civilian</SubtypeId>
             </Id>
             <DisplayName>Civilian Ground Core</DisplayName>
             <Icon>Textures\GUI\Icons\Cubes\RemoteControl.dds</Icon>
             <Description>WW2 Encounters Ship Core: Civilian Ground Core. Placeholder visuals and components reused from vanilla Remote Control pending final art and component-cost tuning.</Description>
             <CubeSize>Small</CubeSize>
+            <GuiVisible>false</GuiVisible>
             <BlockTopology>TriangleMesh</BlockTopology>
             <Size x="1" y="1" z="1" />
             <ModelOffset x="0" y="0" z="0" />
@@ -376,21 +396,23 @@
             <Public>true</Public>
             <DamageEffectName>Damage_Electrical_Damaged</DamageEffectName>
             <DamagedSound>ParticleElectrical</DamagedSound>
+            <ResourceSinkGroup>Utility</ResourceSinkGroup>
             <EmissiveColorPreset>Extended</EmissiveColorPreset>
             <DestroyEffect>BlockDestroyedExplosion_Small</DestroyEffect>
             <DestroySound>WepSmallWarheadExpl</DestroySound>
             <PCU>25</PCU>
             <IsAirTight>true</IsAirTight>
         </Definition>
-        <Definition>
+        <Definition xsi:type="MyObjectBuilder_FunctionalBlockDefinition">
             <Id>
-                <TypeId>CubeBlock</TypeId>
+                <TypeId>FunctionalBlock</TypeId>
                 <SubtypeId>WW2-Core-Wheeled-ArmoredCar</SubtypeId>
             </Id>
             <DisplayName>Armored Car Core</DisplayName>
             <Icon>Textures\GUI\Icons\Cubes\RemoteControl.dds</Icon>
             <Description>WW2 Encounters Ship Core: Armored Car Core. Placeholder visuals and components reused from vanilla Remote Control pending final art and component-cost tuning.</Description>
             <CubeSize>Small</CubeSize>
+            <GuiVisible>false</GuiVisible>
             <BlockTopology>TriangleMesh</BlockTopology>
             <Size x="1" y="1" z="1" />
             <ModelOffset x="0" y="0" z="0" />
@@ -422,6 +444,7 @@
             <Public>true</Public>
             <DamageEffectName>Damage_Electrical_Damaged</DamageEffectName>
             <DamagedSound>ParticleElectrical</DamagedSound>
+            <ResourceSinkGroup>Utility</ResourceSinkGroup>
             <EmissiveColorPreset>Extended</EmissiveColorPreset>
             <DestroyEffect>BlockDestroyedExplosion_Small</DestroyEffect>
             <DestroySound>WepSmallWarheadExpl</DestroySound>
