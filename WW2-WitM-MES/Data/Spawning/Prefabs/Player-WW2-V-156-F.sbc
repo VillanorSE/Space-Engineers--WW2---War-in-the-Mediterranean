@@ -1994,7 +1994,7 @@
               <ShowInInventory>true</ShowInInventory>
               <NumberInGrid>1</NumberInGrid>
               <Enabled>true</Enabled>
-              <BroadcastRadius>20000.0059</BroadcastRadius>
+              <BroadcastRadius>2000</BroadcastRadius>
               <HudText>V-156-F</HudText>
             </MyObjectBuilder_CubeBlock>
             <MyObjectBuilder_CubeBlock xsi:type="MyObjectBuilder_Cockpit">

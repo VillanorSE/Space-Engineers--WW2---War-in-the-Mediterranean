@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CoreManifest>
+
+  <ShipCore>
+    <Filename>Data\Cores\Civilian_Naval_core.xml</Filename>
+  </ShipCore>
+
+  <ShipCore>
+    <Filename>Data\Cores\Corvette_Naval_core.xml</Filename>
+  </ShipCore>
+
+  <ShipCore>
+    <Filename>Data\Cores\Destroyer_core.xml</Filename>
+  </ShipCore>
+
+  <ShipCore>
+    <Filename>Data\Cores\Civilian_Air_core.xml</Filename>
+  </ShipCore>
+
+  <ShipCore>
+    <Filename>Data\Cores\Fighter_core.xml</Filename>
+  </ShipCore>
+
+  <ShipCore>
+    <Filename>Data\Cores\Attacker_core.xml</Filename>
+  </ShipCore>
+
+  <ShipCore>
+    <Filename>Data\Cores\Bomber_core.xml</Filename>
+  </ShipCore>
+
+  <ShipCore>
+    <Filename>Data\Cores\Civilian_Ground_core.xml</Filename>
+  </ShipCore>
+
+  <ShipCore>
+    <Filename>Data\Cores\Armored_Car_core.xml</Filename>
+  </ShipCore>
+
+  <ShipCore>
+    <Filename>Data\Cores\Base_core.xml</Filename>
+  </ShipCore>
+
+  <ShipCore>
+    <Filename>Data\Cores\Outpost_core.xml</Filename>
+  </ShipCore>
+
+</CoreManifest>

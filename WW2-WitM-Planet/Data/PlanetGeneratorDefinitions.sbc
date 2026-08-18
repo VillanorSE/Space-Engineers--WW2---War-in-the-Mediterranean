@@ -1,0 +1,277 @@
+<?xml version="1.0"?>
+<Definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <PlanetGeneratorDefinitions>
+    <PlanetGeneratorDefinition>
+      <Id>
+        <TypeId>PlanetGeneratorDefinition</TypeId>
+        <SubtypeId>WW2WitM_Mediterranean</SubtypeId>
+      </Id>
+
+      <DisplayName>Mediterranean</DisplayName>
+
+      <!-- Matches Data/PlanetDataFiles/WW2Mediterranean/ where the 6 heightmap
+           faces (front/back/left/right/up/down) currently live. -->
+      <FolderName>WW2Mediterranean</FolderName>
+
+      <!-- Material now enabled: a real material map (red channel, north/
+           south hemisphere split) has been generated and projected using
+           the confirmed cube-face geometry, alongside the ore map (blue
+           channel) from before. Biome (environment item placement) still
+           not built. -->
+      <PlanetMaps Material="true" Biome="false" Ores="true" />
+
+      <!-- CONFIRMED CUBE-FACE GEOMETRY MAPPING (keep this exact for any
+           future texture that must align with the heightmap: ore maps,
+           future material/biome maps, anything else):
+           Side faces (front/right/back/left): standard gnomonic projection
+           with the Y component negated relative to the naive formula (this
+           was the fix for the "Italy backwards" mirror bug). front=lon 0,
+           right=lon 90, back=lon 180 (~Italy), left=lon 270, going
+           eastward with increasing longitude.
+           Pole faces: the north-pole-computed data (+Z, geometrically)
+           goes into down.png, and the south-pole-computed data (-Z) goes
+           into up.png (i.e. north/south are SWAPPED relative to the
+           naive/expected assignment), and BOTH poles additionally get a
+           left-right mirror flip (np.fliplr) on top of that swap. This
+           combination (swap + flip on both) is empirically confirmed
+           correct via direct in-game content checks (Corsica correctly
+           north of Apulia; Crete correctly attached to Greece). -->
+      <OreMappings>
+        <!-- All Value/Type/Start/Depth entries and the TargetColor/
+             ColorInfluence styling are copied from the real vanilla
+             PlanetGeneratorDefinitions.sbc pattern, not guessed. Ore
+             placement itself (which pixels get which Value) comes from
+             the blue channel of the new *_mat.png files, generated from
+             clustered noise fields constrained to land above sea level
+             (elevation > 0) only, per request; no ore under water. -->
+        <Ore Value="50"  Type="Iron_02"     Start="3"  Depth="8" TargetColor="#616c83" ColorInfluence="15"/>
+        <Ore Value="90"  Type="Nickel_01"   Start="5"  Depth="8" TargetColor="#616c83" ColorInfluence="15"/>
+        <Ore Value="130" Type="Silicon_01"  Start="4"  Depth="7" TargetColor="#616c83" ColorInfluence="15"/>
+        <Ore Value="160" Type="Cobalt_01"   Start="8"  Depth="6" TargetColor="#616c83" ColorInfluence="15"/>
+        <Ore Value="190" Type="Silver_01"   Start="10" Depth="5" TargetColor="#616c83" ColorInfluence="15"/>
+        <Ore Value="210" Type="Gold_01"     Start="12" Depth="4" TargetColor="#616c83" ColorInfluence="15"/>
+        <Ore Value="230" Type="Platinum_01" Start="15" Depth="4" TargetColor="#616c83" ColorInfluence="15"/>
+        <Ore Value="245" Type="Magnesium_01" Start="6" Depth="6" TargetColor="#616c83" ColorInfluence="15"/>
+      </OreMappings>
+
+      <!-- Derived directly from the final compressed heightmap data:
+           real elevation range -835.75m to +508.38m, planet radius 30,000m.
+           SE's water is a fixed-radius sphere from planet center, not a mesh
+           that follows terrain, so any inland area below 0m would flood
+           regardless of connectivity to the ocean. Found and fixed 758 such
+           disconnected pockets (two large enough to be real closed basins
+           like the Qattara Depression, the rest sub-pixel interpolation
+           noise) by smoothly infilling from surrounding real terrain (an
+           earlier uniform-offset approach created a massive cliff/bullseye
+           artifact at each basin's boundary; this version avoids that).
+           Natural coastlines are deliberately NOT floored to a minimum
+           height above sea level; gentle real slopes through Water Mod's
+           default +/-2m wave range are accepted as more natural-looking
+           than a hard clamp/shelf. -->
+      <!-- POLE ORIENTATION: swap confirmed correct (Corsica now reads
+           north of Apulia, as it should). Both poles now additionally get
+           a left-right mirror flip on top of the swap, per direct
+           confirmation that east/west (not north/south) needed to invert.
+           Range unaffected, so HillParams/material thresholds unchanged. -->
+      <HillParams Min="-0.027858" Max="0.016946" />
+
+      <!-- Height-graduated surface materials for basic visual orientation,
+           since the full biome/material texture pass hasn't happened yet.
+           All material SubtypeIds below are copied verbatim from the real
+           vanilla PlanetGeneratorDefinitions.sbc (Pertam/EarthLike blocks),
+           not guessed; confirmed present in that file. Height values are
+           normalized 0-1 against this planet's own HillParams range; sea
+           level (real elevation 0m) sits at normalized height ~0.622 given
+           the Min/Max above. Latitude-based rules are deliberately avoided:
+           our wrap design puts land in the two outer thirds near both poles
+           and water in the middle third, so SE's Latitude filter doesn't
+           correspond to "Europe vs Africa" the way it would on a
+           conventional planet; Height and Slope are what's actually
+           meaningful here. This is a first pass for orientation purposes,
+           not a final biome design. -->
+      <ComplexMaterials>
+        <MaterialGroup Name="MediterraneanDefault" Value="0">
+
+          <!-- Deep water: uses "Ice" so the planet reads as having oceans
+               from orbit/far away even when Water Mod's actual water isn't
+               rendering. Threshold is real depth -7.5m (tightened from an
+               earlier -30m pass per confirmed real depth soundings: Sicily-
+               Tunisia strait ~58m, Adriatic ~32m; both comfortably below
+               this new threshold, so the strait and the Adriatic both read
+               as deep/Ice, with just a thin true-shallow rim as sand). -->
+          <Rule>
+            <Layers>
+              <Layer Material="Ice" Depth="20"/>
+            </Layers>
+            <Height Min="0.0" Max="0.6162"/>
+            <Slope Min="0" Max="90"/>
+          </Rule>
+
+          <!-- Shallow coastal shelf: natural sandy seafloor near shore -->
+          <Rule>
+            <Layers>
+              <Layer Material="Sand_02" Depth="20"/>
+            </Layers>
+            <Height Min="0.6162" Max="0.6218"/>
+            <Slope Min="0" Max="90"/>
+          </Rule>
+
+          <!-- Beach / immediate coastline (real elevation ~0-24m) -->
+          <Rule>
+            <Layers>
+              <Layer Material="PertamSand" Depth="15"/>
+            </Layers>
+            <Height Min="0.6218" Max="0.64"/>
+            <Slope Min="0" Max="90"/>
+          </Rule>
+
+          <!-- Coastal plains / lowland, gentle slope (real ~24-172m) -->
+          <Rule>
+            <Layers>
+              <Layer Material="Grass" Depth="10"/>
+            </Layers>
+            <Height Min="0.64" Max="0.75"/>
+            <Slope Min="0" Max="25"/>
+          </Rule>
+
+          <!-- Coastal plains but steep (cliffs, gullies) -->
+          <Rule>
+            <Layers>
+              <Layer Material="Rocks_grass" Depth="5"/>
+            </Layers>
+            <Height Min="0.64" Max="0.75"/>
+            <Slope Min="25" Max="90"/>
+          </Rule>
+
+          <!-- Highland, gentle slope (real ~172-374m) -->
+          <Rule>
+            <Layers>
+              <Layer Material="Rocks_grass" Depth="5"/>
+            </Layers>
+            <Height Min="0.75" Max="0.90"/>
+            <Slope Min="0" Max="30"/>
+          </Rule>
+
+          <!-- Highland, steep -->
+          <Rule>
+            <Layers>
+              <Layer Material="Stone" Depth="30"/>
+            </Layers>
+            <Height Min="0.75" Max="0.90"/>
+            <Slope Min="30" Max="90"/>
+          </Rule>
+
+          <!-- Peaks (real >374m) -->
+          <Rule>
+            <Layers>
+              <Layer Material="Stone" Depth="50"/>
+            </Layers>
+            <Height Min="0.90" Max="1.0"/>
+            <Slope Min="0" Max="90"/>
+          </Rule>
+
+        </MaterialGroup>
+
+        <!-- South (Africa-side) palette: land in our design's southern
+             outer third originated from the real North African/Saharan
+             portion of the source data (see the strip-space hemisphere
+             split noted below). Water/beach rules are identical to the
+             north group (visually the same Mediterranean either side);
+             only the dry-land materials change to arid equivalents, using
+             real vanilla names ("DesertRocks" is copied from vanilla's own
+             actual "Desert" MaterialGroup pattern). -->
+        <MaterialGroup Name="MediterraneanSouth" Value="1">
+
+          <Rule>
+            <Layers>
+              <Layer Material="Ice" Depth="20"/>
+            </Layers>
+            <Height Min="0.0" Max="0.6162"/>
+            <Slope Min="0" Max="90"/>
+          </Rule>
+
+          <Rule>
+            <Layers>
+              <Layer Material="Sand_02" Depth="20"/>
+            </Layers>
+            <Height Min="0.6162" Max="0.6218"/>
+            <Slope Min="0" Max="90"/>
+          </Rule>
+
+          <!-- Beach, same as north -->
+          <Rule>
+            <Layers>
+              <Layer Material="PertamSand" Depth="15"/>
+            </Layers>
+            <Height Min="0.6218" Max="0.64"/>
+            <Slope Min="0" Max="90"/>
+          </Rule>
+
+          <!-- Coastal plains, arid: CrackedSoil instead of Grass -->
+          <Rule>
+            <Layers>
+              <Layer Material="CrackedSoil" Depth="10"/>
+            </Layers>
+            <Height Min="0.64" Max="0.75"/>
+            <Slope Min="0" Max="25"/>
+          </Rule>
+
+          <Rule>
+            <Layers>
+              <Layer Material="DesertRocks" Depth="5"/>
+            </Layers>
+            <Height Min="0.64" Max="0.75"/>
+            <Slope Min="25" Max="90"/>
+          </Rule>
+
+          <!-- Highland, arid: DustyRocks instead of Rocks_grass -->
+          <Rule>
+            <Layers>
+              <Layer Material="DustyRocks" Depth="5"/>
+            </Layers>
+            <Height Min="0.75" Max="0.90"/>
+            <Slope Min="0" Max="30"/>
+          </Rule>
+
+          <Rule>
+            <Layers>
+              <Layer Material="Stone" Depth="30"/>
+            </Layers>
+            <Height Min="0.75" Max="0.90"/>
+            <Slope Min="30" Max="90"/>
+          </Rule>
+
+          <!-- Peaks, same as north -->
+          <Rule>
+            <Layers>
+              <Layer Material="Stone" Depth="50"/>
+            </Layers>
+            <Height Min="0.90" Max="1.0"/>
+            <Slope Min="0" Max="90"/>
+          </Rule>
+
+        </MaterialGroup>
+      </ComplexMaterials>
+
+      <!-- Hemisphere split for the two MaterialGroups above: red channel of
+           each *_mat.png is 0 for points whose real-world source data came
+           from the northern half of our pulled strip (Europe-adjacent) and
+           1 for the southern half (Africa-adjacent); a simple midpoint
+           split in strip space, projected through the same confirmed cube
+           geometry as everything else. up.png reads uniformly 1 (south
+           content, per the confirmed pole swap), down.png uniformly 0. -->
+
+
+
+      <!-- Fallback if no Rule above matches a given point. "Stone" is a
+           confirmed-real vanilla VoxelMaterial SubtypeId (verified from the
+           actual vanilla PlanetGeneratorDefinitions.sbc), replacing the
+           earlier unverified "Rock" placeholder. -->
+      <DefaultSurfaceMaterial Material="Stone" MaxDepth="10.0" />
+      <DefaultSubSurfaceMaterial Material="Stone" />
+
+      <HasAtmosphere>false</HasAtmosphere>
+
+    </PlanetGeneratorDefinition>
+  </PlanetGeneratorDefinitions>
+</Definitions>

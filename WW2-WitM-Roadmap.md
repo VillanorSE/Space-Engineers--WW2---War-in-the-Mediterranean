@@ -50,11 +50,12 @@ Not a stage so much as a foundation everything else sits on. The current naval w
   - [x] NPC-WW2-Emile_Bertin (Cruiser, Green) — **confirmed root cause found:** the AWG piston/hinge-based catapult+floatplane assembly (Loire 130) silently breaks grid loading — no exception, no error, just fails to register as an entity. Reproduced and fixed by surgical removal in a build-world test; same mechanism confirmed present on Algerie (Green Heavy Cruiser) and absent on Trento (Gray Heavy Cruiser, which has never shown the failure — clean independent confirmation). Rebuild the catapult using non-AWG piston/hinge parts (or the general WeaponCore turret approach already planned for weapons) before this hull is usable in a SpawnGroup.
   - [x] NPC-WW2-Aquila (Carrier, Gray) - Fix tower and cranes once KONTAKT mod is fixed.
   - [x] NPC-WW2-Bearn (Carrier, Green)
+  - [ ] Rebuild Loire 130 on the Emile Bertin and Algier and re-export/replace.
 
   **Air:**
   - [x] NPC-WW2-Re2001 (Fighter, Gray) - Replace conveyors, engines, glass, and side MG covers once KONTAKT is fixed.
   - [ ] NPC-WW2-Re2000 (Fighter, Gray)
-  - [ ] NPC-WW2-FC20 (Attacker, Gray)
+  - [x] NPC-WW2-FC20 (Attacker, Gray)
   - [ ] NPC-WW2-Loire130 (Recon, Green)
   - [ ] NPC-WW2-F4F (Fighter, Green)
   - [x] NPC-WW2-MS406 (Fighter, Green)
@@ -144,23 +145,21 @@ Not a stage so much as a foundation everything else sits on. The current naval w
 
 | Tier | Gray (Italy) | Green (France) |
 |---|---|---|
-| **Civilian** | Ju52 *(open item — see below)* | F.222 (civilian variant) |
-| **Fighter** | Re2001, Re2000; **Macchi C.202 Folgore** | F4F, MS406; **Dewoitine D.520** |
-| **Attacker** | FC20; Ba.88 *(Stage 5 addition)* | Potez630, V-156-F-Bomber, V-156-F-Torpedo; MB.210 *(Stage 5 addition)* |
-| **Bomber** | SM.79 *(Stage 5 addition)*; P.108 | LeO 451 *(Stage 5 addition)*; F.222 (military variant) |
+| **Civilian** | Ju52 *(open item)* | F.222 (civilian variant) |
+| **Fighter** | Re2001, Re2000; Macchi C.202 Folgore | F4F, MS406; Dewoitine D.520 |
+| **Attacker** | FC20; Ba.88, Ba.65 *(Stage 5 additions)* | Potez630; Bréguet 693, ANF Les Mureaux 115 *(Stage 5 additions)* |
+| **Bomber** | Caproni Ca.311 *(light)*; SM.79 *(medium/torpedo)*; P.108 *(heavy)* | V-156-F *(light dive bomber, reclassified from Attacker)*; MB.210, LeO 451 *(medium)*; F.222 (military variant, heavy) |
 | **Recon** | IMAM Ro.43 | Loire 130 |
 
-**Macchi C.202 Folgore added (confirmed).** Multiple sources describe it as Italy's best fighter of the war — competitive with the Spitfire Mk. V, flown by virtually all top-scoring Italian aces — a stronger historical claim than either existing Fighter-tier entry. ~1,100–1,500 built depending on source. Flagged during roster review as a genuine gap rather than a nice-to-have; possible existing build to check against before starting from scratch.
+**Attacker tier, three per faction (confirmed).** FC20 (Gray) and Potez630 (Green) are the existing built assets. Ba.88 and Ba.65 round out Gray's tier — Ba.65 confirmed as Italy's only dedicated ground-attack aircraft to see active service in that role, lightly armed but kept for thematic and historical accuracy. Bréguet 693 and ANF Les Mureaux 115 round out Green's tier — the 693 a genuine twin-engine ground-attack counterpart to Ba.88/Ba.65, and the Mureaux 115 an older, more obsolescent reconnaissance/light-attack hybrid (119 built, 1935–38) that fills the same "outclassed early-war plane" role Ba.65 fills for Gray, right down to both being real but underwhelming in actual combat use. The Mureaux's most notable historical distinction is being the first French aircraft shot down by the Luftwaffe, in September 1939.
 
-**Dewoitine D.520 added (confirmed).** Same pattern on the French side: widely documented as the only French fighter able to meet the Bf 109E on roughly equal terms, and the best fighter available to the Armée de l'Air during the Battle of France — a stronger claim than MS406, which multiple sources describe as already outclassed by 1940. 905 built. Possible existing build to check against before starting from scratch.
+**Bomber tier corrections (confirmed).** V-156-F reclassified from Attacker to Bomber — confirmed as the French export version of the Vought SB2U Vindicator dive-bomber, ordered for carrier air groups, not an attack aircraft. MB.210 confirmed as a medium bomber, not attacker — twin-engine, ~257 built, entered service 1936. Caproni Ca.311 added as Gray's light-bomber entry — 335 built, twin-engine light bomber/reconnaissance hybrid, entered service 1939; notably it also replaced Ba.65 in some ground-attack roles historically, a mild irony worth knowing but not a real conflict since the two filled different jobs (recon-bomber vs. ground-attack).
 
-**Tier naming updated:** the old "Attacker/Bomber" and "Heavy Bomber" tiers are now separate Attacker and Bomber tiers, matching the Fighter/Corvette-style single-word tier naming used elsewhere. FC20, Potez630, and V-156-F are existing built assets already tracked in the weapon-rebuild checklist; Ba.88, SM.79, MB.210, and LeO 451 are Stage 5 additions confirmed in an earlier session.
+**Macchi C.202 Folgore and Dewoitine D.520 added to Fighter tier (confirmed, prior session).** Both are stronger historical picks than the existing entries in their tiers — C.202 widely regarded as Italy's best fighter of the war, D.520 the only French fighter able to meet the Bf 109E on roughly equal terms. Neither has an existing build; both are next up in the build queue.
 
-**V-156-F split into two variants (confirmed):** the single V-156-F build has been split into `V-156-F-Bomber` and `V-156-F-Torpedo`, tracked as two separate hulls (`NPC-WW2-V-156-F-Bomber`, `NPC-WW2-V-156-F-Torpedo`) in the weapon-rebuild checklist rather than one.
+**Recon tier (confirmed, prior session).** IMAM Ro.43 (Gray) and Loire 130 (Green), both real catapult-launched shipborne reconnaissance floatplanes. Mechanics deferred to a separate thread.
 
-**Recon tier added (confirmed).** Catapult-launched shipborne reconnaissance floatplanes, standalone Air roster entry rather than folded into Civilian or treated as Fighters — they carry no cargo (poor Civilian-tier loot fit) and weren't used in a delivery/transport role, and their real-world job (scouting, gunnery spotting) doesn't match Fighter-tier combat behavior. **Loire 130** (Green) is a confirmed real French Navy catapult reconnaissance floatplane, carried aboard cruisers and battleships for scouting and gunnery observation, 125 built, in service 1937–38 — the existing built Loire 130 grid (already referenced in the weapon-rebuild checklist as part of Emile Bertin's catapult assembly) is the asset for this slot. **IMAM Ro.43** (Gray) is the Italian equivalent: same requirement type (a 1933 Regia Marina spec for a catapult reconnaissance floatplane), carried aboard Trento-, Zara-, and Littorio-class ships, real combat history spotting the British fleet at Calabria and Cape Spartivento and directing gunfire at the Second Battle of Sirte. Both are lightly armed (Ro.43: two 7.7mm Breda-SAFAT MGs) consistent with a scout role rather than a combat one. **Mechanics (spawn behavior, ship-attachment vs. standalone spawning, any progression-tier implications) deliberately deferred to a separate thread — this entry is roster/historical only.**
-
-**Open item: Gray Civilian-tier air.** Ju52 is German-built, not Italian — relevant to the Italian theater (Italy did operate Ju52s) but not a fully Italian aircraft, unlike Green's F.222 which is wholly French. Whether to keep Ju52 as-is, pair it with a more distinctly Italian civilian/transport type, or replace it outright is unresolved — revisit later rather than deciding now.
+**Open item: Gray Civilian-tier air.** Ju52 is German-built, not Italian — unresolved, revisit later.
 
 **SM.79** ("il Gobbo Maledetto," the damned hunchback) is one of the most famous Italian aircraft of the war, especially in its torpedo-bomber ("Silurante") role — a dedicated torpedo variant is planned specifically to threaten player ships. **Ba.88** fills the lighter attack role — genuinely real and well-documented, but its actual historical reputation is "notoriously one of WW2's worst operational aircraft," which fits an entry-tier plane thematically rather well.
 
