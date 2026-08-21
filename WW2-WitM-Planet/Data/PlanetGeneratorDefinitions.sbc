@@ -18,7 +18,7 @@
            the confirmed cube-face geometry, alongside the ore map (blue
            channel) from before. Biome (environment item placement) still
            not built. -->
-      <PlanetMaps Material="true" Biome="false" Ores="true" />
+      <PlanetMaps Material="true" Biome="true" Ores="true" />
 
       <!-- CONFIRMED CUBE-FACE GEOMETRY MAPPING (keep this exact for any
            future texture that must align with the heightmap: ore maps,
@@ -37,21 +37,50 @@
            correct via direct in-game content checks (Corsica correctly
            north of Apulia; Crete correctly attached to Greece). -->
       <OreMappings>
-        <!-- All Value/Type/Start/Depth entries and the TargetColor/
-             ColorInfluence styling are copied from the real vanilla
-             PlanetGeneratorDefinitions.sbc pattern, not guessed. Ore
-             placement itself (which pixels get which Value) comes from
-             the blue channel of the new *_mat.png files, generated from
-             clustered noise fields constrained to land above sea level
-             (elevation > 0) only, per request; no ore under water. -->
-        <Ore Value="50"  Type="Iron_02"     Start="3"  Depth="8" TargetColor="#616c83" ColorInfluence="15"/>
-        <Ore Value="90"  Type="Nickel_01"   Start="5"  Depth="8" TargetColor="#616c83" ColorInfluence="15"/>
-        <Ore Value="130" Type="Silicon_01"  Start="4"  Depth="7" TargetColor="#616c83" ColorInfluence="15"/>
-        <Ore Value="160" Type="Cobalt_01"   Start="8"  Depth="6" TargetColor="#616c83" ColorInfluence="15"/>
-        <Ore Value="190" Type="Silver_01"   Start="10" Depth="5" TargetColor="#616c83" ColorInfluence="15"/>
-        <Ore Value="210" Type="Gold_01"     Start="12" Depth="4" TargetColor="#616c83" ColorInfluence="15"/>
-        <Ore Value="230" Type="Platinum_01" Start="15" Depth="4" TargetColor="#616c83" ColorInfluence="15"/>
-        <Ore Value="245" Type="Magnesium_01" Start="6" Depth="6" TargetColor="#616c83" ColorInfluence="15"/>
+        <!-- Real-data-driven revision. Distribution proportions are from a
+             real citation of EarthLike planet ore breakdown: mineral
+             deposits cover ~3.5% of EarthLike's surface, split Silicon 20%,
+             Magnesium 16%, Iron 15%, Cobalt 14%, Nickel 12%, Gold 9%,
+             Silver 7%, Ice 6% (Platinum/Uranium do not spawn on EarthLike).
+             Per direct request: total raised to 4% of land (not 3.5%), and
+             the 6% Ice slot replaced with 4% Platinum + 2% Uranium (used
+             for a Platinum/Uranium-gated advanced-component crafting design
+             the user is planning separately). Each ore's real proportion of
+             the 9-way split (totaling 99, Silicon/Magnesium/Iron/Cobalt/
+             Nickel/Gold/Silver/Platinum/Uranium = 20/16/15/14/12/9/7/4/2)
+             is applied against that 4% land-coverage target. Uranium uses
+             VoxelMaterial "Uraninite_01" (confirmed real, MinedOre=Uranium)
+            ; confirmed from an ASTEROID materials reference, not a planet
+             one, so this specific line is a slightly higher-risk guess than
+             the others; watch the load log for it specifically.
+             SPATIAL BIAS (revised 2026-08-19): ore is weighted toward the
+             coast and away from the exact poles (gentle exponential
+             falloff with distance from shore, floor at 60% of baseline so
+             poles aren't barren), plus an extra ~8-9x enrichment within
+             ~15km (compressed) of the full 23-site road network's
+             locations MINUS the 6 confirmed territory hubs (La Spezia,
+             Rome, Tunis, Toulon, Oran, Alexandria); those are excluded
+             deliberately per direct request, since they'll carry permanent
+             NPC bases and shouldn't incentivize players to build nearby.
+             The 17 remaining hotspots: Bizerte, Tripoli, Benghazi, Tobruk,
+             Taranto, Genoa, Marseille, Sidi_Barrani, Bardia, Bir_Hakeim,
+             Kairouan, Gabes, El_Alamein, Augusta, Palermo, Algiers, Sirte.
+             Same weighting ratios as the original pass (coast_floor=0.6,
+             coast_scale=20km, hotspot_amp=0.3, hotspot_sigma=10km) ;
+             deliberately unchanged per request, only the site list moved.
+             Both weights are applied by multiplying a noise field before
+             percentile thresholding, so each ore's TOTAL land-coverage
+             percentage stays exactly at target; only the spatial
+             distribution within that budget shifts. -->
+        <Ore Value="50"  Type="Silicon_01"   Start="4"  Depth="7" TargetColor="#616c83" ColorInfluence="15"/>
+        <Ore Value="90"  Type="Magnesium_01" Start="6"  Depth="6" TargetColor="#616c83" ColorInfluence="15"/>
+        <Ore Value="130" Type="Iron_02"      Start="3"  Depth="8" TargetColor="#616c83" ColorInfluence="15"/>
+        <Ore Value="160" Type="Cobalt_01"    Start="8"  Depth="6" TargetColor="#616c83" ColorInfluence="15"/>
+        <Ore Value="190" Type="Nickel_01"    Start="5"  Depth="8" TargetColor="#616c83" ColorInfluence="15"/>
+        <Ore Value="210" Type="Gold_01"      Start="12" Depth="4" TargetColor="#616c83" ColorInfluence="15"/>
+        <Ore Value="225" Type="Silver_01"    Start="10" Depth="5" TargetColor="#616c83" ColorInfluence="15"/>
+        <Ore Value="240" Type="Platinum_01"  Start="15" Depth="4" TargetColor="#616c83" ColorInfluence="15"/>
+        <Ore Value="250" Type="Uraninite_01" Start="18" Depth="3" TargetColor="#616c83" ColorInfluence="15"/>
       </OreMappings>
 
       <!-- Derived directly from the final compressed heightmap data:
@@ -73,7 +102,7 @@
            a left-right mirror flip on top of the swap, per direct
            confirmation that east/west (not north/south) needed to invert.
            Range unaffected, so HillParams/material thresholds unchanged. -->
-      <HillParams Min="-0.027858" Max="0.016946" />
+      <HillParams Min="-0.027858" Max="0.020196" />
 
       <!-- Height-graduated surface materials for basic visual orientation,
            since the full biome/material texture pass hasn't happened yet.
@@ -89,6 +118,35 @@
            conventional planet; Height and Slope are what's actually
            meaningful here. This is a first pass for orientation purposes,
            not a final biome design. -->
+      <!-- RECALIBRATION NOTE (revised 2026-08-19, second pass): actual
+           exported WaterConfig.xml gives the precise ratio 1.02862 (not
+           the earlier rounded 1.028 estimate); recomputed water level is
+           -1.06m relative to our elevation-0 datum (much closer to the
+           original theoretical assumption than the earlier -19.14m
+           estimate turned out to be). Per direct request, the ice/sand
+           boundary is now set EXPLICITLY at water_level - 5m = -6.06m
+           (not proportionally-shifted like the other bands), so ice stays
+           submerged through normal wave fluctuation. All other thresholds
+           (sand/beach, beach/grass, grass/highland, highland/peak) are
+           shifted by the same method as before, just re-anchored to this
+           new, more precise water level. If /wradius is tuned again (see
+           WaterConfig.xml at this mod's top level, not nested in Data/),
+           these thresholds need recalculating the same way; this
+           coupling is inherent, not a one-time fix.
+
+           MATERIAL SWAP (2026-08-19): per direct request to revert from
+           the ice-underwater look back to sand, both the shallow AND deep
+           water bands now use "AquaticSand" (real material sourced from
+           the "Orcus" Workshop mod, see VoxelMaterials_Orcus.sbc) instead
+           of "Mediumice"/"Sand_02"; unified to one consistent sand
+           material through the whole underwater range rather than two
+           different sand variants meeting at a seam. The temperate
+           lowland "Grass" layer is now "OrcusGrass" (also from Orcus),
+           which carries a much higher FoliageDensity (2.5 vs whatever
+           vanilla's plain Grass defaults to) for a visibly lusher blade
+           render; this is a different layer entirely from the
+           EnvironmentItems bush/tree system, a per-material grass-blade
+           shader setting we'd never touched before. -->
       <ComplexMaterials>
         <MaterialGroup Name="MediterraneanDefault" Value="0">
 
@@ -101,18 +159,18 @@
                as deep/Ice, with just a thin true-shallow rim as sand). -->
           <Rule>
             <Layers>
-              <Layer Material="Ice" Depth="20"/>
+              <Layer Material="AquaticSand" Depth="20"/>
             </Layers>
-            <Height Min="0.0" Max="0.6162"/>
+            <Height Min="0.0" Max="0.5755"/>
             <Slope Min="0" Max="90"/>
           </Rule>
 
           <!-- Shallow coastal shelf: natural sandy seafloor near shore -->
           <Rule>
             <Layers>
-              <Layer Material="Sand_02" Depth="20"/>
+              <Layer Material="AquaticSand" Depth="20"/>
             </Layers>
-            <Height Min="0.6162" Max="0.6218"/>
+            <Height Min="0.5755" Max="0.5790"/>
             <Slope Min="0" Max="90"/>
           </Rule>
 
@@ -121,16 +179,16 @@
             <Layers>
               <Layer Material="PertamSand" Depth="15"/>
             </Layers>
-            <Height Min="0.6218" Max="0.64"/>
+            <Height Min="0.5790" Max="0.5960"/>
             <Slope Min="0" Max="90"/>
           </Rule>
 
           <!-- Coastal plains / lowland, gentle slope (real ~24-172m) -->
           <Rule>
             <Layers>
-              <Layer Material="Grass" Depth="10"/>
+              <Layer Material="OrcusGrass" Depth="10"/>
             </Layers>
-            <Height Min="0.64" Max="0.75"/>
+            <Height Min="0.5960" Max="0.6985"/>
             <Slope Min="0" Max="25"/>
           </Rule>
 
@@ -139,7 +197,7 @@
             <Layers>
               <Layer Material="Rocks_grass" Depth="5"/>
             </Layers>
-            <Height Min="0.64" Max="0.75"/>
+            <Height Min="0.5960" Max="0.6985"/>
             <Slope Min="25" Max="90"/>
           </Rule>
 
@@ -148,7 +206,7 @@
             <Layers>
               <Layer Material="Rocks_grass" Depth="5"/>
             </Layers>
-            <Height Min="0.75" Max="0.90"/>
+            <Height Min="0.6985" Max="0.8384"/>
             <Slope Min="0" Max="30"/>
           </Rule>
 
@@ -157,7 +215,7 @@
             <Layers>
               <Layer Material="Stone" Depth="30"/>
             </Layers>
-            <Height Min="0.75" Max="0.90"/>
+            <Height Min="0.6985" Max="0.8384"/>
             <Slope Min="30" Max="90"/>
           </Rule>
 
@@ -166,7 +224,7 @@
             <Layers>
               <Layer Material="Stone" Depth="50"/>
             </Layers>
-            <Height Min="0.90" Max="1.0"/>
+            <Height Min="0.8384" Max="1.0"/>
             <Slope Min="0" Max="90"/>
           </Rule>
 
@@ -184,17 +242,17 @@
 
           <Rule>
             <Layers>
-              <Layer Material="Ice" Depth="20"/>
+              <Layer Material="AquaticSand" Depth="20"/>
             </Layers>
-            <Height Min="0.0" Max="0.6162"/>
+            <Height Min="0.0" Max="0.5755"/>
             <Slope Min="0" Max="90"/>
           </Rule>
 
           <Rule>
             <Layers>
-              <Layer Material="Sand_02" Depth="20"/>
+              <Layer Material="AquaticSand" Depth="20"/>
             </Layers>
-            <Height Min="0.6162" Max="0.6218"/>
+            <Height Min="0.5755" Max="0.5790"/>
             <Slope Min="0" Max="90"/>
           </Rule>
 
@@ -203,7 +261,7 @@
             <Layers>
               <Layer Material="PertamSand" Depth="15"/>
             </Layers>
-            <Height Min="0.6218" Max="0.64"/>
+            <Height Min="0.5790" Max="0.5960"/>
             <Slope Min="0" Max="90"/>
           </Rule>
 
@@ -212,7 +270,7 @@
             <Layers>
               <Layer Material="CrackedSoil" Depth="10"/>
             </Layers>
-            <Height Min="0.64" Max="0.75"/>
+            <Height Min="0.5960" Max="0.6985"/>
             <Slope Min="0" Max="25"/>
           </Rule>
 
@@ -220,7 +278,7 @@
             <Layers>
               <Layer Material="DesertRocks" Depth="5"/>
             </Layers>
-            <Height Min="0.64" Max="0.75"/>
+            <Height Min="0.5960" Max="0.6985"/>
             <Slope Min="25" Max="90"/>
           </Rule>
 
@@ -229,7 +287,7 @@
             <Layers>
               <Layer Material="DustyRocks" Depth="5"/>
             </Layers>
-            <Height Min="0.75" Max="0.90"/>
+            <Height Min="0.6985" Max="0.8384"/>
             <Slope Min="0" Max="30"/>
           </Rule>
 
@@ -237,7 +295,7 @@
             <Layers>
               <Layer Material="Stone" Depth="30"/>
             </Layers>
-            <Height Min="0.75" Max="0.90"/>
+            <Height Min="0.6985" Max="0.8384"/>
             <Slope Min="30" Max="90"/>
           </Rule>
 
@@ -246,10 +304,45 @@
             <Layers>
               <Layer Material="Stone" Depth="50"/>
             </Layers>
-            <Height Min="0.90" Max="1.0"/>
+            <Height Min="0.8384" Max="1.0"/>
             <Slope Min="0" Max="90"/>
           </Rule>
 
+        </MaterialGroup>
+
+        <!-- FlattenPad material group (Value=2) REMOVED (2026-08-19), per
+             direct feedback that painting the entire ~500-750m graded pad
+             area in Soil looked messy/artificial. Pads are now purely a
+             terrain-grading effect (see flatten_zone(), diameter increased
+             500m->750m per request) with NO separate material tag; they
+             keep their normal hemisphere grass/desert material, same as
+             surrounding terrain. Only the narrow Road stripe (below) is
+             visually distinct, and it already runs directly through each
+             pad's center (roads terminate exactly at each POI position),
+             so roads visibly connect through the flat areas without the
+             whole pad being painted. -->
+
+        <!-- Road material (2026-08-19, narrowed per direct request). The
+             terrain GRADING corridor stays ~150m (carve_road's ROAD_WIDTH_M,
+             unchanged; that's the drivable-grade smoothing, a real
+             physical concern), but the visible material STRIPE is now
+             narrowed to 1 strip pixel (~50m) following the actual routed
+             centerline, not the full grading footprint. Requested target
+             was 40m; 50m is the practical minimum at this heightmap's
+             native 50m/pixel resolution (PX_PER_KM=20); a literal 40m
+             stripe would be sub-pixel, the same problem that made the
+             original 40m GRADING width invisible before it was widened to
+             150m in an earlier pass. Value=3 takes priority over Value=2
+             where a road overlaps a flatten pad (drawn last in the strip
+             data), so the road stays visible through pad centers. -->
+        <MaterialGroup Name="Road" Value="3">
+          <Rule>
+            <Layers>
+              <Layer Material="Soil" Depth="10"/>
+            </Layers>
+            <Height Min="0.0" Max="1.0"/>
+            <Slope Min="0" Max="90"/>
+          </Rule>
         </MaterialGroup>
       </ComplexMaterials>
 
@@ -270,7 +363,405 @@
       <DefaultSurfaceMaterial Material="Stone" MaxDepth="10.0" />
       <DefaultSubSurfaceMaterial Material="Stone" />
 
-      <HasAtmosphere>false</HasAtmosphere>
+      <!-- Atmosphere/oxygen/wind/temperature, added per direct request.
+           All fields below confirmed real (not guessed) against vanilla's
+           own PlanetGeneratorDefinitions.sbc schema AND, for LimitAltitude
+           specifically, the actual game source (MyPlanet.cs):
+             AtmosphereAltitude = MaxHillHeight * Atmosphere.LimitAltitude
+           MaxHillHeight for this planet (current HillParams.Max=0.020196)
+           = 0.020196 * 30000 = 605.88m. Originally targeted a gameplay
+           minimum of 2500m (LimitAltitude=5.0); revised upward to 18.0
+           (~10906m) after visual feedback that the sky looked wrong at the
+           smaller altitude; this now prioritizes visual sky/cloud scale
+           over the original narrower gameplay-only target, per direct
+           request to push toward vanilla-like proportions. If HillParams
+           changes again, LimitAltitude may need recalculating to hold this
+           same ~10-12km target (divide the desired altitude by the new
+           MaxHillHeight). OxygenDensity=1.0 for a fully breathable/"full
+           oxygen" atmosphere per request. Density and MaxWindSpeed match
+           vanilla EarthLike's own values (1.0 and 80 respectively) as
+           reasonable, proven defaults; no specific wind speed was
+           requested beyond "add wind", so this is a starting point, not a
+           tuned choice. See the separate comment
+           below on DefaultSurfaceTemperature for why that field's original
+           reasoning here was wrong and had to be corrected after a real
+           crash. -->
+      <HasAtmosphere>true</HasAtmosphere>
+      <MaximumOxygen>1</MaximumOxygen>
+      <Atmosphere>
+        <Breathable>true</Breathable>
+        <OxygenDensity>1.0</OxygenDensity>
+        <Density>2</Density>
+        <LimitAltitude>18.0</LimitAltitude>
+        <MaxWindSpeed>80</MaxWindSpeed>
+      </Atmosphere>
+
+      <!-- AtmosphereSettings REVISED 2026-08-19 against the real "Orcus"
+           Workshop mod (Steam ID 2905443304), which the user specifically
+           praised for its sky. Orcus's own file uses Intensity=20 (was 6
+           here), FogIntensity=0.3 (was 1.0; our high fog was likely
+           washing out the color), Density=2 (was 1.0, matches the
+           Atmosphere block above too), RayleighHeight=25/RayleighHeight
+           Space=5 (was 36/15), SeaLevelModifier=0.982 (was 1.0). These are
+           NOT sign-dependent, safe to copy directly. NOT copied: Orcus's
+           own LimitAltitude=-5 and CloudLayer RelativeAltitude values are
+           all NEGATIVE, because Orcus's own HillParams (Min=-0.065,
+           Max=-0.0175) are both negative; their entire terrain sits
+           below nominal planet radius, so their formulas need a negative
+           multiplier to reach a sensible positive atmosphere altitude.
+           Our HillParams are positive, so our own positive LimitAltitude
+           (18.0, already tuned to a real target) and positive cloud
+           altitudes remain correct; blindly copying Orcus's negative
+           numbers would have been a sign-convention error, not a genuine
+           improvement. -->
+      <AtmosphereSettings>
+        <RayleighScattering>
+          <X>100</X>
+          <Y>84</Y>
+          <Z>63</Z>
+        </RayleighScattering>
+        <MieScattering>50</MieScattering>
+        <MieColorScattering>
+          <X>44</X>
+          <Y>62</Y>
+          <Z>150</Z>
+        </MieColorScattering>
+        <RayleighHeight>25</RayleighHeight>
+        <RayleighHeightSpace>5</RayleighHeightSpace>
+        <RayleighTransitionModifier>0.415</RayleighTransitionModifier>
+        <MieHeight>200</MieHeight>
+        <MieG>0.999832332</MieG>
+        <Intensity>20</Intensity>
+        <SeaLevelModifier>0.982</SeaLevelModifier>
+        <AtmosphereTopModifier>1.1</AtmosphereTopModifier>
+        <FogIntensity>0.3</FogIntensity>
+        <Scale>1</Scale>
+        <SunColor>
+          <X>1</X>
+          <Y>1</Y>
+          <Z>1</Z>
+        </SunColor>
+        <SunSpecularColor>
+          <X>1</X>
+          <Y>0.984</Y>
+          <Z>0.843</Z>
+        </SunSpecularColor>
+      </AtmosphereSettings>
+
+      <CloudLayers>
+        <CloudLayer>
+          <!-- Far layer -->
+          <Model>Models/Environment/Sky/CloudSphere.mwm</Model>
+          <Textures>
+            <Texture>Textures/Models/Environment/Sky/EarthFarClouds.dds</Texture>
+          </Textures>
+          <RelativeAltitude>0.9</RelativeAltitude>
+          <RotationAxis>
+            <X>-0.2</X>
+            <Y>1</Y>
+            <Z>0.2</Z>
+          </RotationAxis>
+          <AngularVelocity>0.0002</AngularVelocity>
+          <InitialRotation>1.2</InitialRotation>
+          <ScalingEnabled>false</ScalingEnabled>
+          <FadeOutRelativeAltitudeStart>2.0</FadeOutRelativeAltitudeStart>
+          <FadeOutRelativeAltitudeEnd>1.4</FadeOutRelativeAltitudeEnd>
+          <ApplyFogRelativeDistance>0.05</ApplyFogRelativeDistance>
+        </CloudLayer>
+
+        <!-- Near layers -->
+        <CloudLayer>
+          <Model>Models/Environment/Sky/CloudSphere.mwm</Model>
+          <Textures>
+            <Texture>Textures/Models/Environment/Sky/Landsky_texture.dds</Texture>
+          </Textures>
+          <RelativeAltitude>1.0</RelativeAltitude>
+          <RotationAxis>
+            <X>0</X>
+            <Y>1</Y>
+            <Z>0</Z>
+          </RotationAxis>
+          <AngularVelocity>0.0006</AngularVelocity>
+          <InitialRotation>0.15</InitialRotation>
+          <ScalingEnabled>false</ScalingEnabled>
+          <FadeOutRelativeAltitudeStart>0.5</FadeOutRelativeAltitudeStart>
+          <FadeOutRelativeAltitudeEnd>1.6</FadeOutRelativeAltitudeEnd>
+        </CloudLayer>
+
+        <CloudLayer>
+          <Model>Models/Environment/Sky/CloudSphere.mwm</Model>
+          <Textures>
+            <Texture>Textures/Models/Environment/Sky/Landsky_texture.dds</Texture>
+          </Textures>
+          <RelativeAltitude>2.0</RelativeAltitude>
+          <RotationAxis>
+            <X>0.2</X>
+            <Y>1</Y>
+            <Z>-0.2</Z>
+          </RotationAxis>
+          <AngularVelocity>0.0006</AngularVelocity>
+          <InitialRotation>0.5</InitialRotation>
+          <ScalingEnabled>false</ScalingEnabled>
+          <FadeOutRelativeAltitudeStart>0.7</FadeOutRelativeAltitudeStart>
+          <FadeOutRelativeAltitudeEnd>1.5</FadeOutRelativeAltitudeEnd>
+        </CloudLayer>
+
+        <CloudLayer>
+          <Model>Models/Environment/Sky/CloudSphere.mwm</Model>
+          <Textures>
+            <Texture>Textures/Models/Environment/Sky/Landsky_texture.dds</Texture>
+          </Textures>
+          <RelativeAltitude>3.0</RelativeAltitude>
+          <RotationAxis>
+            <X>-0.2</X>
+            <Y>1</Y>
+            <Z>0.2</Z>
+          </RotationAxis>
+          <AngularVelocity>0.0006</AngularVelocity>
+          <InitialRotation>1.2</InitialRotation>
+          <ScalingEnabled>false</ScalingEnabled>
+          <FadeOutRelativeAltitudeStart>0.8</FadeOutRelativeAltitudeStart>
+          <FadeOutRelativeAltitudeEnd>1.4</FadeOutRelativeAltitudeEnd>
+        </CloudLayer>
+
+        <!-- New near layer added 2026-08-19, using the custom "clouds.dds"
+             texture sourced from Orcus (their own custom asset, not
+             vanilla; bundled directly rather than relying on fallback,
+             same reasoning as the other cloud textures). Placed at a
+             positive RelativeAltitude between our existing 1.0 and 2.0
+             layers to match OUR altitude convention (not Orcus's negative
+             numbers, which are specific to their own inverted-sign
+             terrain). Color/alpha tinting is a technique borrowed from
+             Orcus's file (they tint each layer individually); we hadn't
+             used this before. -->
+        <CloudLayer>
+          <Model>Models/Environment/Sky/CloudSphere.mwm</Model>
+          <Textures>
+            <Texture>Textures/Models/Environment/Sky/clouds.dds</Texture>
+          </Textures>
+          <Color>
+            <X>1</X>
+            <Y>1</Y>
+            <Z>1</Z>
+            <W>1</W>
+          </Color>
+          <RelativeAltitude>1.5</RelativeAltitude>
+          <RotationAxis>
+            <X>0.1</X>
+            <Y>1</Y>
+            <Z>-0.1</Z>
+          </RotationAxis>
+          <AngularVelocity>0.0005</AngularVelocity>
+          <InitialRotation>0.8</InitialRotation>
+          <ScalingEnabled>false</ScalingEnabled>
+          <FadeOutRelativeAltitudeStart>0.6</FadeOutRelativeAltitudeStart>
+          <FadeOutRelativeAltitudeEnd>1.55</FadeOutRelativeAltitudeEnd>
+        </CloudLayer>
+      </CloudLayers>
+      <!-- DefaultSurfaceTemperature is a real field, but is a NAMED ENUM
+           (MyTemperatureLevel), not the free-form 0.0-1.0 float this
+           comment originally assumed from a documentation page describing
+           the underlying calculation, not the XML field's actual type.
+           That assumption caused a real crash: "0.5" failed deserialization
+           entirely (MOD_CRITICAL_ERROR, fatal), confirmed from a real
+           crash log. Fixed using "Cozy"; verified from an EARLIER log
+           showing the game's own default-when-unspecified value is
+           literally Cozy, i.e. this is a real, working value confirmed
+           from actual game output, not another guess. -->
+      <DefaultSurfaceTemperature>Cozy</DefaultSurfaceTemperature>
+
+      <!-- EnvironmentItems (grass/bush/tree foliage), added 2026-08-19.
+           All TypeId/SubtypeId values below are copied verbatim from the
+           real vanilla PlanetGeneratorDefinitions.sbc EnvironmentItems
+           blocks (confirmed real, not guessed); including two SubtypeIds
+           ("PertamSandBushFoliage", "PertamGrassOldBushFoliage") that are
+           specifically Pertam's own foliage, fitting given this planet's
+           lineage. <Biomes> is confirmed REQUIRED on every real vanilla
+           Item entry (checked; zero counterexamples), so Biome=true is now
+           enabled and a green-channel biome map has been built: Biome=1
+           for the temperate zone (north mainland + ALL islands, matching
+           the same landmass-based fix already applied to the red/material
+           channel so Sicily etc. aren't split), Biome=2 for the arid zone
+           (south mainland only). <Materials> filters are ALSO included on
+           each Item, cross-checking against our existing ComplexMaterials
+           surface types for extra precision; <Latitude> is left permissive
+           (0-90) since hemisphere distinction is already handled correctly
+           via the Biome channel, not Latitude (which, as established
+           earlier in this project, can't distinguish north pole from south
+           pole on this planet's wrap design). Height/Slope roughly match
+           the existing "coastal plains through lower highland, gentle
+           slope" material band. Densities are a first pass modeled on
+           vanilla's own values for similar biomes, not independently
+           tuned; adjust after seeing it in-game.
+
+           REVISED 2026-08-19 per direct feedback: trees were too evenly
+           scattered and too numerous, and AlvaniaLeafTree didn't read as
+           earthlike enough for this setting (removed entirely; vanilla
+           GrassForestEdge/Old/Medium kept, they were fine). Fix: biome
+           channel now distinguishes "forest patch" (Biome 3=temperate,
+           4=arid) from plain open land (1=temperate, 2=arid) using the
+           same clustered-noise technique already proven for ore hotspot
+           placement; NOT a per-tree density knob, an actual spatial
+           mask, so trees appear as genuine clumps with real gaps between
+           them rather than a uniform scatter. Forest-patch coverage: 20%
+           of temperate land, 12% of arid land (deliberately sparser,
+           matching a drier climate). Grass/undergrowth/bush foliage
+           still reference BOTH the plain and forest-patch biome values
+           (so ground cover reads continuously, not patchy), while every
+           TREE entry now references ONLY the forest-patch biome, and all
+           tree densities were also reduced on top of the clumping. -->
+      <EnvironmentItems>
+
+        <!-- Temperate: grass foliage, both plain (1) and forest-patch (3) -->
+        <Item>
+          <Biomes>
+            <Biome>1</Biome>
+            <Biome>3</Biome>
+          </Biomes>
+          <Materials>
+            <Material>OrcusGrass</Material>
+          </Materials>
+          <Items>
+            <Item TypeId="MyObjectBuilder_DestroyableItems" SubtypeId="GrassFoliage" Density="0.2"/>
+          </Items>
+          <Rule>
+            <Height Min="0.58" Max="0.75"/>
+            <Latitude Min="0" Max="90"/>
+            <Slope Min="0" Max="30"/>
+          </Rule>
+        </Item>
+
+        <!-- Temperate forest patches only (Biome=3): vanilla forest-edge trees -->
+        <Item>
+          <Biomes>
+            <Biome>3</Biome>
+          </Biomes>
+          <Materials>
+            <Material>OrcusGrass</Material>
+          </Materials>
+          <Items>
+            <Item TypeId="MyObjectBuilder_Trees" SubtypeId="GrassForestEdge" Density="0.2"/>
+            <Item TypeId="MyObjectBuilder_Trees" SubtypeId="GrassOldForestEdge" Density="0.08"/>
+          </Items>
+          <Rule>
+            <Height Min="0.58" Max="0.70"/>
+            <Latitude Min="0" Max="90"/>
+            <Slope Min="0" Max="25"/>
+          </Rule>
+        </Item>
+
+        <!-- Temperate forest patches only (Biome=3), highland: denser forest -->
+        <Item>
+          <Biomes>
+            <Biome>3</Biome>
+          </Biomes>
+          <Materials>
+            <Material>Rocks_grass</Material>
+          </Materials>
+          <Items>
+            <Item TypeId="MyObjectBuilder_Trees" SubtypeId="GrassForestMedium" Density="0.4"/>
+          </Items>
+          <Rule>
+            <Height Min="0.70" Max="0.80"/>
+            <Latitude Min="0" Max="90"/>
+            <Slope Min="0" Max="20"/>
+          </Rule>
+        </Item>
+
+        <!-- Temperate forest patches only (Biome=3): fern/mushroom/root undergrowth -->
+        <Item>
+          <Biomes>
+            <Biome>3</Biome>
+          </Biomes>
+          <Materials>
+            <Material>OrcusGrass</Material>
+          </Materials>
+          <Items>
+            <Item TypeId="MyObjectBuilder_DestroyableItems" SubtypeId="Fern" Density="0.2"/>
+          </Items>
+          <Rule>
+            <Height Min="0.58" Max="0.70"/>
+            <Latitude Min="0" Max="90"/>
+            <Slope Min="0" Max="25"/>
+          </Rule>
+        </Item>
+
+        <!-- Arid: sparse Pertam-native desert bush, both plain (2) and forest-patch (4) -->
+        <Item>
+          <Biomes>
+            <Biome>2</Biome>
+            <Biome>4</Biome>
+          </Biomes>
+          <Materials>
+            <Material>CrackedSoil</Material>
+          </Materials>
+          <Items>
+            <Item TypeId="MyObjectBuilder_DestroyableItems" SubtypeId="PertamSandBushFoliage" Density="0.06"/>
+          </Items>
+          <Rule>
+            <Height Min="0.58" Max="0.75"/>
+            <Latitude Min="0" Max="90"/>
+            <Slope Min="0" Max="30"/>
+          </Rule>
+        </Item>
+
+        <!-- Arid forest patches only (Biome=4): vanilla sparse tree cover -->
+        <Item>
+          <Biomes>
+            <Biome>4</Biome>
+          </Biomes>
+          <Materials>
+            <Material>CrackedSoil</Material>
+          </Materials>
+          <Items>
+            <Item TypeId="MyObjectBuilder_Trees" SubtypeId="SandForestEdge" Density="0.06"/>
+          </Items>
+          <Rule>
+            <Height Min="0.58" Max="0.68"/>
+            <Latitude Min="0" Max="90"/>
+            <Slope Min="0" Max="20"/>
+          </Rule>
+        </Item>
+
+        <!-- Arid forest patches only (Biome=4): coastal palm groves -->
+        <Item>
+          <Biomes>
+            <Biome>4</Biome>
+          </Biomes>
+          <Materials>
+            <Material>CrackedSoil</Material>
+          </Materials>
+          <Items>
+            <Item TypeId="MyObjectBuilder_Trees" SubtypeId="Palmbomen" Density="0.12"/>
+          </Items>
+          <Rule>
+            <Height Min="0.58" Max="0.65"/>
+            <Latitude Min="0" Max="90"/>
+            <Slope Min="0" Max="20"/>
+          </Rule>
+        </Item>
+
+        <!-- Arid forest patches only (Biome=4): desert scrub -->
+        <Item>
+          <Biomes>
+            <Biome>4</Biome>
+          </Biomes>
+          <Materials>
+            <Material>DustyRocks</Material>
+          </Materials>
+          <Items>
+            <Item TypeId="MyObjectBuilder_Trees" SubtypeId="DesertTree" Density="0.05"/>
+            <Item TypeId="MyObjectBuilder_DestroyableItems" SubtypeId="CactusPatch" Density="0.08"/>
+          </Items>
+          <Rule>
+            <Height Min="0.65" Max="0.75"/>
+            <Latitude Min="0" Max="90"/>
+            <Slope Min="0" Max="25"/>
+
+          </Rule>
+        </Item>
+
+      </EnvironmentItems>
 
     </PlanetGeneratorDefinition>
   </PlanetGeneratorDefinitions>

@@ -1,146 +1,249 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-    <EntityComponents>
+	<EntityComponents>
 
-<!-- Air Destination -->
-	<!-- Triggers when plane receives a command broadcast -->
+		<!-- Air Destination -->
+		<!-- Triggers when plane receives a command broadcast -->
+		<!-- UNCHANGED from original -->
 		<EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
-            <Id>
-                <TypeId>Inventory</TypeId>
-                <SubtypeId>WW2-Trigger-CargoPlane-Destination</SubtypeId>
-            </Id>
-            <Description>
-			
-			[RivalAI Trigger]
-			
-			[UseTrigger:true]
-			[Type:CommandReceived]
-			[CommandReceiveCode:CargoPlane-DestinationReceived]
-			
-			[StartsReady:true]
-			[MaxActions:1]
-            [Actions:WW2-Action-CargoPlane-Destination]
-			
+			<Id>
+				<TypeId>Inventory</TypeId>
+				<SubtypeId>WW2-Trigger-CargoPlane-Destination</SubtypeId>
+			</Id>
+			<Description>
+				[RivalAI Trigger]
+				[UseTrigger:true]
+				[Type:CommandReceived]
+				[CommandReceiveCode:CargoPlane-DestinationReceived]
+				[StartsReady:true]
+				[MaxActions:1]
+				[Actions:WW2-Action-CargoPlane-Destination]
 			</Description>
-        </EntityComponent>
+		</EntityComponent>
 
-	<!-- Adds waypoint from command, Changes Autopilot -->
+		<!-- Adds waypoint from command, Changes Autopilot -->
+		<!-- UNCHANGED from original -->
 		<EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
-            <Id>
-                <TypeId>Inventory</TypeId>
-                <SubtypeId>WW2-Action-CargoPlane-Destination</SubtypeId>
-            </Id>
-            <Description>	
-			
-			[RivalAI Action]
-			
-			[AddWaypointFromCommand:true]
-			[UseChatBroadcast:true]
-			[ChatData:WW2-Chat-CargoPlane-Destination]
-			
-			[ChangeAutopilotProfile:true]
-			[AutopilotProfile:Secondary]
-
-			[EnableTriggers:true]
-			[EnableTriggerNames:WW2-Trigger-CargoPlane-DestinationReached]
-			
-			</Description>			
-        </EntityComponent>
-		
-	<!-- Broadcasts chat with 3km range -->
-		<EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
-            <Id>
-                <TypeId>Inventory</TypeId>
-                <SubtypeId>WW2-Chat-CargoPlane-Destination</SubtypeId>
-            </Id>
-            <Description>
-			
-			[RivalAI Chat]
-			
-			[UseChat:true]
-			[StartsReady:true]
-			[MaxChats:1]
-			[BroadcastRandomly:true]
-			[Author:Cargo Plane Pilot]
-			[Color:Blue]
-			[IgnoreAntennaRequirement:true]
-			[IgnoredAntennaRangeOverride:10000]
-			
-			[ChatMessages: This is {AntennaName} requesting clearance for supply drop-off.]
-			[ChatAudio:ArcHudGPSNotification1]
-			[BroadcastChatType:Chat]
-			
-			[ChatMessages:{AntennaName} approaching the base.]
-			[ChatAudio:ArcHudGPSNotification1]
-			[BroadcastChatType:Chat]
-			
-			[ChatMessages:Special delivery coming in.]
-			[ChatAudio:ArcHudGPSNotification1]
-			[BroadcastChatType:Chat]
-
-			</Description>			
-        </EntityComponent>
-<!-- End Air Destination -->
-
-<!-- Destination Reached -->
-	<!-- Triggers when a cargo plane reaches its destination after receiving one from command code -->
-		<EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
-            <Id>
-                <TypeId>Inventory</TypeId>
-                <SubtypeId>WW2-Trigger-CargoPlane-DestinationReached</SubtypeId>
-            </Id>
-            <Description>
-
-			[RivalAI Trigger]
-			
-			[UseTrigger:false]
-			[Type:BehaviorTriggerA]
-			[StartsReady:true]
-
-			[MaxActions:1]
-            [Actions:WW2-Action-CargoPlane-DestinationReached]
-
+			<Id>
+				<TypeId>Inventory</TypeId>
+				<SubtypeId>WW2-Action-CargoPlane-Destination</SubtypeId>
+			</Id>
+			<Description>
+				[RivalAI Action]
+				[AddWaypointFromCommand:true]
+				[UseChatBroadcast:true]
+				[ChatData:WW2-Chat-CargoPlane-Destination]
+				[ChangeAutopilotProfile:true]
+				[AutopilotProfile:Secondary]
+				[EnableTriggers:true]
+				[EnableTriggerNames:WW2-Trigger-CargoPlane-DestinationReached]
 			</Description>
-        </EntityComponent>
+		</EntityComponent>
 
-	<!-- Activates a Command Profile -->
+		<!-- Broadcasts chat with 5km range, no antenna required to send or receive -->
+		<!-- UNCHANGED from original -->
 		<EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
-            <Id>
-                <TypeId>Inventory</TypeId>
-                <SubtypeId>WW2-Action-CargoPlane-DestinationReached</SubtypeId>
-            </Id>
-            <Description>			
+			<Id>
+				<TypeId>Inventory</TypeId>
+				<SubtypeId>WW2-Chat-CargoPlane-Destination</SubtypeId>
+			</Id>
+			<Description>
+				[RivalAI Chat]
+				[UseChat:true]
+				[StartsReady:true]
+				[MaxChats:1]
+				[BroadcastRandomly:true]
+				[Author:Cargo Plane Pilot]
+				[Color:Blue]
+				[IgnoreAntennaRequirement:true]
+				[IgnoredAntennaRangeOverride:5000]
+				[ChatMessages: This is {AntennaName} requesting clearance for supply drop-off.]
+				[ChatAudio:ArcHudGPSNotification1]
+				[BroadcastChatType:Chat]
+				[ChatMessages:{AntennaName} approaching the base.]
+				[ChatAudio:ArcHudGPSNotification1]
+				[BroadcastChatType:Chat]
+				[ChatMessages:Special delivery coming in.]
+				[ChatAudio:ArcHudGPSNotification1]
+				[BroadcastChatType:Chat]
+			</Description>
+		</EntityComponent>
+		<!-- End Air Destination -->
 
-			[RivalAI Action]
-			
-			[BroadcastCommandProfiles:true]
-			[CommandProfileIds:WW2-Command-CargoPlane-DestinationReached]
-			[ForceDespawn:true]
-
-			</Description>			
-        </EntityComponent>
-
-	<!-- Broadcasts Command "WW2-IHaveArrived" with 300m range -->
+		<!-- Destination Reached -->
+		<!-- Triggers when a cargo plane reaches its destination after receiving one from command code -->
+		<!-- CHANGED: now kicks off the loiter instead of despawning immediately -->
 		<EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
-            <Id>
-                <TypeId>Inventory</TypeId>
-                <SubtypeId>WW2-Command-CargoPlane-DestinationReached</SubtypeId>
-            </Id>
-            <Description>			
+			<Id>
+				<TypeId>Inventory</TypeId>
+				<SubtypeId>WW2-Trigger-CargoPlane-DestinationReached</SubtypeId>
+			</Id>
+			<Description>
+				[RivalAI Trigger]
+				[UseTrigger:false]
+				[Type:BehaviorTriggerA]
+				[StartsReady:true]
+				[MaxActions:1]
+				[Actions:WW2-Action-CargoPlane-BeginLoiter]
+			</Description>
+		</EntityComponent>
 
-			[RivalAI Command]
-			
-			[CommandCode:WW2-IHaveArrived]
-			[SingleRecipient:true]
-			[SendWaypoint:false]
-			[MatchSenderReceiverOwners:true]
-			[IgnoreAntennaRequirement:true]
-			[IgnoreReceiverAntennaRequirement:true]
-			[MaxRadius:1000]
+		<!-- NEW: Turns on the recirculating waypoint feed and starts the 1-3 min loiter timer -->
+		<EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
+			<Id>
+				<TypeId>Inventory</TypeId>
+				<SubtypeId>WW2-Action-CargoPlane-BeginLoiter</SubtypeId>
+			</Id>
+			<Description>
+				[RivalAI Action]
+				[EnableTriggers:true]
+				[EnableTriggerNames:WW2-Trigger-CargoPlane-Recirculate]
+				[EnableTriggerNames:WW2-Trigger-CargoPlane-LoiterTimer]
+			</Description>
+		</EntityComponent>
 
-			</Description>			
-        </EntityComponent>
-<!-- End Destination Reached -->
+		<!-- NEW: Listens for repeated "keep circling" waypoint pings from the facility while loitering -->
+		<EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
+			<Id>
+				<TypeId>Inventory</TypeId>
+				<SubtypeId>WW2-Trigger-CargoPlane-Recirculate</SubtypeId>
+			</Id>
+			<Description>
+				[RivalAI Trigger]
+				[UseTrigger:false]
+				[Type:CommandReceived]
+				[CommandReceiveCode:CargoPlane-Recirculate]
+				[StartsReady:true]
+				[MaxActions:-1]
+				[Actions:WW2-Action-CargoPlane-Recirculate]
+			</Description>
+		</EntityComponent>
+
+		<!-- NEW: Adds the next nearby waypoint each time a recirculate ping is heard -->
+		<EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
+			<Id>
+				<TypeId>Inventory</TypeId>
+				<SubtypeId>WW2-Action-CargoPlane-Recirculate</SubtypeId>
+			</Id>
+			<Description>
+				[RivalAI Action]
+				[AddWaypointFromCommand:true]
+			</Description>
+		</EntityComponent>
+
+		<!-- NEW: Randomized 1-3 minute base loiter window before despawn checks even begin -->
+		<EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
+			<Id>
+				<TypeId>Inventory</TypeId>
+				<SubtypeId>WW2-Trigger-CargoPlane-LoiterTimer</SubtypeId>
+			</Id>
+			<Description>
+				[RivalAI Trigger]
+				[UseTrigger:false]
+				[Type:Timer]
+				[MinCooldownMs:60000]
+				[MaxCooldownMs:180000]
+				[StartsReady:false]
+				[MaxActions:1]
+				[Actions:WW2-Action-CargoPlane-BeginDespawnCheck]
+			</Description>
+		</EntityComponent>
+
+		<!-- NEW: Switches from "just circling" to "actively checking whether it's safe to land" -->
+		<EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
+			<Id>
+				<TypeId>Inventory</TypeId>
+				<SubtypeId>WW2-Action-CargoPlane-BeginDespawnCheck</SubtypeId>
+			</Id>
+			<Description>
+				[RivalAI Action]
+				[EnableTriggers:true]
+				[EnableTriggerNames:WW2-Trigger-CargoPlane-DespawnCheck]
+			</Description>
+		</EntityComponent>
+
+		<!-- NEW: One-shot despawn trigger, enabled once the base loiter elapses. Not gated by a
+		     Condition - instead it gets directly disabled/re-enabled by the engagement-lock system
+		     in Triggers-EngagementLock-Air.sbc, so a hit fully suspends it rather than just failing
+		     a check. Recirculate stays active the whole time regardless, so the plane always has
+		     somewhere to fly while this is suppressed. StartsReady:true so it fires promptly
+		     whenever it's (re-)enabled, whether that's at the end of the base loiter or after an
+		     engagement cooldown expires. -->
+		<EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
+			<Id>
+				<TypeId>Inventory</TypeId>
+				<SubtypeId>WW2-Trigger-CargoPlane-DespawnCheck</SubtypeId>
+			</Id>
+			<Description>
+				[RivalAI Trigger]
+				[UseTrigger:false]
+				[Type:Timer]
+				[MinCooldownMs:500]
+				[MaxCooldownMs:1000]
+				[StartsReady:true]
+				[MaxActions:1]
+				[Actions:WW2-Action-CargoPlane-FinalDespawn]
+			</Description>
+		</EntityComponent>
+
+		<!-- NEW: Landing clearance broadcast, facility notification (reused from original
+		     DestinationReached action, just fired later), then despawn -->
+		<EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
+			<Id>
+				<TypeId>Inventory</TypeId>
+				<SubtypeId>WW2-Action-CargoPlane-FinalDespawn</SubtypeId>
+			</Id>
+			<Description>
+				[RivalAI Action]
+				[UseChatBroadcast:true]
+				[ChatData:WW2-Chat-CargoPlane-LandingClearance]
+				[BroadcastCommandProfiles:true]
+				[CommandProfileIds:WW2-Command-CargoPlane-DestinationReached]
+				[ForceDespawn:true]
+			</Description>
+		</EntityComponent>
+
+		<!-- NEW: "[Plane Name] Ground clearance received, landing now." 5km range, no antenna
+		     required to send or receive, matching the Destination chat's convention -->
+		<EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
+			<Id>
+				<TypeId>Inventory</TypeId>
+				<SubtypeId>WW2-Chat-CargoPlane-LandingClearance</SubtypeId>
+			</Id>
+			<Description>
+				[RivalAI Chat]
+				[UseChat:true]
+				[StartsReady:true]
+				[MaxChats:1]
+				[Author:Cargo Plane Pilot]
+				[Color:Blue]
+				[IgnoreAntennaRequirement:true]
+				[IgnoredAntennaRangeOverride:5000]
+				[ChatMessages:{AntennaName} Ground clearance received, landing now.]
+				[ChatAudio:ArcHudGPSNotification1]
+				[BroadcastChatType:Chat]
+			</Description>
+		</EntityComponent>
+
+		<!-- Broadcasts Command "WW2-IHaveArrived" with ~1km range -->
+		<!-- UNCHANGED from original - now fires right before despawn instead of on arrival -->
+		<EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
+			<Id>
+				<TypeId>Inventory</TypeId>
+				<SubtypeId>WW2-Command-CargoPlane-DestinationReached</SubtypeId>
+			</Id>
+			<Description>
+				[RivalAI Command]
+				[CommandCode:WW2-IHaveArrived]
+				[SingleRecipient:true]
+				[SendWaypoint:false]
+				[MatchSenderReceiverOwners:true]
+				[IgnoreAntennaRequirement:true]
+				[IgnoreReceiverAntennaRequirement:true]
+				[MaxRadius:1000]
+			</Description>
+		</EntityComponent>
+		<!-- End Destination Reached -->
 
 	</EntityComponents>
 </Definitions>

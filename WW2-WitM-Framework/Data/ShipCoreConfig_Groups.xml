@@ -13,18 +13,28 @@
       <CountWeight>1</CountWeight>
     </BlockTypes>
     <BlockTypes>
+      <TypeId>Assembler</TypeId>
+      <SubtypeId>LargeAssembler</SubtypeId>
+      <CountWeight>2</CountWeight>
+    </BlockTypes>
+	 <BlockTypes>
+      <TypeId>Assembler</TypeId>
+      <SubtypeId>LargeAssemblerIndustrial</SubtypeId>
+      <CountWeight>2</CountWeight>
+    </BlockTypes>
+    <BlockTypes>
       <TypeId>Refinery</TypeId>
       <SubtypeId>BasicRefinery</SubtypeId>
       <CountWeight>1</CountWeight>
     </BlockTypes>
     <BlockTypes>
-      <TypeId>Assembler</TypeId>
-      <SubtypeId></SubtypeId>
+      <TypeId>Refinery</TypeId>
+      <SubtypeId>LargeRefinery</SubtypeId>
       <CountWeight>2</CountWeight>
     </BlockTypes>
     <BlockTypes>
       <TypeId>Refinery</TypeId>
-      <SubtypeId></SubtypeId>
+      <SubtypeId>LargeRefineryIndustrial</SubtypeId>
       <CountWeight>2</CountWeight>
     </BlockTypes>
     <BlockTypes>
@@ -64,12 +74,17 @@
     </BlockTypes>
   </BlockGroup>
 
-  <!-- Battery: caps battery bank size -->
+  <!-- Batteries: caps battery bank size -->
   <BlockGroup>
-    <Name>Battery</Name>
+    <Name>Batteries</Name>
     <BlockTypes>
       <TypeId>BatteryBlock</TypeId>
       <SubtypeId></SubtypeId>
+      <CountWeight>1</CountWeight>
+    </BlockTypes>
+	<BlockTypes>
+      <TypeId>BatteryBlock</TypeId>
+      <SubtypeId>CAPOMissileBattery</SubtypeId>
       <CountWeight>1</CountWeight>
     </BlockTypes>
   </BlockGroup>
@@ -106,13 +121,22 @@
     </BlockTypes>
   </BlockGroup>
 
-  <!-- HydrogenGenerators: ice-to-gas generator blocks (distinct from HydrogenEngine,
-       which burns hydrogen fuel and lives in PowerGenerators). -->
+  <!-- Engines -->
   <BlockGroup>
-    <Name>HydrogenGenerators</Name>
+    <Name>Engines</Name>
     <BlockTypes>
-      <TypeId>OxygenGenerator</TypeId>
-      <SubtypeId></SubtypeId>
+      <TypeId>HydrogenEngine</TypeId>
+      <SubtypeId>CAP_InlineEngine</SubtypeId>
+      <CountWeight>1</CountWeight>
+    </BlockTypes>
+	<BlockTypes>
+      <TypeId>HydrogenEngine</TypeId>
+      <SubtypeId>CAP_Radial_Engine</SubtypeId>
+      <CountWeight>1</CountWeight>
+    </BlockTypes>
+	<BlockTypes>
+      <TypeId>HydrogenEngine</TypeId>
+      <SubtypeId>AWGMediumHydro</SubtypeId>
       <CountWeight>1</CountWeight>
     </BlockTypes>
   </BlockGroup>
@@ -324,15 +348,6 @@
   </BlockGroup>
 
   <BlockGroup>
-    <Name>Propulsion</Name>
-    <BlockTypes>
-      <TypeId></TypeId>
-      <SubtypeId></SubtypeId>
-      <CountWeight>1</CountWeight>
-    </BlockTypes>
-  </BlockGroup>
-
-  <BlockGroup>
     <Name>Armor</Name>
     <BlockTypes>
       <TypeId></TypeId>
@@ -341,4 +356,159 @@
     </BlockTypes>
   </BlockGroup>
 
+<!--small cargo-->
+  <BlockGroup>
+    <Name>SmallCargoContainers</Name>
+    <BlockTypes>
+      <TypeId>CargoContainer</TypeId>
+      <SubtypeId>SmallBlockSmallContainer</SubtypeId>
+      <CountWeight>1</CountWeight>
+    </BlockTypes>
+    <BlockTypes>
+      <TypeId>CargoContainer</TypeId>
+      <SubtypeId>LargeBlockSmallContainer</SubtypeId>
+      <CountWeight>1</CountWeight>
+    </BlockTypes>
+  </BlockGroup>
+  
+  <!--medium cargo-->
+  <BlockGroup>
+    <Name>MediumCargoContainers</Name>
+    <BlockTypes>
+      <TypeId>CargoContainer</TypeId>
+      <SubtypeId>SmallBlockMediumContainer</SubtypeId>
+      <CountWeight>1</CountWeight>
+    </BlockTypes>
+  </BlockGroup>
+  
+  <!--large cargo-->
+  <BlockGroup>
+    <Name>LargeCargoContainers</Name>
+    <BlockTypes>
+      <TypeId>CargoContainer</TypeId>
+      <SubtypeId>SmallBlockLargeContainer</SubtypeId>
+      <CountWeight>1</CountWeight>
+    </BlockTypes>
+    <BlockTypes>
+      <TypeId>CargoContainer</TypeId>
+      <SubtypeId>LargeBlockLargeContainer</SubtypeId>
+      <CountWeight>1</CountWeight>
+    </BlockTypes>
+    <BlockTypes>
+      <TypeId>CargoContainer</TypeId>
+      <SubtypeId>LargeBlockLargeIndustrialContainer</SubtypeId>
+      <CountWeight>1</CountWeight>
+    </BlockTypes>
+  </BlockGroup>
+
+  <!--propulsion-->
+  <BlockGroup>
+    <Name>Propulsion</Name>
+    <BlockTypes>
+      <TypeId>Thrust</TypeId>
+      <SubtypeId>CAP_Propeller_2BladeHalf</SubtypeId>
+      <CountWeight>1</CountWeight>
+    </BlockTypes>
+    <BlockTypes>
+      <TypeId>Thrust</TypeId>
+      <SubtypeId>CAP_Propeller_3BladeHalf</SubtypeId>
+      <CountWeight>1</CountWeight>
+    </BlockTypes>
+	<BlockTypes>
+      <TypeId>Thrust</TypeId>
+      <SubtypeId>CAP_Propeller_4BladeHalf</SubtypeId>
+      <CountWeight>1</CountWeight>
+    </BlockTypes>
+	<BlockTypes>
+      <TypeId>Thrust</TypeId>
+      <SubtypeId>CAP_Propeller_5BladeHalf</SubtypeId>
+      <CountWeight>1</CountWeight>
+    </BlockTypes>
+	<BlockTypes>
+      <TypeId>Thrust</TypeId>
+      <SubtypeId>CAP_Propeller_2Blade</SubtypeId>
+      <CountWeight>1</CountWeight>
+    </BlockTypes>
+    <BlockTypes>
+      <TypeId>Thrust</TypeId>
+      <SubtypeId>CAP_Propeller_3Blade</SubtypeId>
+      <CountWeight>1</CountWeight>
+    </BlockTypes>
+	<BlockTypes>
+      <TypeId>Thrust</TypeId>
+      <SubtypeId>CAP_Propeller_4Blade</SubtypeId>
+      <CountWeight>1</CountWeight>
+    </BlockTypes>
+	<BlockTypes>
+      <TypeId>Thrust</TypeId>
+      <SubtypeId>CAP_Propeller_5Blade</SubtypeId>
+      <CountWeight>1</CountWeight>
+    </BlockTypes>
+	<BlockTypes>
+      <TypeId>Thrust</TypeId>
+      <SubtypeId>CAP_HeavyProp_3_Blade</SubtypeId>
+      <CountWeight>2</CountWeight>
+    </BlockTypes>
+	<BlockTypes>
+      <TypeId>Thrust</TypeId>
+      <SubtypeId>CAP_HeavyProp_4_Blade</SubtypeId>
+      <CountWeight>2</CountWeight>
+    </BlockTypes>
+	<BlockTypes>
+      <TypeId>Thrust</TypeId>
+      <SubtypeId>3BladePlanePropellerDouble</SubtypeId>
+      <CountWeight>2</CountWeight>
+    </BlockTypes>
+	<BlockTypes>
+      <TypeId>Thrust</TypeId>
+      <SubtypeId>4BladePlanePropellerDouble</SubtypeId>
+      <CountWeight>2</CountWeight>
+    </BlockTypes>
+	<BlockTypes>
+      <TypeId>Thrust</TypeId>
+      <SubtypeId>6BladePlanePropellerDouble</SubtypeId>
+      <CountWeight>2</CountWeight>
+    </BlockTypes>
+	<BlockTypes>
+      <TypeId>Thrust</TypeId>
+      <SubtypeId>3BladePlanePropellerHalf</SubtypeId>
+      <CountWeight>1</CountWeight>
+    </BlockTypes>
+	<BlockTypes>
+      <TypeId>Thrust</TypeId>
+      <SubtypeId>4BladePlanePropellerHalf</SubtypeId>
+      <CountWeight>1</CountWeight>
+    </BlockTypes>
+	<BlockTypes>
+      <TypeId>Thrust</TypeId>
+      <SubtypeId>6BladePlanePropellerHalf</SubtypeId>
+      <CountWeight>1</CountWeight>
+    </BlockTypes>
+  </BlockGroup>
+
+  <!--gyroscopes-->
+  <BlockGroup>
+    <Name>Gyros</Name>
+    <BlockTypes>
+      <TypeId>Gyro</TypeId>
+      <SubtypeId>SmallBlockGyro</SubtypeId>
+      <CountWeight>1</CountWeight>
+    </BlockTypes>
+	<BlockTypes>
+      <TypeId>Gyro</TypeId>
+      <SubtypeId>FlightStickGyro</SubtypeId>
+      <CountWeight>1</CountWeight>
+    </BlockTypes>
+	<BlockTypes>
+      <TypeId>Gyro</TypeId>
+      <SubtypeId>CAPOMissileGyro</SubtypeId>
+      <CountWeight>1</CountWeight>
+    </BlockTypes>
+    <BlockTypes>
+      <TypeId>Gyro</TypeId>
+      <SubtypeId>LargeBlockGyro</SubtypeId>
+      <CountWeight>1</CountWeight>
+    </BlockTypes>
+  </BlockGroup>
+  
 </ArrayOfBlockGroup>

@@ -1,0 +1,141 @@
+<?xml version="1.0"?>
+<Definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <VoxelMaterials>
+
+    <!-- Sourced from the "Orcus" Workshop mod (Steam ID 2905443304), via
+         files the user extracted and uploaded directly; not independently
+         verified against that mod's own license/reuse terms, same caveat
+         as the earlier ice material import. Two fixes applied vs. the
+         original file: VoxelHandPreview pointed at "*_Thumbnail.dds" files
+         that were not among the uploaded textures; repointed to each
+         material's own _cm.dds. FoliageColorTextureArray/
+         FoliageNormalTextureArray originally referenced two more textures
+         not in the first upload: "Grass_Aquatic1_*.dds" (AquaticSand's own
+         foliage) and "Grass_05_*.dds" (OrcusGrass's). Grass_Aquatic1 was
+         subsequently uploaded and is now BUNDLED directly under
+         Textures/Models/Environment/Grass/, resolving that dependency.
+         Grass_05_*.dds is STILL unresolved; assumed to be an existing
+         vanilla base-game texture (plausible standard name), referenced by
+         path without bundling. This remains an UNVERIFIED fallback
+         dependency; watch the load log for it specifically. -->
+
+    <VoxelMaterial xsi:type="MyObjectBuilder_Dx11VoxelMaterialDefinition">
+      <Id>
+        <TypeId>VoxelMaterialDefinition</TypeId>
+        <SubtypeId>AquaticSand</SubtypeId>
+      </Id>
+      <SpawnsInAsteroids>false</SpawnsInAsteroids>
+      <SpawnsFromMeteorites>false</SpawnsFromMeteorites>
+      <MaterialTypeName>Aquatic</MaterialTypeName>
+      <MinedOre>Stone</MinedOre>
+      <MinedOreRatio>1</MinedOreRatio>
+      <CanBeHarvested>true</CanBeHarvested>
+      <IsRare>false</IsRare>
+
+      <VoxelHandPreview>Textures\Voxels\AquaticSand_cm.dds</VoxelHandPreview>
+      <ColorMetalXZnY>Textures\Voxels\AquaticSand_cm.dds</ColorMetalXZnY>
+      <NormalGlossXZnY>Textures\Voxels\AquaticSand_ng.dds</NormalGlossXZnY>
+      <ExtXZnY>Textures\Voxels\AquaticSand_add.dds</ExtXZnY>
+
+      <ColorMetalXZnYFar1>Textures\Voxels\AquaticSand_cm.dds</ColorMetalXZnYFar1>
+      <NormalGlossXZnYFar1>Textures\Voxels\AquaticSand_ng.dds</NormalGlossXZnYFar1>
+      <ExtXZnYFar1>Textures\Voxels\Dummy_add.dds</ExtXZnYFar1>
+
+      <ColorMetalXZnYFar2>Textures\Voxels\AquaticSand_cm.dds</ColorMetalXZnYFar2>
+      <NormalGlossXZnYFar2>Textures\Voxels\AquaticSand_ng.dds</NormalGlossXZnYFar2>
+      <ExtXZnYFar2>Textures\Voxels\Dummy_add.dds</ExtXZnYFar2>
+
+      <ExtDetailScale>0.005</ExtDetailScale>
+      <Scale>500</Scale>
+      <Far1Distance>100</Far1Distance>
+      <Far2Distance>500</Far2Distance>
+      <Far1Scale>300</Far1Scale>
+      <Far2Scale>2000</Far2Scale>
+
+      <Far3Distance>1500</Far3Distance>
+      <Far3Color>
+        <X>0.01</X>
+        <Y>0.008</Y>
+        <Z>0.05</Z>
+        <W>0.01</W>
+      </Far3Color>
+
+      <FoliageColorTextureArray>
+        <Color>Textures\Models\Environment\Grass\Grass_Aquatic1_cm.dds</Color>
+      </FoliageColorTextureArray>
+      <FoliageNormalTextureArray>
+        <Normal>Textures\Models\Environment\Grass\Grass_Aquatic1_ng.dds</Normal>
+      </FoliageNormalTextureArray>
+
+      <FoliageDensity>0.5</FoliageDensity>
+      <FoliageScale>
+        <X>1</X>
+        <Y>1</Y>
+      </FoliageScale>
+      <FoliageRandomRescaleMult>0.30</FoliageRandomRescaleMult>
+
+      <ColorKey Hex="#9B0000"/>
+    </VoxelMaterial>
+
+    <VoxelMaterial xsi:type="MyObjectBuilder_Dx11VoxelMaterialDefinition">
+      <Id>
+        <TypeId>VoxelMaterialDefinition</TypeId>
+        <SubtypeId>OrcusGrass</SubtypeId>
+      </Id>
+      <SpawnsInAsteroids>false</SpawnsInAsteroids>
+      <SpawnsFromMeteorites>false</SpawnsFromMeteorites>
+      <MaterialTypeName>Grass</MaterialTypeName>
+      <MinedOre>Stone</MinedOre>
+      <MinedOreRatio>1</MinedOreRatio>
+      <CanBeHarvested>true</CanBeHarvested>
+      <IsRare>false</IsRare>
+
+      <VoxelHandPreview>Textures\Voxels\OrcusGrass_cm.dds</VoxelHandPreview>
+      <ColorMetalXZnY>Textures\Voxels\OrcusGrass_cm.dds</ColorMetalXZnY>
+      <NormalGlossXZnY>Textures\Voxels\OrcusGrass_ng.dds</NormalGlossXZnY>
+      <ExtXZnY>Textures\Voxels\OrcusGrass_add.dds</ExtXZnY>
+
+      <ColorMetalXZnYFar1>Textures\Voxels\OrcusGrass_cm.dds</ColorMetalXZnYFar1>
+      <NormalGlossXZnYFar1>Textures\Voxels\OrcusGrass_ng.dds</NormalGlossXZnYFar1>
+      <ExtXZnYFar1>Textures\Voxels\Dummy_add.dds</ExtXZnYFar1>
+
+      <ColorMetalXZnYFar2>Textures\Voxels\OrcusGrass_cm.dds</ColorMetalXZnYFar2>
+      <NormalGlossXZnYFar2>Textures\Voxels\OrcusGrass_ng.dds</NormalGlossXZnYFar2>
+      <ExtXZnYFar2>Textures\Voxels\Dummy_add.dds</ExtXZnYFar2>
+
+      <ExtDetailScale>0.005</ExtDetailScale>
+      <Scale>500</Scale>
+      <Far1Distance>100</Far1Distance>
+      <Far2Distance>500</Far2Distance>
+      <Far1Scale>300</Far1Scale>
+      <Far2Scale>2000</Far2Scale>
+
+      <Far3Distance>1500</Far3Distance>
+      <Far3Color>
+        <X>0.07</X>
+        <Y>0.07</Y>
+        <Z>0</Z>
+        <W>1.0</W>
+      </Far3Color>
+
+      <FoliageColorTextureArray>
+        <Color>Textures\Models\Environment\Grass\Grass_05_cm.dds</Color>
+        <Color>Textures\Models\Environment\Grass\Grass_05_cm.dds</Color>
+      </FoliageColorTextureArray>
+      <FoliageNormalTextureArray>
+        <Normal>Textures\Models\Environment\Grass\Grass_05_ng.dds</Normal>
+        <Normal>Textures\Models\Environment\Grass\Grass_05_ng.dds</Normal>
+      </FoliageNormalTextureArray>
+
+      <FoliageDensity>2.5</FoliageDensity>
+      <FoliageScale>
+        <X>0.8</X>
+        <Y>0.8</Y>
+      </FoliageScale>
+      <FoliageRandomRescaleMult>0.30</FoliageRandomRescaleMult>
+
+      <ColorKey Hex="#9B0000"/>
+    </VoxelMaterial>
+
+  </VoxelMaterials>
+</Definitions>

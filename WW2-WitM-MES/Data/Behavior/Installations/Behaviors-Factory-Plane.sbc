@@ -18,6 +18,7 @@
 			[Triggers:WW2-Trigger-ProjectorBuild-Factory]
 			[Triggers:WW2-Trigger-DeliverySpawn-Factory-Plane-Gray]
 			[Triggers:WW2-Trigger-CallCargoPlane]
+			[Triggers:WW2-Trigger-Recirculate-Factory-Plane]
 			
 			[Triggers:WW2-Trigger-Activation-Factory-Plane-Gray]
 			[Triggers:WW2-Trigger-BotCrew-3]
@@ -42,6 +43,7 @@
 			[Triggers:WW2-Trigger-ProjectorBuild-Factory]
 			[Triggers:WW2-Trigger-DeliverySpawn-Factory-Plane-Gray]
 			[Triggers:WW2-Trigger-CallCargoPlane]
+			[Triggers:WW2-Trigger-Recirculate-Factory-Plane]
 			
 			[Triggers:WW2-Trigger-Activation-Factory-Plane-Gray]
 			[Triggers:WW2-Trigger-BotCrew-3]
@@ -66,11 +68,37 @@
 			[Triggers:WW2-Trigger-ProjectorBuild-Factory]
 			[Triggers:WW2-Trigger-DeliverySpawn-Factory-Plane-Gray]
 			[Triggers:WW2-Trigger-CallCargoPlane]
+			[Triggers:WW2-Trigger-Recirculate-Factory-Plane]
 			
 			[Triggers:WW2-Trigger-Activation-Factory-Plane-Gray]
 			[Triggers:WW2-Trigger-BotCrew-3]
 			[Triggers:WW2-Trigger-DefenseSpawn-Factory-Plane-Gray]
 			[Triggers:WW2-Trigger-OffenseSpawn-Factory-Plane-FC20]
+
+			</Description>
+        </EntityComponent>
+		
+		<EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
+            <Id>
+                <TypeId>Inventory</TypeId>
+                <SubtypeId>WW2-Behavior-Factory-Plane-SM79</SubtypeId>
+            </Id>
+            <Description>
+			[RivalAI Behavior]
+			[BehaviorName:Passive]
+
+			[Triggers:WW2-Trigger-ReputationDamage-Gray]
+			[Triggers:WW2-Trigger-Announcement-Factory]
+
+			[Triggers:WW2-Trigger-ProjectorBuild-Factory]
+			[Triggers:WW2-Trigger-DeliverySpawn-Factory-Plane-Gray]
+			[Triggers:WW2-Trigger-CallCargoPlane]
+			[Triggers:WW2-Trigger-Recirculate-Factory-Plane]
+			
+			[Triggers:WW2-Trigger-Activation-Factory-Plane-Gray]
+			[Triggers:WW2-Trigger-BotCrew-3]
+			[Triggers:WW2-Trigger-DefenseSpawn-Factory-Plane-Gray]
+			[Triggers:WW2-Trigger-OffenseSpawn-Factory-Plane-SM79]
 
 			</Description>
         </EntityComponent>
@@ -92,6 +120,7 @@
 			[Triggers:WW2-Trigger-ProjectorBuild-Factory]
 			[Triggers:WW2-Trigger-DeliverySpawn-Factory-Plane-Green]
 			[Triggers:WW2-Trigger-CallCargoPlane]
+			[Triggers:WW2-Trigger-Recirculate-Factory-Plane]
 			
 			[Triggers:WW2-Trigger-Activation-Factory-Plane-Green]
 			[Triggers:WW2-Trigger-BotCrew-3]
@@ -116,6 +145,7 @@
 			[Triggers:WW2-Trigger-ProjectorBuild-Factory]
 			[Triggers:WW2-Trigger-DeliverySpawn-Factory-Plane-Green]
 			[Triggers:WW2-Trigger-CallCargoPlane]
+			[Triggers:WW2-Trigger-Recirculate-Factory-Plane]
 			
 			[Triggers:WW2-Trigger-Activation-Factory-Plane-Green]
 			[Triggers:WW2-Trigger-BotCrew-3]

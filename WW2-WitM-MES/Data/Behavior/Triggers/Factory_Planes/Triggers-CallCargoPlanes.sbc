@@ -1,90 +1,153 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-    <EntityComponents>
+	<EntityComponents>
 
-<!-- Call to Cargo Planes to give them a destination sequence -->
-
-	<!-- Triggers every 30 seconds -->
+		<!-- Call to Cargo Planes to give them a destination sequence -->
+		<!-- Triggers every 30 seconds -->
+		<!-- UNCHANGED from original -->
 		<EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
 			<Id>
 				<TypeId>Inventory</TypeId>
 				<SubtypeId>WW2-Trigger-CallCargoPlane</SubtypeId>
 			</Id>
 			<Description>
-			
-			[RivalAI Trigger]
-
-			[UseTrigger:true]
-			[Type:Timer]
-
-			[MinCooldownMs:30000]
-			[MaxCooldownMs:30001]
-			[StartsReady:true]
-        
-			[MaxActions:-1]
-			[Actions:WW2-Action-CallCargoPlane]
-			
+				[RivalAI Trigger]
+				[UseTrigger:true]
+				[Type:Timer]
+				[MinCooldownMs:30000]
+				[MaxCooldownMs:30001]
+				[StartsReady:true]
+				[MaxActions:-1]
+				[Actions:WW2-Action-CallCargoPlane]
 			</Description>
 		</EntityComponent>
 
-	<!-- Calls a command profile -->
+		<!-- Calls a command profile -->
+		<!-- UNCHANGED from original -->
 		<EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
 			<Id>
 				<TypeId>Inventory</TypeId>
 				<SubtypeId>WW2-Action-CallCargoPlane</SubtypeId>
 			</Id>
 			<Description>
-			
-			[RivalAI Action]
-
-			[BroadcastCommandProfiles:true]
-			[CommandProfileIds:WW2-Command-CallCargoPlane]
-			
+				[RivalAI Action]
+				[BroadcastCommandProfiles:true]
+				[CommandProfileIds:WW2-Command-CallCargoPlane]
 			</Description>
 		</EntityComponent>
-	
-	<!-- Sends command code with waypoint, one same-faction receiver -->
+
+		<!-- Sends command code with waypoint, one same-faction receiver -->
+		<!-- UNCHANGED from original -->
 		<EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
 			<Id>
 				<TypeId>Inventory</TypeId>
 				<SubtypeId>WW2-Command-CallCargoPlane</SubtypeId>
 			</Id>
 			<Description>
-			
-			[RivalAI Command]
-
-			[CommandCode:CargoPlane-DestinationReceived]
-			[SingleRecipient:false]
-			[SendWaypoint:true]
-			[MatchSenderReceiverOwners:true]
-			[Waypoint:WW2-Waypoint-CallCargoPlane]
-			[IgnoreAntennaRequirement:true]
-			[IgnoreReceiverAntennaRequirement:true]
-			[Radius:50000]
-			
+				[RivalAI Command]
+				[CommandCode:CargoPlane-DestinationReceived]
+				[SingleRecipient:false]
+				[SendWaypoint:true]
+				[MatchSenderReceiverOwners:true]
+				[Waypoint:WW2-Waypoint-CallCargoPlane]
+				[IgnoreAntennaRequirement:true]
+				[IgnoreReceiverAntennaRequirement:true]
+				[Radius:50000]
 			</Description>
 		</EntityComponent>
 
-	<!-- Waypoint near Installation -->
+		<!-- Waypoint near Installation -->
+		<!-- UNCHANGED from original -->
 		<EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
 			<Id>
 				<TypeId>Inventory</TypeId>
 				<SubtypeId>WW2-Waypoint-CallCargoPlane</SubtypeId>
 			</Id>
 			<Description>
-			
-			[RivalAI Waypoint]
-
-			[Waypoint:EntityRandom]
-			[RelativeEntity:Self]
-			[MinDistance:60]
-			[MaxDistance:101]
-			[MinAltitude:150]
-			[MaxAltitude:250]
-			
+				[RivalAI Waypoint]
+				[Waypoint:EntityRandom]
+				[RelativeEntity:Self]
+				[MinDistance:60]
+				[MaxDistance:101]
+				[MinAltitude:150]
+				[MaxAltitude:250]
 			</Description>
 		</EntityComponent>
-<!-- End Call to Cargo Planes Action -->
+		<!-- End Call to Cargo Planes Action -->
+
+		<!-- NEW: Recirculate broadcast - keeps any currently-loitering plane fed with nearby
+		     waypoints. Broadcasts to ALL same-faction cargo planes every 20-30s the same way
+		     WW2-Trigger-CallCargoPlane already does, on the same "broadcast wide, only the
+		     relevant listener is enabled" pattern - harmless for planes not currently loitering,
+		     since their WW2-Trigger-CargoPlane-Recirculate listener stays UseTrigger:false until
+		     they themselves finish a delivery. -->
+		<EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
+			<Id>
+				<TypeId>Inventory</TypeId>
+				<SubtypeId>WW2-Trigger-Recirculate-Factory-Plane</SubtypeId>
+			</Id>
+			<Description>
+				[RivalAI Trigger]
+				[UseTrigger:true]
+				[Type:Timer]
+				[MinCooldownMs:20000]
+				[MaxCooldownMs:30000]
+				[StartsReady:true]
+				[MaxActions:-1]
+				[Actions:WW2-Action-Recirculate-Factory-Plane]
+			</Description>
+		</EntityComponent>
+
+		<EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
+			<Id>
+				<TypeId>Inventory</TypeId>
+				<SubtypeId>WW2-Action-Recirculate-Factory-Plane</SubtypeId>
+			</Id>
+			<Description>
+				[RivalAI Action]
+				[BroadcastCommandProfiles:true]
+				[CommandProfileIds:WW2-Command-Recirculate-Factory-Plane]
+			</Description>
+		</EntityComponent>
+
+		<EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
+			<Id>
+				<TypeId>Inventory</TypeId>
+				<SubtypeId>WW2-Command-Recirculate-Factory-Plane</SubtypeId>
+			</Id>
+			<Description>
+				[RivalAI Command]
+				[CommandCode:CargoPlane-Recirculate]
+				[SingleRecipient:false]
+				[SendWaypoint:true]
+				[MatchSenderReceiverOwners:true]
+				[Waypoint:WW2-Waypoint-Recirculate-Factory-Plane]
+				[IgnoreAntennaRequirement:true]
+				[IgnoreReceiverAntennaRequirement:true]
+				[Radius:50000]
+			</Description>
+		</EntityComponent>
+
+		<!-- Loiter waypoint: 500m-2.5km band per your call, 150-300m altitude to match the
+		     existing Destination autopilot's IdealPlanetAltitude/MinimumPlanetAltitude range.
+		     Tune MinDistance/MaxDistance/altitude here if the circling reads too tight/loose
+		     in practice - this is the one place that controls it. -->
+		<EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
+			<Id>
+				<TypeId>Inventory</TypeId>
+				<SubtypeId>WW2-Waypoint-Recirculate-Factory-Plane</SubtypeId>
+			</Id>
+			<Description>
+				[RivalAI Waypoint]
+				[Waypoint:EntityRandom]
+				[RelativeEntity:Self]
+				[MinDistance:500]
+				[MaxDistance:2500]
+				[MinAltitude:150]
+				[MaxAltitude:300]
+			</Description>
+		</EntityComponent>
+		<!-- End Recirculate Broadcast -->
 
 	</EntityComponents>
 </Definitions>
