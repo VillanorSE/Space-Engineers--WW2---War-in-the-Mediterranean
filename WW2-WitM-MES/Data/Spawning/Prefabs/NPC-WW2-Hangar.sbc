@@ -4151,8 +4151,8 @@
               <ShowInToolbarConfig>true</ShowInToolbarConfig>
               <ShowInInventory>true</ShowInInventory>
               <NumberInGrid>1</NumberInGrid>
-              <Enabled>false</Enabled>
-              <BroadcastRadius>6000</BroadcastRadius>
+              <Enabled>true</Enabled>
+              <BroadcastRadius>10000</BroadcastRadius>
               <HudText>Hangar</HudText>
             </MyObjectBuilder_CubeBlock>
           </CubeBlocks>

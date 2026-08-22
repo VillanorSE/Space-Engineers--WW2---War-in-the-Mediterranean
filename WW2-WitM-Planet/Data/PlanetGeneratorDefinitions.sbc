@@ -149,14 +149,6 @@
            shader setting we'd never touched before. -->
       <ComplexMaterials>
         <MaterialGroup Name="MediterraneanDefault" Value="0">
-
-          <!-- Deep water: uses "Ice" so the planet reads as having oceans
-               from orbit/far away even when Water Mod's actual water isn't
-               rendering. Threshold is real depth -7.5m (tightened from an
-               earlier -30m pass per confirmed real depth soundings: Sicily-
-               Tunisia strait ~58m, Adriatic ~32m; both comfortably below
-               this new threshold, so the strait and the Adriatic both read
-               as deep/Ice, with just a thin true-shallow rim as sand). -->
           <Rule>
             <Layers>
               <Layer Material="AquaticSand" Depth="20"/>
@@ -174,13 +166,24 @@
             <Slope Min="0" Max="90"/>
           </Rule>
 
-          <!-- Beach / immediate coastline (real elevation ~0-24m) -->
+          <!-- Beach / immediate coastline (real elevation ~0-24m), gentle slope only.
+               2026-08-22: split off the steep case below per direct request - a cliff
+               face right at the shoreline shouldn't read as a sand beach. -->
           <Rule>
             <Layers>
               <Layer Material="PertamSand" Depth="15"/>
             </Layers>
             <Height Min="0.5790" Max="0.5960"/>
-            <Slope Min="0" Max="90"/>
+            <Slope Min="0" Max="20"/>
+          </Rule>
+
+          <!-- Beach-height but steep (cliff straight into the water) -->
+          <Rule>
+            <Layers>
+              <Layer Material="Rocks_grass" Depth="5"/>
+            </Layers>
+            <Height Min="0.5790" Max="0.5960"/>
+            <Slope Min="20" Max="90"/>
           </Rule>
 
           <!-- Coastal plains / lowland, gentle slope (real ~24-172m) -->
@@ -188,7 +191,7 @@
             <Layers>
               <Layer Material="OrcusGrass" Depth="10"/>
             </Layers>
-            <Height Min="0.5960" Max="0.6985"/>
+            <Height Min="0.5960" Max="0.6331"/>
             <Slope Min="0" Max="25"/>
           </Rule>
 
@@ -197,16 +200,32 @@
             <Layers>
               <Layer Material="Rocks_grass" Depth="5"/>
             </Layers>
-            <Height Min="0.5960" Max="0.6985"/>
+            <Height Min="0.5960" Max="0.6331"/>
             <Slope Min="25" Max="90"/>
           </Rule>
 
-          <!-- Highland, gentle slope (real ~172-374m) -->
+          <!-- Highland/Peaks thresholds RECALIBRATED 2026-08-22, per direct
+               request ("grass on top of mountains"). Checked the real
+               elevation data before changing anything: at the OLD thresholds
+               (0.6985=252m Highland start, 0.8384=470m Peaks start), 97.7%
+               of all land sat BELOW the Highland band and 99.92% below the
+               Peaks band - true bare-rock terrain almost never actually
+               appeared in-game, so anything that looked like a mountain to
+               the eye was nearly always still grass-blended Rocks_grass
+               regardless of how tall it visually read. New thresholds
+               chosen against real elevation percentiles instead of guessed:
+               Highland now starts at real ~150m (13.4% of land, height
+               0.6331) and Peaks at real ~250m (2.4% of land, height 0.6972)
+               - materials unchanged (still Rocks_grass/Stone), just
+               recalibrated so a meaningfully larger, more visually-honest
+               fraction of tall terrain actually reaches bare rock. Applied
+               identically across all four land MaterialGroups
+               (Default/South/PlainsNorth/PlainsSouth). -->
           <Rule>
             <Layers>
               <Layer Material="Rocks_grass" Depth="5"/>
             </Layers>
-            <Height Min="0.6985" Max="0.8384"/>
+            <Height Min="0.6331" Max="0.6972"/>
             <Slope Min="0" Max="30"/>
           </Rule>
 
@@ -215,16 +234,16 @@
             <Layers>
               <Layer Material="Stone" Depth="30"/>
             </Layers>
-            <Height Min="0.6985" Max="0.8384"/>
+            <Height Min="0.6331" Max="0.6972"/>
             <Slope Min="30" Max="90"/>
           </Rule>
 
-          <!-- Peaks (real >374m) -->
+          <!-- Peaks (real >250m, recalibrated - see Highland comment above) -->
           <Rule>
             <Layers>
               <Layer Material="Stone" Depth="50"/>
             </Layers>
-            <Height Min="0.8384" Max="1.0"/>
+            <Height Min="0.6972" Max="1.0"/>
             <Slope Min="0" Max="90"/>
           </Rule>
 
@@ -256,13 +275,22 @@
             <Slope Min="0" Max="90"/>
           </Rule>
 
-          <!-- Beach, same as north -->
+          <!-- Beach, same as north; gentle slope only, see north group's 2026-08-22 note -->
           <Rule>
             <Layers>
               <Layer Material="PertamSand" Depth="15"/>
             </Layers>
             <Height Min="0.5790" Max="0.5960"/>
-            <Slope Min="0" Max="90"/>
+            <Slope Min="0" Max="20"/>
+          </Rule>
+
+          <!-- Beach-height but steep, arid: DesertRocks instead of Rocks_grass -->
+          <Rule>
+            <Layers>
+              <Layer Material="DesertRocks" Depth="5"/>
+            </Layers>
+            <Height Min="0.5790" Max="0.5960"/>
+            <Slope Min="20" Max="90"/>
           </Rule>
 
           <!-- Coastal plains, arid: CrackedSoil instead of Grass -->
@@ -270,7 +298,7 @@
             <Layers>
               <Layer Material="CrackedSoil" Depth="10"/>
             </Layers>
-            <Height Min="0.5960" Max="0.6985"/>
+            <Height Min="0.5960" Max="0.6331"/>
             <Slope Min="0" Max="25"/>
           </Rule>
 
@@ -278,7 +306,7 @@
             <Layers>
               <Layer Material="DesertRocks" Depth="5"/>
             </Layers>
-            <Height Min="0.5960" Max="0.6985"/>
+            <Height Min="0.5960" Max="0.6331"/>
             <Slope Min="25" Max="90"/>
           </Rule>
 
@@ -287,7 +315,7 @@
             <Layers>
               <Layer Material="DustyRocks" Depth="5"/>
             </Layers>
-            <Height Min="0.6985" Max="0.8384"/>
+            <Height Min="0.6331" Max="0.6972"/>
             <Slope Min="0" Max="30"/>
           </Rule>
 
@@ -295,7 +323,7 @@
             <Layers>
               <Layer Material="Stone" Depth="30"/>
             </Layers>
-            <Height Min="0.6985" Max="0.8384"/>
+            <Height Min="0.6331" Max="0.6972"/>
             <Slope Min="30" Max="90"/>
           </Rule>
 
@@ -304,7 +332,7 @@
             <Layers>
               <Layer Material="Stone" Depth="50"/>
             </Layers>
-            <Height Min="0.8384" Max="1.0"/>
+            <Height Min="0.6972" Max="1.0"/>
             <Slope Min="0" Max="90"/>
           </Rule>
 
@@ -344,15 +372,172 @@
             <Slope Min="0" Max="90"/>
           </Rule>
         </MaterialGroup>
+
+        <!-- Painted-biome pass, 2026-08-22, per direct request: height/slope
+             rules alone can't tell "immediate beach" apart from "the Po
+             Valley, which is also just really low and flat" - both read as
+             the same low elevation. Real fix: computed actual distance-to-
+             coastline in strip space (scipy distance_transform_edt on the
+             land/sea mask, same technique already used for the water-hazard
+             infill scan; circular column-padding for the wrap seam), and
+             painted a genuine "Plains" region wherever land sits farther
+             than ~1.5km (compressed; COASTAL_THRESHOLD_PX=30 at
+             PX_PER_KM=20) from the nearest coast, splitting the existing
+             red-channel hemisphere groups into 4 total: MediterraneanDefault
+             (0) and MediterraneanSouth (1) now mean "coastal" specifically
+             (unchanged rules/behavior), and these two new groups (4, 5) are
+             their inland "Plains" counterparts. Road (Value=3) pixels were
+             left untouched by the split - already-painted road pixels stay
+             road regardless of coastal/plains classification underneath.
+             Only the dry-land bands differ from the Coastal groups: no
+             separate beach step, AquaticSand -> straight to grass/soil.
+             Peaks/highland bands are identical to the Coastal groups (this
+             is purely a low-elevation/coastal-vs-inland fix, not a general
+             terrain overhaul). Value 2 stays unused (previously the removed
+             FlattenPad group; skipped here to avoid reusing a retired
+             number). Regenerated from `warped_strip_post_roads_flatten.npy`
+             (pre-dune-enhancement elevation data) - safe for this purpose
+             since dune enhancement only added inland relief detail to the
+             southern landmass and didn't change the coastline shape itself,
+             confirmed before starting this pass. Only the R channel of each
+             *_mat.png was touched; G (biome) and B (ore) channels are
+             untouched from whatever was already there. -->
+        <MaterialGroup Name="MediterraneanPlainsNorth" Value="4">
+
+          <Rule>
+            <Layers>
+              <Layer Material="AquaticSand" Depth="20"/>
+            </Layers>
+            <Height Min="0.0" Max="0.5755"/>
+            <Slope Min="0" Max="90"/>
+          </Rule>
+
+          <Rule>
+            <Layers>
+              <Layer Material="AquaticSand" Depth="20"/>
+            </Layers>
+            <Height Min="0.5755" Max="0.5790"/>
+            <Slope Min="0" Max="90"/>
+          </Rule>
+
+          <!-- No beach step: straight to grass from the water's edge -->
+          <Rule>
+            <Layers>
+              <Layer Material="OrcusGrass" Depth="10"/>
+            </Layers>
+            <Height Min="0.5790" Max="0.6331"/>
+            <Slope Min="0" Max="25"/>
+          </Rule>
+
+          <Rule>
+            <Layers>
+              <Layer Material="Rocks_grass" Depth="5"/>
+            </Layers>
+            <Height Min="0.5790" Max="0.6331"/>
+            <Slope Min="25" Max="90"/>
+          </Rule>
+
+          <!-- Highland/peaks, identical to MediterraneanDefault -->
+          <Rule>
+            <Layers>
+              <Layer Material="Rocks_grass" Depth="5"/>
+            </Layers>
+            <Height Min="0.6331" Max="0.6972"/>
+            <Slope Min="0" Max="30"/>
+          </Rule>
+
+          <Rule>
+            <Layers>
+              <Layer Material="Stone" Depth="30"/>
+            </Layers>
+            <Height Min="0.6331" Max="0.6972"/>
+            <Slope Min="30" Max="90"/>
+          </Rule>
+
+          <Rule>
+            <Layers>
+              <Layer Material="Stone" Depth="50"/>
+            </Layers>
+            <Height Min="0.6972" Max="1.0"/>
+            <Slope Min="0" Max="90"/>
+          </Rule>
+
+        </MaterialGroup>
+
+        <MaterialGroup Name="MediterraneanPlainsSouth" Value="5">
+
+          <Rule>
+            <Layers>
+              <Layer Material="AquaticSand" Depth="20"/>
+            </Layers>
+            <Height Min="0.0" Max="0.5755"/>
+            <Slope Min="0" Max="90"/>
+          </Rule>
+
+          <Rule>
+            <Layers>
+              <Layer Material="AquaticSand" Depth="20"/>
+            </Layers>
+            <Height Min="0.5755" Max="0.5790"/>
+            <Slope Min="0" Max="90"/>
+          </Rule>
+
+          <!-- No beach step: straight to CrackedSoil from the water's edge -->
+          <Rule>
+            <Layers>
+              <Layer Material="CrackedSoil" Depth="10"/>
+            </Layers>
+            <Height Min="0.5790" Max="0.6331"/>
+            <Slope Min="0" Max="25"/>
+          </Rule>
+
+          <Rule>
+            <Layers>
+              <Layer Material="DesertRocks" Depth="5"/>
+            </Layers>
+            <Height Min="0.5790" Max="0.6331"/>
+            <Slope Min="25" Max="90"/>
+          </Rule>
+
+          <!-- Highland/peaks, identical to MediterraneanSouth -->
+          <Rule>
+            <Layers>
+              <Layer Material="DustyRocks" Depth="5"/>
+            </Layers>
+            <Height Min="0.6331" Max="0.6972"/>
+            <Slope Min="0" Max="30"/>
+          </Rule>
+
+          <Rule>
+            <Layers>
+              <Layer Material="Stone" Depth="30"/>
+            </Layers>
+            <Height Min="0.6331" Max="0.6972"/>
+            <Slope Min="30" Max="90"/>
+          </Rule>
+
+          <Rule>
+            <Layers>
+              <Layer Material="Stone" Depth="50"/>
+            </Layers>
+            <Height Min="0.6972" Max="1.0"/>
+            <Slope Min="0" Max="90"/>
+          </Rule>
+
+        </MaterialGroup>
       </ComplexMaterials>
 
-      <!-- Hemisphere split for the two MaterialGroups above: red channel of
-           each *_mat.png is 0 for points whose real-world source data came
-           from the northern half of our pulled strip (Europe-adjacent) and
-           1 for the southern half (Africa-adjacent); a simple midpoint
-           split in strip space, projected through the same confirmed cube
-           geometry as everything else. up.png reads uniformly 1 (south
-           content, per the confirmed pole swap), down.png uniformly 0. -->
+      <!-- Hemisphere/region split for the four land MaterialGroups above:
+           red channel of each *_mat.png is 0 (MediterraneanDefault,
+           coastal) or 4 (MediterraneanPlainsNorth, inland) for points whose
+           real-world source data came from the northern half of our pulled
+           strip (Europe-adjacent), and 1 (MediterraneanSouth, coastal) or 5
+           (MediterraneanPlainsSouth, inland) for the southern half
+           (Africa-adjacent) - north/south is the original simple midpoint
+           split in strip space; coastal/inland is the 2026-08-22
+           distance-to-coast painted-biome pass (see that pass's own comment
+           above for the full method). up.png reads uniformly 1 or 5 (south
+           content, per the confirmed pole swap), down.png uniformly 0 or 4. -->
 
 
 
@@ -396,24 +581,30 @@
         <MaxWindSpeed>80</MaxWindSpeed>
       </Atmosphere>
 
-      <!-- AtmosphereSettings REVISED 2026-08-19 against the real "Orcus"
-           Workshop mod (Steam ID 2905443304), which the user specifically
-           praised for its sky. Orcus's own file uses Intensity=20 (was 6
-           here), FogIntensity=0.3 (was 1.0; our high fog was likely
-           washing out the color), Density=2 (was 1.0, matches the
-           Atmosphere block above too), RayleighHeight=25/RayleighHeight
-           Space=5 (was 36/15), SeaLevelModifier=0.982 (was 1.0). These are
-           NOT sign-dependent, safe to copy directly. NOT copied: Orcus's
-           own LimitAltitude=-5 and CloudLayer RelativeAltitude values are
-           all NEGATIVE, because Orcus's own HillParams (Min=-0.065,
-           Max=-0.0175) are both negative; their entire terrain sits
-           below nominal planet radius, so their formulas need a negative
-           multiplier to reach a sensible positive atmosphere altitude.
-           Our HillParams are positive, so our own positive LimitAltitude
-           (18.0, already tuned to a real target) and positive cloud
-           altitudes remain correct; blindly copying Orcus's negative
-           numbers would have been a sign-convention error, not a genuine
-           improvement. -->
+      <!-- AtmosphereSettings/CloudLayers RESTORED 2026-08-21 to the Orcus-styled
+           values (RayleighHeight/RayleighHeightSpace/Intensity/etc. as Orcus
+           actually has them, not the scaled-down guess from the prior
+           revision) — the earlier "no blue sky" bug turned out to be
+           HasAtmosphere=false cached in the SAVE FILE itself (a planet's
+           HasAtmosphere/AtmosphereRadius/Radius are baked into the entity at
+           first spawn, not re-read from this definition on later loads; see
+           MOD_FILE_DEBUG's 2026-08-21 session), fully independent of these
+           values. The diagnostic EarthLike-copy test that was here briefly
+           is no longer needed now that the real cause is known.
+
+           AtmosphereTopModifier changed from Orcus's own 1.1 to 1.25,
+           deliberately NOT matching Orcus here: Orcus/EarthLike are both
+           ~60km-radius planets, where 1.1 gives ~6km of altitude above the
+           surface before the atmosphere fades ((1.1-1) x 60,000m). Our
+           planet's actual radius is 30,101.5m (confirmed from the live save
+           entity, not the theoretical 30,000m) — at 1.1 that's only ~3km,
+           half the altitude Orcus/EarthLike give. 1.25 restores the same
+           ~6km+ of usable flight altitude the user wants ((1.25-1) x
+           30,101.5 ≈ 7.5km, deliberately padded past the 6km target rather
+           than landing exactly on it). This value must be kept in sync with
+           AtmosphereRadius in the save file's planet entity by hand — see
+           MOD_FILE_DEBUG for the exact save-file fix, since editing this
+           definition alone does not update an already-spawned planet. -->
       <AtmosphereSettings>
         <RayleighScattering>
           <X>100</X>
@@ -433,7 +624,7 @@
         <MieG>0.999832332</MieG>
         <Intensity>20</Intensity>
         <SeaLevelModifier>0.982</SeaLevelModifier>
-        <AtmosphereTopModifier>1.1</AtmosphereTopModifier>
+        <AtmosphereTopModifier>1.25</AtmosphereTopModifier>
         <FogIntensity>0.3</FogIntensity>
         <Scale>1</Scale>
         <SunColor>
@@ -455,6 +646,12 @@
           <Textures>
             <Texture>Textures/Models/Environment/Sky/EarthFarClouds.dds</Texture>
           </Textures>
+          <Color>
+            <X>1</X>
+            <Y>1</Y>
+            <Z>1</Z>
+            <W>0.1</W>
+          </Color>
           <RelativeAltitude>0.9</RelativeAltitude>
           <RotationAxis>
             <X>-0.2</X>
@@ -466,7 +663,7 @@
           <ScalingEnabled>false</ScalingEnabled>
           <FadeOutRelativeAltitudeStart>2.0</FadeOutRelativeAltitudeStart>
           <FadeOutRelativeAltitudeEnd>1.4</FadeOutRelativeAltitudeEnd>
-          <ApplyFogRelativeDistance>0.05</ApplyFogRelativeDistance>
+          <ApplyFogRelativeDistance>0.3</ApplyFogRelativeDistance>
         </CloudLayer>
 
         <!-- Near layers -->
@@ -475,6 +672,12 @@
           <Textures>
             <Texture>Textures/Models/Environment/Sky/Landsky_texture.dds</Texture>
           </Textures>
+          <Color>
+            <X>1.1</X>
+            <Y>1.1</Y>
+            <Z>1.1</Z>
+            <W>1.6</W>
+          </Color>
           <RelativeAltitude>1.0</RelativeAltitude>
           <RotationAxis>
             <X>0</X>
@@ -484,8 +687,9 @@
           <AngularVelocity>0.0006</AngularVelocity>
           <InitialRotation>0.15</InitialRotation>
           <ScalingEnabled>false</ScalingEnabled>
-          <FadeOutRelativeAltitudeStart>0.5</FadeOutRelativeAltitudeStart>
-          <FadeOutRelativeAltitudeEnd>1.6</FadeOutRelativeAltitudeEnd>
+          <FadeOutRelativeAltitudeStart>-3.0</FadeOutRelativeAltitudeStart>
+          <FadeOutRelativeAltitudeEnd>0.05</FadeOutRelativeAltitudeEnd>
+          <ApplyFogRelativeDistance>0.3</ApplyFogRelativeDistance>
         </CloudLayer>
 
         <CloudLayer>
@@ -493,6 +697,12 @@
           <Textures>
             <Texture>Textures/Models/Environment/Sky/Landsky_texture.dds</Texture>
           </Textures>
+          <Color>
+            <X>1.1</X>
+            <Y>1.1</Y>
+            <Z>1.1</Z>
+            <W>1.6</W>
+          </Color>
           <RelativeAltitude>2.0</RelativeAltitude>
           <RotationAxis>
             <X>0.2</X>
@@ -511,6 +721,12 @@
           <Textures>
             <Texture>Textures/Models/Environment/Sky/Landsky_texture.dds</Texture>
           </Textures>
+          <Color>
+            <X>1.1</X>
+            <Y>1.1</Y>
+            <Z>1.1</Z>
+            <W>1.6</W>
+          </Color>
           <RelativeAltitude>3.0</RelativeAltitude>
           <RotationAxis>
             <X>-0.2</X>
@@ -524,16 +740,37 @@
           <FadeOutRelativeAltitudeEnd>1.4</FadeOutRelativeAltitudeEnd>
         </CloudLayer>
 
-        <!-- New near layer added 2026-08-19, using the custom "clouds.dds"
-             texture sourced from Orcus (their own custom asset, not
-             vanilla; bundled directly rather than relying on fallback,
-             same reasoning as the other cloud textures). Placed at a
-             positive RelativeAltitude between our existing 1.0 and 2.0
-             layers to match OUR altitude convention (not Orcus's negative
-             numbers, which are specific to their own inverted-sign
-             terrain). Color/alpha tinting is a technique borrowed from
-             Orcus's file (they tint each layer individually); we hadn't
-             used this before. -->
+        <!-- Stacked-haze layer, extending the pattern above with one more
+             Landsky_texture pass at a slightly higher altitude/different
+             rotation, matching Orcus's multiple overlapping tinted layers. -->
+        <CloudLayer>
+          <Model>Models/Environment/Sky/CloudSphere.mwm</Model>
+          <Textures>
+            <Texture>Textures/Models/Environment/Sky/Landsky_texture.dds</Texture>
+          </Textures>
+          <Color>
+            <X>1.1</X>
+            <Y>1.1</Y>
+            <Z>1.1</Z>
+            <W>1.6</W>
+          </Color>
+          <RelativeAltitude>3.4</RelativeAltitude>
+          <RotationAxis>
+            <X>0.15</X>
+            <Y>1</Y>
+            <Z>-0.15</Z>
+          </RotationAxis>
+          <AngularVelocity>0.0006</AngularVelocity>
+          <InitialRotation>2.0</InitialRotation>
+          <ScalingEnabled>false</ScalingEnabled>
+          <FadeOutRelativeAltitudeStart>0.9</FadeOutRelativeAltitudeStart>
+          <FadeOutRelativeAltitudeEnd>1.6</FadeOutRelativeAltitudeEnd>
+        </CloudLayer>
+
+        <!-- Low weather layer using Orcus's own custom "clouds.dds" texture
+             (bundled directly, not vanilla). Wide fade range + fog blending
+             matches Orcus's low-cloud technique so ground-level cover
+             doesn't pop in/out. -->
         <CloudLayer>
           <Model>Models/Environment/Sky/CloudSphere.mwm</Model>
           <Textures>
@@ -554,8 +791,9 @@
           <AngularVelocity>0.0005</AngularVelocity>
           <InitialRotation>0.8</InitialRotation>
           <ScalingEnabled>false</ScalingEnabled>
-          <FadeOutRelativeAltitudeStart>0.6</FadeOutRelativeAltitudeStart>
-          <FadeOutRelativeAltitudeEnd>1.55</FadeOutRelativeAltitudeEnd>
+          <FadeOutRelativeAltitudeStart>-3.0</FadeOutRelativeAltitudeStart>
+          <FadeOutRelativeAltitudeEnd>0.05</FadeOutRelativeAltitudeEnd>
+          <ApplyFogRelativeDistance>0.4</ApplyFogRelativeDistance>
         </CloudLayer>
       </CloudLayers>
       <!-- DefaultSurfaceTemperature is a real field, but is a NAMED ENUM

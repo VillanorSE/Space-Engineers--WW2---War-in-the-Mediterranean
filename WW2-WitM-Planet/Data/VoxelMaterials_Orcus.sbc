@@ -14,10 +14,9 @@
          foliage) and "Grass_05_*.dds" (OrcusGrass's). Grass_Aquatic1 was
          subsequently uploaded and is now BUNDLED directly under
          Textures/Models/Environment/Grass/, resolving that dependency.
-         Grass_05_*.dds is STILL unresolved; assumed to be an existing
-         vanilla base-game texture (plausible standard name), referenced by
-         path without bundling. This remains an UNVERIFIED fallback
-         dependency; watch the load log for it specifically. -->
+         Grass_05_*.dds is CONFIRMED vanilla base-game content (present at
+         [SE]\Content\Textures\Models\Environment\Grass\Grass_05_{cm,ng}.dds)
+         — referenced by path without bundling is correct here, not a gap. -->
 
     <VoxelMaterial xsi:type="MyObjectBuilder_Dx11VoxelMaterialDefinition">
       <Id>
@@ -60,19 +59,12 @@
         <W>0.01</W>
       </Far3Color>
 
-      <FoliageColorTextureArray>
-        <Color>Textures\Models\Environment\Grass\Grass_Aquatic1_cm.dds</Color>
-      </FoliageColorTextureArray>
-      <FoliageNormalTextureArray>
-        <Normal>Textures\Models\Environment\Grass\Grass_Aquatic1_ng.dds</Normal>
-      </FoliageNormalTextureArray>
-
-      <FoliageDensity>0.5</FoliageDensity>
-      <FoliageScale>
-        <X>1</X>
-        <Y>1</Y>
-      </FoliageScale>
-      <FoliageRandomRescaleMult>0.30</FoliageRandomRescaleMult>
+      <!-- Foliage removed 2026-08-21: Orcus's "Grass_Aquatic1" foliage was
+           reading as an unwanted wall of red along the coastline in testing.
+           No structural bug found (textures present, Far3Color above is
+           dark blue not red) — this appears to be Orcus's real, intended
+           foliage color, just not wanted here. Base sand texture above is
+           untouched. -->
 
       <ColorKey Hex="#9B0000"/>
     </VoxelMaterial>
@@ -135,6 +127,132 @@
       <FoliageRandomRescaleMult>0.30</FoliageRandomRescaleMult>
 
       <ColorKey Hex="#9B0000"/>
+    </VoxelMaterial>
+
+    <VoxelMaterial xsi:type="MyObjectBuilder_Dx11VoxelMaterialDefinition">
+      <Id>
+        <TypeId>VoxelMaterialDefinition</TypeId>
+        <SubtypeId>OrcusGrass2</SubtypeId>
+      </Id>
+      <SpawnsInAsteroids>false</SpawnsInAsteroids>
+      <SpawnsFromMeteorites>false</SpawnsFromMeteorites>
+      <MaterialTypeName>Grass</MaterialTypeName>
+      <MinedOre>Stone</MinedOre>
+      <MinedOreRatio>1</MinedOreRatio>
+      <CanBeHarvested>true</CanBeHarvested>
+      <IsRare>false</IsRare>
+
+      <VoxelHandPreview>Textures\Voxels\OrcusGrass2_cm.dds</VoxelHandPreview>
+      <ColorMetalXZnY>Textures\Voxels\OrcusGrass2_cm.dds</ColorMetalXZnY>
+      <NormalGlossXZnY>Textures\Voxels\OrcusGrass2_ng.dds</NormalGlossXZnY>
+      <ExtXZnY>Textures\Voxels\OrcusGrass2_add.dds</ExtXZnY>
+
+      <ColorMetalXZnYFar1>Textures\Voxels\OrcusGrass2_cm.dds</ColorMetalXZnYFar1>
+      <NormalGlossXZnYFar1>Textures\Voxels\OrcusGrass2_ng.dds</NormalGlossXZnYFar1>
+      <ExtXZnYFar1>Textures\Voxels\Dummy_add.dds</ExtXZnYFar1>
+
+      <ColorMetalXZnYFar2>Textures\Voxels\OrcusGrass2_cm.dds</ColorMetalXZnYFar2>
+      <NormalGlossXZnYFar2>Textures\Voxels\OrcusGrass2_ng.dds</NormalGlossXZnYFar2>
+      <ExtXZnYFar2>Textures\Voxels\Dummy_add.dds</ExtXZnYFar2>
+
+      <ExtDetailScale>0.005</ExtDetailScale>
+      <Scale>500</Scale>
+      <Far1Distance>100</Far1Distance>
+      <Far2Distance>500</Far2Distance>
+      <Far1Scale>300</Far1Scale>
+      <Far2Scale>2000</Far2Scale>
+
+      <Far3Distance>1500</Far3Distance>
+      <Far3Color>
+        <X>0.29</X>
+        <Y>0.17</Y>
+        <Z>0.03</Z>
+        <W>1.0</W>
+      </Far3Color>
+
+      <!--Foliage-->
+      <FoliageColorTextureArray>
+        <Color>Textures\Models\Environment\Grass\Orcus2_cm.dds</Color>
+        <Color>Textures\Models\Environment\Grass\Orcus3_cm.dds</Color>
+      </FoliageColorTextureArray>
+      <FoliageNormalTextureArray>
+        <Normal>Textures\Models\Environment\Grass\Orcus2_ng.dds</Normal>
+        <Normal>Textures\Models\Environment\Grass\Orcus3_ng.dds</Normal>
+      </FoliageNormalTextureArray>
+
+      <FoliageDensity>2.5</FoliageDensity>
+      <FoliageScale>
+        <X>0.8</X>
+        <Y>0.8</Y>
+      </FoliageScale>
+      <FoliageRandomRescaleMult>0.30</FoliageRandomRescaleMult>
+
+      <ColorKey Hex="#9B0000"/>
+
+      <BareVariant>OrcusGrass22 bare</BareVariant>
+    </VoxelMaterial>
+	
+	
+	<VoxelMaterial xsi:type="MyObjectBuilder_Dx11VoxelMaterialDefinition">
+      <Id>
+        <TypeId>VoxelMaterialDefinition</TypeId>
+        <SubtypeId>TundraSoil</SubtypeId>
+      </Id>
+      <SpawnsInAsteroids>false</SpawnsInAsteroids>
+      <SpawnsFromMeteorites>false</SpawnsFromMeteorites>
+      <MaterialTypeName>Grass</MaterialTypeName>
+      <MinedOre>Stone</MinedOre>
+      <MinedOreRatio>1</MinedOreRatio>
+      <CanBeHarvested>true</CanBeHarvested>
+      <IsRare>false</IsRare>
+      
+      <VoxelHandPreview>Textures\Voxels\Soil_cm.dds</VoxelHandPreview>
+      <ColorMetalXZnY>Textures\Voxels\Soil_cm.dds</ColorMetalXZnY>
+      <NormalGlossXZnY>Textures\Voxels\Soil_ng.dds</NormalGlossXZnY>
+      <ExtXZnY>Textures\Voxels\OrcusGrass_add.dds</ExtXZnY>
+    
+
+      <ColorMetalXZnYFar1>Textures\Voxels\Soil_cm.dds</ColorMetalXZnYFar1>
+      <NormalGlossXZnYFar1>Textures\Voxels\Soil_ng.dds</NormalGlossXZnYFar1>
+      <ExtXZnYFar1>Textures\Voxels\Dummy_add.dds</ExtXZnYFar1>
+
+      <ColorMetalXZnYFar2>Textures\Voxels\Soil_cm.dds</ColorMetalXZnYFar2>
+      <NormalGlossXZnYFar2>Textures\Voxels\Soil_ng.dds</NormalGlossXZnYFar2>
+      <ExtXZnYFar2>Textures\Voxels\Dummy_add.dds</ExtXZnYFar2>
+
+      <ExtDetailScale>0.005</ExtDetailScale>
+      <Scale>500</Scale>
+      <Far1Distance>100</Far1Distance>
+      <Far2Distance>500</Far2Distance>
+      <Far1Scale>300</Far1Scale>
+      <Far2Scale>2000</Far2Scale>
+
+      <Far3Distance>500</Far3Distance>
+      <Far3Color>
+                <X>0.1</X>
+                <Y>0.01</Y>
+                <Z>0.01</Z>
+                <W>0.1</W>
+      </Far3Color>
+
+      <!--Foliage-->
+      <FoliageColorTextureArray>
+        <Color>Textures\Models\Environment\Grass\TundraGrass1_cm.dds</Color>
+      </FoliageColorTextureArray>
+      <FoliageNormalTextureArray>
+        <Normal>Textures\Models\Environment\Grass\TundraGrass1_ng.dds</Normal>
+      </FoliageNormalTextureArray>
+
+      <FoliageDensity>1</FoliageDensity>
+      <FoliageScale>
+        <X>0.8</X>
+        <Y>0.8</Y>
+      </FoliageScale>
+      <FoliageRandomRescaleMult>0.30</FoliageRandomRescaleMult>
+
+      <ColorKey Hex="#9B0000"/>
+
+      <BareVariant>OrcusGrass bare</BareVariant>
     </VoxelMaterial>
 
   </VoxelMaterials>

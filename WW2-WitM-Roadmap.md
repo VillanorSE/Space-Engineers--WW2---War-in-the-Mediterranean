@@ -56,12 +56,12 @@ Not a stage so much as a foundation everything else sits on. The current naval w
   - [x] NPC-WW2-Re2001 (Fighter, Gray) - Replace conveyors, engines, glass, and side MG covers once KONTAKT is fixed.
   - [ ] NPC-WW2-Re2000 (Fighter, Gray)
   - [x] NPC-WW2-FC20 (Attacker, Gray)
-  - [ ] NPC-WW2-SM79_Bomber (Attacker, Gray)
-  - [ ] NPC-WW2-SM79_Torpedo (Attacker, Gray)
-  - [ ] Player-WW2-SM79_Bomber (Attacker, Gray)
-  - [ ] Player-WW2-SM79_Torpedo (Attacker, Gray)
+  - [x] NPC-WW2-SM79_Bomber (Attacker, Gray)
+  - [x] NPC-WW2-SM79_Torpedo (Attacker, Gray)
+  - [x] Player-WW2-SM79_Bomber (Attacker, Gray)
+  - [x] Player-WW2-SM79_Torpedo (Attacker, Gray)
   - [x] NPC-WW2-Loire130 (Recon, Green)
-  - [ ] NPC-WW2-F4F (Fighter, Green)
+  - [ ] NPC-WW2-F4F (Fighter, Green) — **on hold, 2026-08-21: being pulled from the mod (at least for now), not a good thematic fit.** Not a rebuild task until/unless it's reinstated — see Air roster note below.
   - [x] NPC-WW2-MS406 (Fighter, Green)
   - [x] NPC-WW2-Potez630 (Attacker, Green)
   - [x] NPC-WW2-V-156-F-Bomber (Attacker, Green)
@@ -81,6 +81,11 @@ Not a stage so much as a foundation everything else sits on. The current naval w
   - [ ] NPC-WW2-Garage-Green
 - [ ] Re-verify SpawnGroups/Behaviors/Loot still reference correct ammo/weapon subtype IDs after rebuild (loot container definitions currently reference old ammo names like `FiddyShellWC`, `HispanoDrumAP` — these will need updating).
 - [ ] Once rebuilt, re-run the same cross-reference audit process used earlier in this project (defined-vs-referenced SubtypeId sweep) to catch anything broken by the swap.
+- [ ] Audit the full MES mod's installation prefabs and replace the retired per-plane Hangar/Factory model with the confirmed one-Hangar/one-Factory-per-faction design (see the Installations note above); wire Factory/Hangar interior spawns to select from the `Player-WW2-*` prefab family per the naming convention.
+- [ ] Remove F4F from the mod (spawn groups, prefabs, any references) — pulled from the roster, see Air roster note.
+- [ ] Confirm SM.79 (Bomber and Torpedo, NPC and Player) is fully wired into SpawnGroups/Behaviors/Loot now that the prefab rebuild is done.
+- [ ] Test all MES components end-to-end to confirm baseline features (spawning, behaviors, triggers) work after the recent rebuild work.
+- [ ] Build BlockRestrictions definitions removing non-period-correct blocks (anachronistic weapons, reactors, thrusters, etc.) from the G-menu across vanilla and dependency mods — new tool decision, see Modlist entry #26; full block audit not yet done.
 
 ---
 
@@ -149,7 +154,7 @@ Not a stage so much as a foundation everything else sits on. The current naval w
 | Tier | Gray (Italy) | Green (France) |
 |---|---|---|
 | **Civilian** | Ju52 *(open item)* | F.222 (civilian variant) |
-| **Fighter** | Re2001, Re2000; Macchi C.202 Folgore | F4F, MS406; Dewoitine D.520 |
+| **Fighter** | Re2001, Re2000; Macchi C.202 Folgore | MS406; Dewoitine D.520 *(F4F pulled, see note below)* |
 | **Attacker** | FC20; Ba.88, Ba.65 *(Stage 5 additions)* | Potez630; Bréguet 693, ANF Les Mureaux 115 *(Stage 5 additions)* |
 | **Bomber** | Caproni Ca.311 *(light)*; SM.79 *(medium/torpedo)*; P.108 *(heavy)* | V-156-F *(light dive bomber, reclassified from Attacker)*; MB.210, LeO 451 *(medium)*; F.222 (military variant, heavy) |
 | **Recon** | IMAM Ro.43 | Loire 130 |
@@ -159,6 +164,8 @@ Not a stage so much as a foundation everything else sits on. The current naval w
 **Bomber tier corrections (confirmed).** V-156-F reclassified from Attacker to Bomber — confirmed as the French export version of the Vought SB2U Vindicator dive-bomber, ordered for carrier air groups, not an attack aircraft. MB.210 confirmed as a medium bomber, not attacker — twin-engine, ~257 built, entered service 1936. Caproni Ca.311 added as Gray's light-bomber entry — 335 built, twin-engine light bomber/reconnaissance hybrid, entered service 1939; notably it also replaced Ba.65 in some ground-attack roles historically, a mild irony worth knowing but not a real conflict since the two filled different jobs (recon-bomber vs. ground-attack).
 
 **Macchi C.202 Folgore and Dewoitine D.520 added to Fighter tier (confirmed, prior session).** Both are stronger historical picks than the existing entries in their tiers — C.202 widely regarded as Italy's best fighter of the war, D.520 the only French fighter able to meet the Bf 109E on roughly equal terms. Neither has an existing build; both are next up in the build queue.
+
+**F4F pulled from the Green Fighter tier (confirmed, 2026-08-21).** Not a good thematic fit for the mod — dropped at least for now rather than rebuilt onto the new weapon system. No replacement chosen yet; Green's Fighter tier runs on MS406 and Dewoitine D.520 alone until/unless this is revisited. Don't resurface F4F as an assumed roster member in future sessions.
 
 **Recon tier (confirmed, prior session).** IMAM Ro.43 (Gray) and Loire 130 (Green), both real catapult-launched shipborne reconnaissance floatplanes. Mechanics deferred to a separate thread.
 
@@ -469,6 +476,8 @@ Doesn't block or get blocked by the numbered stages themselves — new terrain d
 - [ ] Ore distribution is random-within-budget; revisit if specific historical/gameplay-driven placement becomes worth the effort.
 - [ ] Spawn in a fresh test world and confirm WeaponCore/MES don't exhibit raycast issues (the ≤2048px constraint was respected throughout, but hasn't been explicitly re-verified against live NPC/weapon behavior).
 - [ ] Once terrain is fully settled: place port locations (existing Base/Outpost/Hangar prefabs) and plan convoy GPS routes using the existing SpawnGroup/patrol pipeline.
+- [ ] Sky doesn't render blue correctly (2026-08-21) — atmosphere/sky settings need investigation, root cause not yet identified.
+- [ ] Pull tree density and grass distribution parameters from vanilla Orcus into this planet's environment-item definitions (2026-08-21) — Orcus already used as a voxel-material reference on this project (`VoxelMaterials_Orcus.sbc`), now also wanted for its foliage density/placement, not just its materials.
 
 ---
 
