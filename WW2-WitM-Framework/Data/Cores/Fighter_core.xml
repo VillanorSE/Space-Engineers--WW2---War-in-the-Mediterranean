@@ -72,6 +72,61 @@
     <Energy>1</Energy>
     <Kinetic>1</Kinetic>
   </ActiveDefenseModifiers>
+
+  <BlockLimits>
+    <Name>Propellers</Name>
+    <BlockGroups>Propulsion</BlockGroups>
+    <MaxCount>2</MaxCount>
+    <CrossConnectorPunishment>false</CrossConnectorPunishment>
+    <PunishByNoFlyZone>true</PunishByNoFlyZone>
+    <IsCriticalLimit>false</IsCriticalLimit>
+    <PunishmentType>ShutOff</PunishmentType>
+    <AllowedDirections>Forward</AllowedDirections>
+  </BlockLimits>
+
+  <BlockLimits>
+    <Name>Engines</Name>
+    <BlockGroups>Engines</BlockGroups>
+    <MaxCount>3</MaxCount>
+    <CrossConnectorPunishment>false</CrossConnectorPunishment>
+    <PunishByNoFlyZone>true</PunishByNoFlyZone>
+    <IsCriticalLimit>false</IsCriticalLimit>
+    <PunishmentType>ShutOff</PunishmentType>
+    <AllowedDirections>Any</AllowedDirections>
+  </BlockLimits>
+
+  <BlockLimits>
+    <Name>Batteries</Name>
+    <BlockGroups>Batteries</BlockGroups>
+    <MaxCount>3</MaxCount>
+    <CrossConnectorPunishment>false</CrossConnectorPunishment>
+    <PunishByNoFlyZone>true</PunishByNoFlyZone>
+    <IsCriticalLimit>false</IsCriticalLimit>
+    <PunishmentType>ShutOff</PunishmentType>
+    <AllowedDirections>Any</AllowedDirections>
+  </BlockLimits>
+
+  <BlockLimits>
+    <Name>Production</Name>
+    <BlockGroups>Production</BlockGroups>
+    <MaxCount>0</MaxCount>
+    <CrossConnectorPunishment>false</CrossConnectorPunishment>
+    <PunishByNoFlyZone>true</PunishByNoFlyZone>
+    <IsCriticalLimit>false</IsCriticalLimit>
+    <PunishmentType>ShutOff</PunishmentType>
+  </BlockLimits>
+
+  <BlockLimits>
+    <Name>Gyroscopes</Name>
+    <BlockGroups>Gyros</BlockGroups>
+    <MaxCount>1</MaxCount>
+    <CrossConnectorPunishment>false</CrossConnectorPunishment>
+    <PunishByNoFlyZone>true</PunishByNoFlyZone>
+    <IsCriticalLimit>false</IsCriticalLimit>
+    <PunishmentType>ShutOff</PunishmentType>
+    <AllowedDirections>Any</AllowedDirections>
+  </BlockLimits>
+
   <BlockLimits>
     <Name>BasicWeapons</Name>
     <BlockGroups>BasicWeapons</BlockGroups>
@@ -82,10 +137,10 @@
     <PunishmentType>ShutOff</PunishmentType>
     <AllowedDirections>Forward</AllowedDirections>
   </BlockLimits>
+  
   <BlockLimits>
     <Name>Weapons</Name>
     <BlockGroups>Weapons</BlockGroups>
-    <ExcludedBlockGroups>Production</ExcludedBlockGroups>
     <MaxCount>1</MaxCount>
     <CrossConnectorPunishment>false</CrossConnectorPunishment>
     <PunishByNoFlyZone>true</PunishByNoFlyZone>
@@ -93,6 +148,7 @@
     <PunishmentType>ShutOff</PunishmentType>
     <AllowedDirections>Forward</AllowedDirections>
   </BlockLimits>
+  
   <BlockLimits>
     <Name>SpecialWeapons</Name>
     <BlockGroups>SpecialWeapons</BlockGroups>
@@ -101,13 +157,8 @@
     <PunishByNoFlyZone>true</PunishByNoFlyZone>
     <IsCriticalLimit>false</IsCriticalLimit>
     <PunishmentType>ShutOff</PunishmentType>
-    <AllowedDirections>Forward</AllowedDirections>
-    <AllowedDirections>Backward</AllowedDirections>
-    <AllowedDirections>Left</AllowedDirections>
-    <AllowedDirections>Right</AllowedDirections>
-    <AllowedDirections>Up</AllowedDirections>
-    <AllowedDirections>Down</AllowedDirections>
   </BlockLimits>
+  
   <BlockLimits>
     <Name>Countermeasures</Name>
     <BlockGroups>Countermeasures</BlockGroups>
@@ -116,13 +167,9 @@
     <PunishByNoFlyZone>true</PunishByNoFlyZone>
     <IsCriticalLimit>false</IsCriticalLimit>
     <PunishmentType>ShutOff</PunishmentType>
-    <AllowedDirections>Forward</AllowedDirections>
-    <AllowedDirections>Backward</AllowedDirections>
-    <AllowedDirections>Left</AllowedDirections>
-    <AllowedDirections>Right</AllowedDirections>
-    <AllowedDirections>Up</AllowedDirections>
-    <AllowedDirections>Down</AllowedDirections>
+    <AllowedDirections>Any</AllowedDirections>
   </BlockLimits>
+  
   <BlockLimits>
     <Name>MedicalBlocks</Name>
     <BlockGroups>MedicalBlocks</BlockGroups>
@@ -131,11 +178,5 @@
     <PunishByNoFlyZone>true</PunishByNoFlyZone>
     <IsCriticalLimit>false</IsCriticalLimit>
     <PunishmentType>ShutOff</PunishmentType>
-    <AllowedDirections>Forward</AllowedDirections>
-    <AllowedDirections>Backward</AllowedDirections>
-    <AllowedDirections>Left</AllowedDirections>
-    <AllowedDirections>Right</AllowedDirections>
-    <AllowedDirections>Up</AllowedDirections>
-    <AllowedDirections>Down</AllowedDirections>
   </BlockLimits>
 </ShipCore>

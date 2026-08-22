@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <!-- Bush/undergrowth definitions, 2026-08-19. Copied verbatim from the
+       real, confirmed "Planet 26 2.0" mod files (uploaded by the user).
+       Note the "Cactus" entry below deliberately reuses the Fern_small
+       model; that's copied exactly as it appeared in the source file,
+       not a mistake introduced here; it reads like a placeholder in
+       their own source (no distinct cactus model was ever provided to
+       us), so this entry is functionally just a second Fern_small alias
+       until/unless a real cactus model is provided. -->
+
+  <Definition xsi:type="VR.PhysicalModelDefinition">
+    <Id>
+      <TypeId>PhysicalModelDefinition</TypeId>
+      <SubtypeId>Fern_big</SubtypeId>
+    </Id>
+    <Model>Models\Environment\Bushes\Fern_big_LOD0.mwm</Model>
+    <PhysicalMaterial>Wood</PhysicalMaterial>
+  </Definition>
+
+  <Definition xsi:type="VR.PhysicalModelDefinition">
+    <Id>
+      <TypeId>PhysicalModelDefinition</TypeId>
+      <SubtypeId>Fern_small</SubtypeId>
+    </Id>
+    <Model>Models\Environment\Bushes\Fern_small_LOD0.mwm</Model>
+    <PhysicalMaterial>Wood</PhysicalMaterial>
+  </Definition>
+
+  <Definition xsi:type="VR.PhysicalModelDefinition">
+    <Id>
+      <TypeId>PhysicalModelDefinition</TypeId>
+      <SubtypeId>Cactus</SubtypeId>
+    </Id>
+    <Model>Models\Environment\Bushes\Fern_small_LOD0.mwm</Model>
+    <PhysicalMaterial>Wood</PhysicalMaterial>
+  </Definition>
+
+  <Definition xsi:type="VR.PhysicalModelDefinition">
+    <Id>
+      <TypeId>PhysicalModelDefinition</TypeId>
+      <SubtypeId>Mushrooms_LOD0</SubtypeId>
+    </Id>
+    <Model>Models\Environment\Bushes\Mushrooms_LOD0.mwm</Model>
+    <PhysicalMaterial>Wood</PhysicalMaterial>
+  </Definition>
+
+  <Definition xsi:type="VR.PhysicalModelDefinition">
+    <Id>
+      <TypeId>PhysicalModelDefinition</TypeId>
+      <SubtypeId>Roots</SubtypeId>
+    </Id>
+    <Model>Models\Environment\Bushes\Roots.mwm</Model>
+    <PhysicalMaterial>Wood</PhysicalMaterial>
+  </Definition>
+
+  <Definition xsi:type="VR.PhysicalModelDefinition">
+    <Id>
+      <TypeId>PhysicalModelDefinition</TypeId>
+      <SubtypeId>AlvaniaLeafBushSmall</SubtypeId>
+    </Id>
+    <Model>Models\Environment\Bushes\AlvaniaLeafBush\AlvaniaLeafBushSmall.mwm</Model>
+    <PhysicalMaterial>Wood</PhysicalMaterial>
+  </Definition>
+
+  <Definition xsi:type="VR.PhysicalModelDefinition">
+    <Id>
+      <TypeId>PhysicalModelDefinition</TypeId>
+      <SubtypeId>AlvaniaLeafBushMedium</SubtypeId>
+    </Id>
+    <Model>Models\Environment\Bushes\AlvaniaLeafBush\AlvaniaLeafBushMedium.mwm</Model>
+    <PhysicalMaterial>Wood</PhysicalMaterial>
+  </Definition>
+
+</Definitions>

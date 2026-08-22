@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <!-- Weighted model collections, 2026-08-19. Copied verbatim from the
+       real, confirmed "Planet 26 2.0" mod files, plus one new addition
+       (CactusPatch) built by direct analogy to the confirmed real pattern.
+       DesertTree itself doesn't need a wrapper collection at all; it's
+       referenced directly by its own TreeDefinition SubtypeId in
+       PlanetGeneratorDefinitions.sbc, same as vanilla's "SandForestEdge".
+       Deliberately did NOT mix TreeDefinition and PhysicalModelDefinition
+       items in one collection (an earlier draft tried this); every
+       confirmed real collection example only mixes items of a single
+       type, so kept type-pure to stay within the verified-safe pattern. -->
+
+  <Definition xsi:type="VR.PhysicalModelCollectionDefinition">
+    <Id>
+      <TypeId>PhysicalModelCollectionDefinition</TypeId>
+      <SubtypeId>Palmbomen</SubtypeId>
+    </Id>
+    <Items>
+      <Item TypeId="TreeDefinition" SubtypeId="PalmTree1000" Weight="0.1"/>
+      <Item TypeId="TreeDefinition" SubtypeId="PalmTree1000v2" Weight="0.5"/>
+      <Item TypeId="TreeDefinition" SubtypeId="PalmTree750v2" Weight="0.1"/>
+      <Item TypeId="TreeDefinition" SubtypeId="PalmTree750" Weight="0.1"/>
+    </Items>
+  </Definition>
+
+  <Definition xsi:type="VR.PhysicalModelCollectionDefinition">
+    <Id>
+      <TypeId>PhysicalModelCollectionDefinition</TypeId>
+      <SubtypeId>Fern</SubtypeId>
+    </Id>
+    <Items>
+      <Item TypeId="PhysicalModelDefinition" SubtypeId="Fern_small" Weight="0.1"/>
+      <Item TypeId="PhysicalModelDefinition" SubtypeId="Fern_big" Weight="0.1"/>
+      <Item TypeId="PhysicalModelDefinition" SubtypeId="Mushrooms_LOD0" Weight="0.1"/>
+      <Item TypeId="PhysicalModelDefinition" SubtypeId="Roots" Weight="0.1"/>
+    </Items>
+  </Definition>
+
+  <Definition xsi:type="VR.PhysicalModelCollectionDefinition">
+    <Id>
+      <TypeId>PhysicalModelCollectionDefinition</TypeId>
+      <SubtypeId>AlvaniaLeafTree</SubtypeId>
+    </Id>
+    <Items>
+      <Item TypeId="TreeDefinition" SubtypeId="AlvaniaLeafTree" Weight="0.5"/>
+      <Item TypeId="TreeDefinition" SubtypeId="AlvaniaLeafTreeMedium" Weight="0.5"/>
+    </Items>
+  </Definition>
+
+  <Definition xsi:type="VR.PhysicalModelCollectionDefinition">
+    <Id>
+      <TypeId>PhysicalModelCollectionDefinition</TypeId>
+      <SubtypeId>AlvaniaLeafBush</SubtypeId>
+    </Id>
+    <Items>
+      <Item TypeId="PhysicalModelDefinition" SubtypeId="AlvaniaLeafBushSmall" Weight="0.1"/>
+      <Item TypeId="PhysicalModelDefinition" SubtypeId="AlvaniaLeafBushMedium" Weight="0.1"/>
+    </Items>
+  </Definition>
+
+  <Definition xsi:type="VR.PhysicalModelCollectionDefinition">
+    <Id>
+      <TypeId>PhysicalModelCollectionDefinition</TypeId>
+      <SubtypeId>CactusPatch</SubtypeId>
+    </Id>
+    <Items>
+      <Item TypeId="PhysicalModelDefinition" SubtypeId="Cactus" Weight="1.0"/>
+    </Items>
+  </Definition>
+
+</Definitions>

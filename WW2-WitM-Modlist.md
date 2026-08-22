@@ -50,6 +50,17 @@
 23. **Yakobe's Machinations** `[REQUIRED]` — Fixed weapons for ground vehicles. Workshop ID: **3431829641**
 24. **ArmourEssentials** `[REVIEW]` - Turret ring rotors, gunsights, ammoracks. Workshop ID: **3660034986**
 
+## Progression / Restriction
+
+25. **Ship Core Framework** `[CORE]` — Stage 1's core progression system; not yet added to the world mod list per the Roadmap's own to-do. Workshop ID: **3552595651**
+26. **Block Restrictions** `[REQUIRED]` `[ID?]` — confirmed by prior use on this project, works well. Scope (2026-08-21): remove non-period-correct blocks from the G-menu across vanilla + dependency mods — anachronistic weapons (overlaps with the WeaponCore lockdown scope in the Prerequisite section, but this is a hard G-menu removal rather than the soft unlock-currency gating used there), reactors, thrusters, and likely other categories TBD. Full audit not yet done.
+
+## First-Party (this project's own mods, not Workshop dependencies)
+
+27. **WW2-WitM-Framework** `[CORE]` — Ship Core role/progression definitions. Local mod, source at `WW2-WitM-Framework\`.
+28. **WW2-WitM-MES** `[CORE]` — MES encounter pack (spawns, behaviors, factions). Local mod, source at `WW2-WitM-MES\`.
+29. **WW2-WitM-Planet** `[CORE]` — custom Mediterranean planet. Local mod, source at `WW2-WitM-Planet\`.
+
 ## Being retired
 
 - **AWG CWP Legacy Pack**, **AWG WeaponCore Pack (v205)**, **AWG's Convenient Weapon Pack – Movement Fix Patch** `[RETIRE]` — superseded by #17–23 above.

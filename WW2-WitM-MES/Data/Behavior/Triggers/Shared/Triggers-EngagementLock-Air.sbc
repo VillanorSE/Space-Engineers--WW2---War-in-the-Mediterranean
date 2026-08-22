@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<EntityComponents>
+
+		<!-- Engagement Lock -->
+
+		<!-- Same damage-type exclusions as CargoDamage: Grind, Weld, Environment, Deformation,
+		     Fire all excluded, so ground-impact/crash damage (which registers as Deformation)
+		     never trips this. Given your note that Crash-Air's own condition-checking may not be
+		     reliable, this exclusion list is a second, independent safeguard against a bugged
+		     crash-loop keeping a plane alive indefinitely - it doesn't depend on Crash-Air
+		     working correctly at all. -->
+		<EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
+			<Id>
+				<TypeId>Inventory</TypeId>
+				<SubtypeId>WW2-Trigger-CargoPlane-EngagedByPlayer</SubtypeId>
+			</Id>
+			<Description>
+				[RivalAI Trigger]
+				[UseTrigger:true]
+				[Type:Damage]
+				[DamageTypes:Any]
+				[ExcludedDamageTypes:Grind]
+				[ExcludedDamageTypes:Weld]
+				[ExcludedDamageTypes:Environment]
+				[ExcludedDamageTypes:Deformation]
+				[ExcludedDamageTypes:Fire]
+				[MinCooldownMs:100]
+				[MaxCooldownMs:250]
+				[MaxActions:-1]
+				[Actions:WW2-Action-CargoPlane-MarkEngaged]
+			</Description>
+		</EntityComponent>
+
+		<!-- Suspends the despawn check and (re)arms the 20s cooldown on every hit -->
+		<EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
+			<Id>
+				<TypeId>Inventory</TypeId>
+				<SubtypeId>WW2-Action-CargoPlane-MarkEngaged</SubtypeId>
+			</Id>
+			<Description>
+				[RivalAI Action]
+				[DisableTriggers:true]
+				[DisableTriggerNames:WW2-Trigger-CargoPlane-DespawnCheck]
+				[EnableTriggers:true]
+				[EnableTriggerNames:WW2-Trigger-CargoPlane-EngagementCooldown]
+			</Description>
+		</EntityComponent>
+
+		<!-- 20s after the most recent hit, re-arms the despawn check. -->
+		<EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
+			<Id>
+				<TypeId>Inventory</TypeId>
+				<SubtypeId>WW2-Trigger-CargoPlane-EngagementCooldown</SubtypeId>
+			</Id>
+			<Description>
+				[RivalAI Trigger]
+				[UseTrigger:false]
+				[Type:Timer]
+				[MinCooldownMs:20000]
+				[MaxCooldownMs:20000]
+				[StartsReady:false]
+				[MaxActions:-1]
+				[Actions:WW2-Action-CargoPlane-ClearEngagedFlag]
+			</Description>
+		</EntityComponent>
+
+		<!-- Re-enables the despawn check, StartsReady:true on that trigger means it fires again
+		     promptly once re-armed -->
+		<EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
+			<Id>
+				<TypeId>Inventory</TypeId>
+				<SubtypeId>WW2-Action-CargoPlane-ClearEngagedFlag</SubtypeId>
+			</Id>
+			<Description>
+				[RivalAI Action]
+				[EnableTriggers:true]
+				[EnableTriggerNames:WW2-Trigger-CargoPlane-DespawnCheck]
+			</Description>
+		</EntityComponent>
+
+		<!-- End Engagement Lock -->
+
+	</EntityComponents>
+</Definitions>

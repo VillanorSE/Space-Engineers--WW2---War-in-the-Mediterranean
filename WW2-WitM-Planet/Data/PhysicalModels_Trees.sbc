@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <!-- Tree definitions, 2026-08-19. First four entries (Palm) and the two
+       AlvaniaLeafTree entries are copied VERBATIM from real, confirmed
+       working definitions (extracted directly from the "Planet 26 2.0"
+       Workshop mod's own Data files, uploaded by the user); not guessed.
+       This resolved a real gap: MyObjectBuilder_TreeDefinition requires a
+       Model path plus PhysicalMaterial/HitPoints/CutEffect/FallSound/
+       BreakSound, none of which were discoverable from documentation
+       searches alone. DesertTree is the one NEW entry here, not present
+       in the source mod's files we received; built by directly
+       reusing the exact same field pattern/values as the four confirmed
+       real entries (safe by analogy, not independently verified), since
+       DesertTree.mwm was provided but had no accompanying definition. -->
+
+  <Definition xsi:type="MyObjectBuilder_TreeDefinition">
+    <Id>
+      <TypeId>TreeDefinition</TypeId>
+      <SubtypeId>PalmTree1000</SubtypeId>
+    </Id>
+    <Model>Models\Environment\Trees\Palm\Palmtree1000.mwm</Model>
+    <PhysicalMaterial>Tree</PhysicalMaterial>
+    <HitPoints>50</HitPoints>
+    <CutEffect>ChipOff_Wood</CutEffect>
+    <FallSound>ImpTreeFall</FallSound>
+    <BreakSound>ImpTreeBreak</BreakSound>
+  </Definition>
+
+  <Definition xsi:type="MyObjectBuilder_TreeDefinition">
+    <Id>
+      <TypeId>TreeDefinition</TypeId>
+      <SubtypeId>PalmTree1000v2</SubtypeId>
+    </Id>
+    <Model>Models\Environment\Trees\Palm\Palmtree1000v2.mwm</Model>
+    <PhysicalMaterial>Tree</PhysicalMaterial>
+    <HitPoints>50</HitPoints>
+    <CutEffect>ChipOff_Wood</CutEffect>
+    <FallSound>ImpTreeFall</FallSound>
+    <BreakSound>ImpTreeBreak</BreakSound>
+  </Definition>
+
+  <Definition xsi:type="MyObjectBuilder_TreeDefinition">
+    <Id>
+      <TypeId>TreeDefinition</TypeId>
+      <SubtypeId>PalmTree750v2</SubtypeId>
+    </Id>
+    <Model>Models\Environment\Trees\Palm\Palmtree750v2.mwm</Model>
+    <PhysicalMaterial>Tree</PhysicalMaterial>
+    <HitPoints>50</HitPoints>
+    <CutEffect>ChipOff_Wood</CutEffect>
+    <FallSound>ImpTreeFall</FallSound>
+    <BreakSound>ImpTreeBreak</BreakSound>
+  </Definition>
+
+  <Definition xsi:type="MyObjectBuilder_TreeDefinition">
+    <Id>
+      <TypeId>TreeDefinition</TypeId>
+      <SubtypeId>PalmTree750</SubtypeId>
+    </Id>
+    <Model>Models\Environment\Trees\Palm\Palmtree750.mwm</Model>
+    <PhysicalMaterial>Tree</PhysicalMaterial>
+    <HitPoints>50</HitPoints>
+    <CutEffect>ChipOff_Wood</CutEffect>
+    <FallSound>ImpTreeFall</FallSound>
+    <BreakSound>ImpTreeBreak</BreakSound>
+  </Definition>
+
+  <Definition xsi:type="MyObjectBuilder_TreeDefinition">
+    <Id>
+      <TypeId>TreeDefinition</TypeId>
+      <SubtypeId>AlvaniaLeafTree</SubtypeId>
+    </Id>
+    <Model>Models\Environment\Trees\AlvaniaLeafTree\AlvaniaLeafTree.mwm</Model>
+    <BranchesStartHeight>2.342</BranchesStartHeight>
+    <PhysicalMaterial>Tree</PhysicalMaterial>
+    <HitPoints>50</HitPoints>
+    <CutEffect>ChipOff_Wood</CutEffect>
+    <FallSound>ImpTreeFall</FallSound>
+    <BreakSound>ImpTreeBreak</BreakSound>
+  </Definition>
+
+  <Definition xsi:type="MyObjectBuilder_TreeDefinition">
+    <Id>
+      <TypeId>TreeDefinition</TypeId>
+      <SubtypeId>AlvaniaLeafTreeMedium</SubtypeId>
+    </Id>
+    <Model>Models\Environment\Trees\AlvaniaLeafTree\AlvaniaLeafTreeMedium.mwm</Model>
+    <BranchesStartHeight>2.342</BranchesStartHeight>
+    <PhysicalMaterial>Tree</PhysicalMaterial>
+    <HitPoints>50</HitPoints>
+    <CutEffect>ChipOff_Wood</CutEffect>
+    <FallSound>ImpTreeFall</FallSound>
+    <BreakSound>ImpTreeBreak</BreakSound>
+  </Definition>
+
+  <!-- NEW, not from the source mod; see file header note -->
+  <Definition xsi:type="MyObjectBuilder_TreeDefinition">
+    <Id>
+      <TypeId>TreeDefinition</TypeId>
+      <SubtypeId>DesertTree</SubtypeId>
+    </Id>
+    <Model>Models\Environment\Trees\DesertTree.mwm</Model>
+    <PhysicalMaterial>Tree</PhysicalMaterial>
+    <HitPoints>50</HitPoints>
+    <CutEffect>ChipOff_Wood</CutEffect>
+    <FallSound>ImpTreeFall</FallSound>
+    <BreakSound>ImpTreeBreak</BreakSound>
+  </Definition>
+
+</Definitions>

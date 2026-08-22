@@ -91,6 +91,35 @@
 		</Prefab>
 	</Prefabs>
 </SpawnGroup>
+
+<SpawnGroup>
+	<Id>
+		<TypeId>SpawnGroupDefinition</TypeId>
+		<SubtypeId>NPC-WW2-SM79</SubtypeId>
+	</Id>
+	<Description>
+	  
+	[Modular Encounters SpawnGroup]
+
+	[SpawnConditionsProfiles:WW2-SpawnConditions-Fighters]
+	[ManipulationProfiles:MES-Manipulation-RivalAi]
+	[FactionOverride:GRAY]
+	  
+	</Description>
+	<Frequency>1.0</Frequency>
+	<IsPirate>true</IsPirate>
+	<Prefabs>
+		<Prefab SubtypeId="NPC-WW2-SM79">
+			<Position>
+				<X>0.0</X>
+				<Y>0.0</Y>
+				<Z>0.0</Z>
+			</Position>
+			<Behaviour>WW2-Behavior-Fighter-Gray</Behaviour>
+			<Speed>55.0</Speed>
+		</Prefab>
+	</Prefabs>
+</SpawnGroup>
 <!-- End Gray Attacker Planes -->
 
 </SpawnGroups>

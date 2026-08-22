@@ -1,0 +1,97 @@
+<?xml version="1.0"?>
+<Definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <VoxelMaterials>
+
+    <!-- Sourced from Workshop mod "Planet 26 2.0" (Workshop ID 2079185441),
+         via files the user extracted and uploaded directly; not
+         independently verified against that mod's own license/reuse terms,
+         flagging that for the record. Two path fixes applied vs. the
+         original file: VoxelHandPreview pointed at "AlienIce_Thumbnail.dds"
+         which was not among the uploaded files (only "Ice_03_Thumbnail.dds"
+         was); repointed to the file that actually exists. ExtXZnY
+         (both materials) pointed at a shared root-level
+         "Textures\Voxels\Ice_03_add.dds" that also doesn't exist in what
+         was provided (the real _add.dds files are nested inside each
+         variant's own subfolder); repointed each to its own subfolder's
+         file. Everything else copied as-is. -->
+
+    <!-- Beachside -->
+    <VoxelMaterial xsi:type="MyObjectBuilder_Dx11VoxelMaterialDefinition">
+      <Id>
+        <TypeId>VoxelMaterialDefinition</TypeId>
+        <SubtypeId>Beachsideice</SubtypeId>
+      </Id>
+      <SpawnsInAsteroids>false</SpawnsInAsteroids>
+      <SpawnsFromMeteorites>false</SpawnsFromMeteorites>
+      <MaterialTypeName>Ice</MaterialTypeName>
+      <MinedOre>Ice</MinedOre>
+      <MinedOreRatio>5</MinedOreRatio>
+      <CanBeHarvested>true</CanBeHarvested>
+      <IsRare>true</IsRare>
+
+      <VoxelHandPreview>Textures\Voxels\Water(ice)\Beachside\Ice_03_Thumbnail.dds</VoxelHandPreview>
+      <ColorMetalXZnY>Textures\Voxels\Water(ice)\Beachside\Ice_03_cm.dds</ColorMetalXZnY>
+      <NormalGlossXZnY>Textures\Voxels\Water(ice)\Beachside\Ice_03_ng.dds</NormalGlossXZnY>
+      <ExtXZnY>Textures\Voxels\Water(ice)\Beachside\Ice_03_add.dds</ExtXZnY>
+
+      <ExtDetailScale>0.005</ExtDetailScale>
+      <Scale>500</Scale>
+      <Far1Distance>22</Far1Distance>
+      <Far2Distance>500</Far2Distance>
+      <Far1Scale>300</Far1Scale>
+      <Far2Scale>2000</Far2Scale>
+
+      <FoliageDensity>4</FoliageDensity>
+      <FoliageScale>
+        <X>0.5</X>
+        <Y>0.5</Y>
+      </FoliageScale>
+      <FoliageRandomRescaleMult>3</FoliageRandomRescaleMult>
+
+      <Friction>0.15</Friction>
+      <Restitution>0.9</Restitution>
+
+      <ColorKey Hex="#BCBB56"/>
+    </VoxelMaterial>
+
+    <!-- Medium -->
+    <VoxelMaterial xsi:type="MyObjectBuilder_Dx11VoxelMaterialDefinition">
+      <Id>
+        <TypeId>VoxelMaterialDefinition</TypeId>
+        <SubtypeId>Mediumice</SubtypeId>
+      </Id>
+      <SpawnsInAsteroids>false</SpawnsInAsteroids>
+      <SpawnsFromMeteorites>false</SpawnsFromMeteorites>
+      <MaterialTypeName>Ice</MaterialTypeName>
+      <MinedOre>Ice</MinedOre>
+      <MinedOreRatio>5</MinedOreRatio>
+      <CanBeHarvested>true</CanBeHarvested>
+      <IsRare>true</IsRare>
+
+      <VoxelHandPreview>Textures\Voxels\Water(ice)\Medium\Ice_03_Thumbnail.dds</VoxelHandPreview>
+      <ColorMetalXZnY>Textures\Voxels\Water(ice)\Medium\Ice_03_cm.dds</ColorMetalXZnY>
+      <NormalGlossXZnY>Textures\Voxels\Water(ice)\Medium\Ice_03_ng.dds</NormalGlossXZnY>
+      <ExtXZnY>Textures\Voxels\Water(ice)\Medium\Ice_03_add.dds</ExtXZnY>
+
+      <ExtDetailScale>0.005</ExtDetailScale>
+      <Scale>500</Scale>
+      <Far1Distance>22</Far1Distance>
+      <Far2Distance>500</Far2Distance>
+      <Far1Scale>300</Far1Scale>
+      <Far2Scale>2000</Far2Scale>
+
+      <FoliageDensity>4</FoliageDensity>
+      <FoliageScale>
+        <X>0.5</X>
+        <Y>0.5</Y>
+      </FoliageScale>
+      <FoliageRandomRescaleMult>3</FoliageRandomRescaleMult>
+
+      <Friction>0.15</Friction>
+      <Restitution>0.9</Restitution>
+
+      <ColorKey Hex="#BCBB56"/>
+    </VoxelMaterial>
+
+  </VoxelMaterials>
+</Definitions>
